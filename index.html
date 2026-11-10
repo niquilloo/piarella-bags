@@ -3,484 +3,1041 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Piarella Bags – Prototipo de tienda</title>
-<meta name="description" content="Prototipo de tienda en línea de marroquinería y cuero.">
+<title>Piarella Bags – Marroquinería en cuero</title>
+<meta name="description" content="Carteras, mochilas, morrales, calzado, correas, billeteras y monederos en cuero o tela combinada con cuero. Hecho en Lima, Perú.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%20120%20120%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Crect%20x%3D%224%22%20y%3D%224%22%20width%3D%22112%22%20height%3D%22112%22%20rx%3D%2224%22%20fill%3D%22%237b1226%22%20stroke%3D%22%23c1121f%22%20stroke-width%3D%223%22/%3E%3Crect%20x%3D%2211%22%20y%3D%2211%22%20width%3D%2298%22%20height%3D%2298%22%20rx%3D%2218%22%20fill%3D%22none%22%20stroke%3D%22%23ffc2c7%22%20stroke-width%3D%221.6%22%20stroke-dasharray%3D%224%203%22%20stroke-linecap%3D%22round%22/%3E%3Cg%20transform%3D%22translate%2860%2056%29%20scale%281.12%29%20translate%28-54%20-50%29%22%3E%3Cpath%20d%3D%22M53%2022V78M53%2022H63a12.5%2012.5%200%200%201%200%2025H53M53%2047H67a15.5%2015.5%200%200%201%200%2031H53%22%20fill%3D%22none%22%20stroke%3D%22%23eceef0%22%20stroke-width%3D%227%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3Cpath%20d%3D%22M24%2022V78M24%2022H41a14%2014%200%200%201%200%2028H24%22%20fill%3D%22none%22%20stroke%3D%22%237b1226%22%20stroke-width%3D%2213%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3Cpath%20d%3D%22M24%2022V78M24%2022H41a14%2014%200%200%201%200%2028H24%22%20fill%3D%22none%22%20stroke%3D%22%23eceef0%22%20stroke-width%3D%227%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3C/g%3E%3Cpath%20d%3D%22M60%2096l3.6%204.4L60%20105l-3.6-4.6z%22%20fill%3D%22%23c1121f%22/%3E%3C/svg%3E">
+<meta name="theme-color" content="#7b1226">
 <style>
 :root{
-  --bg:#faf6f1; --surface:#ffffff; --ink:#2a1f18; --muted:#6f6258; --line:#e6ddd2;
-  --brand:#7a3e1d; --brand-d:#5c2d14; --accent:#c8923a; --ok:#2e7d4f; --err:#b3261e;
-  --r:14px; --shadow:0 6px 24px rgba(60,35,15,.10);
+  --bg:#c9cbce;--surface:#eceef0;--red:#c1121f;--ink:#3a0c14;--muted:#5a3a42;--line:#a7aaaf;
+  --brand:#7b1226;--brand-d:#570c1b;--accent:#d62828;--ok:#2e7d4f;--err:#b3261e;
+  --r:14px;--shadow:0 8px 28px rgba(60,35,15,.12);
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.55;font-size:16px;overflow-x:hidden}
-img,svg{max-width:100%;display:block}
+img,svg{max-width:100%}
 a{color:var(--brand)}
-button{font:inherit;cursor:pointer}
+button{font:inherit;cursor:pointer;color:inherit}
+[hidden]{display:none!important}
 :focus-visible{outline:3px solid var(--accent);outline-offset:2px}
-.wrap{width:100%;max-width:1180px;margin:0 auto;padding:0 16px}
-.skip{position:absolute;left:-999px;top:0;background:#000;color:#fff;padding:8px 12px;z-index:100}
+#app{outline:none;min-height:60vh}
+h1,h2,h3{line-height:1.2}
+.ttl,h2.h{font-family:var(--serif);font-weight:700}
+.ttl{font-size:clamp(1.6rem,4vw,2.4rem);margin:0 0 16px}
+h2.h{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 18px}
+.wrap{width:100%;max-width:1200px;margin:0 auto;padding:0 16px}
+.skip{position:absolute;left:-999px;top:0;background:#000;color:#fff;padding:8px 12px;z-index:200}
 .skip:focus{left:8px;top:8px}
-.demo{background:#2a1f18;color:#f5e6cf;font-size:.82rem;text-align:center;padding:6px 12px}
+.top{background:#3a0c14;color:#f1dfe1;font-size:.8rem;text-align:center;padding:6px 12px}
+.top b{color:#ffc2c7}
+/* header */
 header.site{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:30}
-.bar{display:flex;align-items:center;gap:12px;height:64px}
-.logo{font-weight:800;letter-spacing:.04em;font-size:1.25rem;color:var(--brand);text-decoration:none;white-space:nowrap}
-.logo small{display:block;font-weight:500;font-size:.62rem;letter-spacing:.18em;color:var(--muted);margin-top:-4px}
-nav.main{margin-left:auto;display:flex;gap:6px;align-items:center}
+.hd{display:flex;align-items:center;gap:12px;height:68px;position:relative}
+.logo{font-family:var(--serif);font-weight:800;letter-spacing:.06em;font-size:1.35rem;color:var(--brand);text-decoration:none;white-space:nowrap;line-height:1}
+.logo small{display:block;font-family:system-ui,sans-serif;font-weight:600;font-size:.58rem;letter-spacing:.2em;color:var(--muted);margin-top:4px}
+nav.main{display:flex;gap:2px;margin-left:18px}
 nav.main a{padding:8px 12px;border-radius:999px;text-decoration:none;color:var(--ink);font-weight:600;font-size:.95rem}
-nav.main a:hover,nav.main a[aria-current="page"]{background:#f1e7da}
-.icon-btn{background:none;border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-weight:600;color:var(--ink);display:inline-flex;gap:8px;align-items:center;min-height:44px}
-.badge{background:var(--brand);color:#fff;border-radius:999px;min-width:22px;height:22px;display:inline-grid;place-items:center;font-size:.75rem;padding:0 6px}
+nav.main a:hover,nav.main a[aria-current="page"]{background:#bdbfc3}
+.acts{display:flex;gap:6px;margin-left:auto;align-items:center}
+.ib{position:relative;width:44px;height:44px;border-radius:999px;border:1px solid var(--line);background:#fff;display:inline-grid;place-items:center;font-size:1.15rem}
+.ib:hover{background:#d9dbde}
+.badge{position:absolute;top:-4px;right:-4px;background:var(--brand);color:#fff;border-radius:999px;min-width:20px;height:20px;display:grid;place-items:center;font-size:.7rem;padding:0 5px;font-weight:700}
+.badge:empty,.badge[data-n="0"]{display:none}
 #menuBtn{display:none}
-@media (max-width:760px){
-  #menuBtn{display:inline-flex;margin-left:auto}
-  nav.main{display:none;position:absolute;top:64px;left:0;right:0;background:var(--surface);border-bottom:1px solid var(--line);flex-direction:column;align-items:stretch;padding:8px 16px 14px;margin:0}
+@media (max-width:860px){
+  #menuBtn{display:inline-grid}
+  nav.main{display:none;position:absolute;top:68px;left:-16px;right:-16px;background:#fff;border-bottom:1px solid var(--line);flex-direction:column;padding:8px 16px 14px;margin:0;box-shadow:var(--shadow)}
   nav.main.open{display:flex}
-  nav.main a{padding:12px}
+  nav.main a{padding:13px 10px;border-radius:10px}
 }
-.hero{background:linear-gradient(120deg,#3b2415,#7a3e1d 60%,#a35a2b);color:#fff;padding:clamp(40px,8vw,96px) 0}
-.hero .grid{display:grid;grid-template-columns:1.2fr .8fr;gap:32px;align-items:center}
-.hero h1{font-size:clamp(1.9rem,5vw,3.4rem);line-height:1.1;margin:0 0 14px}
-.hero p{font-size:clamp(1rem,2.2vw,1.2rem);opacity:.92;max-width:52ch}
-.hero .art{background:rgba(255,255,255,.08);border-radius:24px;padding:24px}
-@media (max-width:760px){.hero .grid{grid-template-columns:1fr}.hero .art{max-width:280px}}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--brand);color:#fff;border:0;border-radius:999px;padding:12px 22px;font-weight:700;text-decoration:none;min-height:46px;transition:background .15s,transform .15s}
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--brand);color:#fff;border:0;border-radius:999px;padding:12px 24px;font-weight:700;text-decoration:none;min-height:46px;transition:background .15s,transform .15s;text-align:center}
 .btn:hover{background:var(--brand-d)}
 .btn:active{transform:scale(.98)}
 .btn.light{background:#fff;color:var(--brand)}
+.btn.light:hover{background:#d9dbde}
 .btn.ghost{background:transparent;color:var(--brand);border:2px solid var(--brand)}
-.btn[disabled]{opacity:.55;cursor:not-allowed}
-section.blk{padding:clamp(32px,6vw,64px) 0}
-h2{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 18px}
-.trust{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
-.trust div{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px}
-.trust b{display:block;margin-bottom:4px}
-.grid-p{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px}
+.btn.ghost:hover{background:#d9dbde}
+.btn.block{width:100%}
+.btn.sm{padding:8px 16px;min-height:38px;font-size:.88rem}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.link{background:none;border:0;padding:4px;color:var(--brand);text-decoration:underline;font-size:.88rem}
+.link.red{color:var(--err)}
+/* slider */
+.slider{position:relative;color:#fff;overflow:hidden}
+.slide{display:none;padding:clamp(36px,7vw,84px) 0 clamp(56px,8vw,96px)}
+.slide.on{display:block;animation:fade .5s}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.s-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:center}
+.slide .eyebrow{letter-spacing:.2em;font-size:.78rem;font-weight:700;color:#ffc2c7;text-transform:uppercase}
+.slide .sl-t{font-family:var(--serif);font-size:clamp(2rem,5.2vw,3.6rem);line-height:1.08;margin:8px 0 14px}
+.slide p{font-size:clamp(1rem,2.2vw,1.2rem);opacity:.93;max-width:50ch}
+.art{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;align-items:center}
+.artc{border-radius:20px;aspect-ratio:3/4;display:grid;place-items:center;background:rgba(255,255,255,.12)!important;padding:8px}
+.artc:nth-child(2){transform:translateY(-14px)}
+.sl-ctl{position:absolute;left:0;right:0;bottom:16px;display:flex;justify-content:center;gap:8px;align-items:center}
+.dot{width:12px;height:12px;border-radius:999px;border:2px solid #fff;background:transparent;padding:0}
+.dot[aria-current="true"]{background:#fff;width:28px}
+.arrow{position:absolute;top:50%;transform:translateY(-50%);width:42px;height:42px;border-radius:999px;border:0;background:rgba(255,255,255,.2);color:#fff;font-size:1.3rem}
+.arrow:hover{background:rgba(255,255,255,.35)}
+.arrow.l{left:8px}.arrow.r{right:8px}
+@media (max-width:860px){.s-grid{grid-template-columns:1fr}.art{max-width:360px}.arrow{display:none}.slide{padding-bottom:84px}}
+/* secciones */
+section.blk{padding:clamp(28px,5vw,56px) 0}
+.benefits{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.benefits div{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:flex;gap:12px;align-items:flex-start}
+.benefits .ic{font-size:1.5rem;line-height:1}
+.benefits b{display:block}
+.benefits span.t{font-size:.88rem;color:var(--muted)}
+.cats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
+.cats a{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px 10px;text-align:center;text-decoration:none;color:var(--ink);font-weight:700;display:flex;flex-direction:column;align-items:center;gap:8px;transition:box-shadow .2s,transform .2s}
+.cats a:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.duo a{position:relative;border-radius:var(--r);padding:clamp(22px,4vw,40px);color:#fff;text-decoration:none;min-height:200px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
+.duo a h3{font-family:var(--serif);font-size:clamp(1.5rem,3vw,2.1rem);margin:0}
+.duo a span{opacity:.9}
+.duo a svg{position:absolute;right:12px;top:10px;opacity:.28;width:120px;height:120px}
+@media (max-width:620px){.duo{grid-template-columns:1fr}}
+.banner{background:linear-gradient(120deg,#b6b9bd,#d3d5d8);border-radius:var(--r);padding:clamp(22px,4vw,40px);display:grid;grid-template-columns:1.2fr .8fr;gap:20px;align-items:center}
+.banner h2{font-family:var(--serif);margin:0 0 8px;font-size:clamp(1.4rem,3vw,2rem)}
+@media (max-width:720px){.banner{grid-template-columns:1fr}}
+/* productos */
+.grid-p{display:grid;grid-template-columns:repeat(auto-fill,minmax(235px,1fr));gap:18px}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .2s,transform .2s}
 .card:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
-.card .ph{aspect-ratio:1/1;display:grid;place-items:center;padding:18px}
-.card .info{padding:14px;display:flex;flex-direction:column;gap:6px;flex:1}
+.card .ph{aspect-ratio:1/1;display:grid;place-items:center;padding:18px;position:relative}
+.card .ph>a{display:grid;place-items:center;width:100%;height:100%}
+.tags{position:absolute;left:10px;top:10px;display:flex;flex-direction:column;gap:4px;align-items:flex-start}
+.tag{background:var(--brand);color:#fff;font-size:.7rem;font-weight:700;padding:3px 9px;border-radius:999px;letter-spacing:.03em}
+.tag.t2{background:#fff;color:var(--brand);border:1px solid var(--line)}
+.tag.t3{background:#444;color:#fff}
+.wish{position:absolute;right:10px;top:10px;width:40px;height:40px;border-radius:999px;border:1px solid var(--line);background:#fff;font-size:1.15rem;display:grid;place-items:center;color:var(--brand)}
+.wish[aria-pressed="true"]{background:var(--brand);color:#fff;border-color:var(--brand)}
+.card .info{padding:14px;display:flex;flex-direction:column;gap:5px;flex:1}
 .card h3{margin:0;font-size:1.02rem}
-.cat{font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.card h3 a{color:var(--ink);text-decoration:none}
+.card h3 a:hover{text-decoration:underline}
+.cat{font-size:.74rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
 .price{font-weight:800;font-size:1.1rem}
 .mat{font-size:.78rem;color:var(--muted)}
-.cats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
-.cats a{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 10px;text-align:center;text-decoration:none;color:var(--ink);font-weight:700;display:flex;flex-direction:column;align-items:center;gap:6px;transition:box-shadow .2s,transform .2s}
-.cats a:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
-.fl{font-size:.8rem;color:var(--muted);font-weight:600;margin:0 0 6px}
+.sw{display:flex;gap:5px}
+.sw i{width:14px;height:14px;border-radius:999px;border:1px solid rgba(0,0,0,.2);display:block}
 .card .row{margin-top:auto;display:flex;gap:8px;padding-top:8px}
-.card .row .btn{flex:1;padding:10px 12px;font-size:.9rem}
-.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.card .row .btn{flex:1;padding:10px 12px;font-size:.88rem}
+/* catálogo */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
 .chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 16px;font-weight:600;min-height:40px}
 .chip[aria-pressed="true"]{background:var(--brand);color:#fff;border-color:var(--brand)}
-.detail{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}
-.detail .ph{border-radius:var(--r);aspect-ratio:1/1;display:grid;place-items:center;padding:28px}
-@media (max-width:760px){.detail{grid-template-columns:1fr}}
+.fgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:12px}
+@media (max-width:760px){.fgrid{grid-template-columns:1fr 1fr}}
+.resbar{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;margin:8px 0 14px;color:var(--muted)}
+.qchip{background:#bdbfc3;border-radius:999px;padding:4px 6px 4px 12px;display:inline-flex;gap:6px;align-items:center;font-size:.88rem;color:var(--ink)}
+.qchip button{border:0;background:#fff;border-radius:999px;width:24px;height:24px;line-height:1}
+/* producto */
 .crumbs{font-size:.88rem;color:var(--muted);margin-bottom:12px}
+.detail{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(20px,4vw,48px);align-items:start}
+.gal{border-radius:var(--r);aspect-ratio:1/1;display:grid;place-items:center;padding:clamp(20px,5vw,56px);position:relative}
+@media (max-width:820px){.detail{grid-template-columns:1fr}}
+.swatches{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 14px}
+.swb{width:38px;height:38px;border-radius:999px;border:2px solid #fff;box-shadow:0 0 0 1px #c8aeb4;padding:0}
+.swb[aria-pressed="true"]{box-shadow:0 0 0 3px var(--brand)}
+.sizes{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 6px}
+.sz{min-width:54px;padding:9px 12px;border:1px solid #8d9096;border-radius:10px;background:#fff;font-weight:600}
+.sz[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.lbl{font-weight:700;font-size:.92rem}
+.buyrow{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:16px 0}
+.qty{display:inline-flex;align-items:center;border:1px solid #8d9096;border-radius:999px;background:#fff}
+.qty button{width:40px;height:40px;border:0;background:none;font-size:1.2rem}
+.qty span{min-width:28px;text-align:center;font-weight:700}
+details.acc{border-top:1px solid var(--line)}
+details.acc:last-of-type{border-bottom:1px solid var(--line)}
+details.acc summary{cursor:pointer;padding:14px 4px;font-weight:700;list-style:none;display:flex;justify-content:space-between}
+details.acc summary::after{content:"+";font-size:1.3rem;line-height:1}
+details.acc[open] summary::after{content:"–"}
+details.acc summary::-webkit-details-marker{display:none}
+details.acc .b{padding:0 4px 14px;color:#4a2a33}
+/* formularios */
 .panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:clamp(16px,3vw,28px)}
-form .f{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.f{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
 .cols{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
 @media (max-width:620px){.cols{grid-template-columns:1fr}}
 label{font-weight:600;font-size:.92rem}
-input,select,textarea{font:inherit;padding:12px;border:1px solid #cdbfae;border-radius:10px;background:#fff;color:var(--ink);width:100%;min-height:46px}
+input,select,textarea{font:inherit;padding:12px;border:1px solid #8d9096;border-radius:10px;background:#fff;color:var(--ink);width:100%;min-height:46px}
 textarea{min-height:110px;resize:vertical}
 input[aria-invalid="true"],select[aria-invalid="true"],textarea[aria-invalid="true"]{border-color:var(--err)}
 .err{color:var(--err);font-size:.85rem;min-height:1em}
 .check{display:flex;gap:10px;align-items:flex-start;margin-bottom:12px}
 .check input{width:22px;height:22px;min-height:0;margin-top:2px;flex:none}
 .check label{font-weight:400}
-.checkout{display:grid;grid-template-columns:1.3fr .7fr;gap:20px;align-items:start}
-@media (max-width:860px){.checkout{grid-template-columns:1fr}}
-.sum li,.cartlist li{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line);list-style:none}
-ul.sum,ul.cartlist{padding:0;margin:0}
-.tot{display:flex;justify-content:space-between;font-weight:800;font-size:1.15rem;padding-top:10px}
-.note{background:#fff7e6;border:1px solid #f0d9a8;border-radius:10px;padding:12px 14px;font-size:.9rem;margin:12px 0}
-.ok{background:#e9f6ee;border-color:#b9dfc8}
-.drawer-bg{position:fixed;inset:0;background:rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:opacity .2s;z-index:40}
-.drawer-bg.open{opacity:1;pointer-events:auto}
-aside.drawer{position:fixed;top:0;right:0;height:100%;width:min(420px,100%);background:var(--surface);z-index:50;transform:translateX(100%);transition:transform .25s;display:flex;flex-direction:column;box-shadow:var(--shadow)}
-aside.drawer.open{transform:none}
-.drawer header{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-bottom:1px solid var(--line)}
-.drawer .body{padding:12px 16px;overflow:auto;flex:1}
-.drawer footer{padding:14px 16px;border-top:1px solid var(--line)}
-.qty{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px}
-.qty button{width:34px;height:34px;border:0;background:none;font-size:1.1rem}
-.qty span{min-width:24px;text-align:center}
-.mini{width:54px;height:54px;border-radius:10px;display:grid;place-items:center;flex:none}
-.link-btn{background:none;border:0;color:var(--err);text-decoration:underline;padding:4px;font-size:.85rem}
-.legal h1{font-size:clamp(1.5rem,4vw,2.2rem)}
+.note{background:#ebe2e4;border:1px solid #bfa3aa;border-radius:10px;padding:12px 14px;font-size:.9rem;margin:12px 0}
+.note.ok{background:#e9f6ee;border-color:#b9dfc8}
+.note.bad{background:#fdecea;border-color:#f3b8b3}
+.hint{font-size:.82rem;color:var(--muted)}
+/* checkout */
+.steps{list-style:none;display:flex;gap:8px;padding:0;margin:0 0 18px;flex-wrap:wrap}
+.steps li{display:flex;align-items:center;gap:8px;font-weight:600;color:var(--muted);font-size:.92rem}
+.steps li b{width:28px;height:28px;border-radius:999px;display:grid;place-items:center;background:#b4b7bb;color:var(--ink);font-size:.85rem}
+.steps li[aria-current="step"]{color:var(--ink)}
+.steps li[aria-current="step"] b{background:var(--brand);color:#fff}
+.steps li.done b{background:var(--ok);color:#fff}
+.steps li+li::before{content:"";width:22px;height:2px;background:#a7aaaf;margin-right:6px}
+.checkout{display:grid;grid-template-columns:1.35fr .65fr;gap:20px;align-items:start}
+@media (max-width:900px){.checkout{grid-template-columns:1fr}}
+.sticky{position:sticky;top:90px}
+@media (max-width:900px){.sticky{position:static}}
+.opt{display:flex;gap:12px;align-items:flex-start;border:1px solid #8d9096;border-radius:12px;padding:14px;margin-bottom:10px;cursor:pointer;background:#fff}
+.opt:has(input:checked){border-color:var(--brand);box-shadow:0 0 0 2px rgba(122,62,29,.18)}
+.opt input{width:20px;height:20px;min-height:0;margin-top:3px;flex:none}
+.opt b{display:block}
+ul.sum,ul.cartlist{padding:0;margin:0;list-style:none}
+.sum li,.cartlist li{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px dashed var(--line)}
+.tot{display:flex;justify-content:space-between;padding-top:8px;gap:10px}
+.tot.big{font-weight:800;font-size:1.2rem;border-top:1px solid var(--line);margin-top:8px;padding-top:12px}
+.coupon{display:flex;gap:8px;margin:12px 0}
+.coupon input{min-height:42px}
+/* drawer */
+.dbg{position:fixed;inset:0;background:rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:opacity .2s;z-index:40}
+.dbg.open{opacity:1;pointer-events:auto}
+aside.drawer{position:fixed;top:0;right:0;height:100%;width:min(430px,100%);background:#fff;z-index:50;transform:translateX(100%);transition:transform .25s;display:flex;flex-direction:column;box-shadow:var(--shadow);visibility:hidden}
+aside.drawer.open{transform:none;visibility:visible}
+.dh{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-bottom:1px solid var(--line)}
+.dh strong{font-family:var(--serif);font-size:1.2rem}
+.db{padding:12px 16px;overflow:auto;flex:1}
+.df{padding:14px 16px;border-top:1px solid var(--line)}
+.mini{width:62px;height:62px;border-radius:10px;display:grid;place-items:center;flex:none}
+.prog{height:8px;background:#b9bcc0;border-radius:999px;overflow:hidden;margin:6px 0 4px}
+.prog i{display:block;height:100%;background:var(--ok);border-radius:999px}
+/* modal */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:flex-start;justify-content:center;padding:max(16px,6vh) 16px 16px;z-index:70}
+.modal.open{display:flex}
+.mbox{background:#fff;border-radius:var(--r);max-width:580px;width:100%;max-height:88vh;overflow:auto;padding:22px;box-shadow:var(--shadow);outline:none}
+.mbox h2{font-family:var(--serif);margin:0 0 10px}
+.sres a{display:flex;gap:12px;align-items:center;padding:8px;border-radius:10px;text-decoration:none;color:var(--ink)}
+.sres a:hover,.sres a:focus{background:#d9dbde}
+.spin{display:flex;gap:10px;align-items:center}
+.spin::before{content:"";width:18px;height:18px;border-radius:999px;border:3px solid #b4b7bb;border-top-color:var(--brand);animation:rot .8s linear infinite}
+@keyframes rot{to{transform:rotate(360deg)}}
+/* tablas */
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:#fff}
+.tbl table{width:100%;border-collapse:collapse;font-size:.9rem;min-width:520px}
+.tbl th,.tbl td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:middle}
+.tbl th{background:#d9dbde;font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.tbl input[type=number]{width:80px;min-height:36px;padding:6px 8px}
+.tbl select{min-height:36px;padding:6px 8px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:14px 0 22px}
+.kpis div{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:14px}
+.kpis b{display:block;font-size:1.6rem;font-family:var(--serif)}
+.kpis span{color:var(--muted);font-size:.85rem}
+.tl{list-style:none;padding:0;margin:16px 0}
+.tl li{position:relative;padding:0 0 18px 34px;color:var(--muted)}
+.tl li::before{content:"";position:absolute;left:0;top:2px;width:20px;height:20px;border-radius:999px;border:2px solid #8d9096;background:#fff}
+.tl li::after{content:"";position:absolute;left:9px;top:24px;bottom:0;width:2px;background:#b4b7bb}
+.tl li:last-child::after{display:none}
+.tl li.on{color:var(--ink);font-weight:600}
+.tl li.on::before{background:var(--ok);border-color:var(--ok)}
 .legal h2{font-size:1.2rem;margin-top:24px}
 .legal p,.legal li{max-width:75ch}
-footer.site{background:#2a1f18;color:#e8dccb;margin-top:40px;padding:36px 0 20px}
-footer.site .cols4{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:24px}
-footer.site a{color:#f5d9a8}
-footer.site h4{margin:0 0 8px;color:#fff}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+dl.kv{display:grid;grid-template-columns:max-content 1fr;gap:6px 18px;margin:0}
+dl.kv dt{font-weight:700}
+dl.kv dd{margin:0}
+@media (max-width:560px){dl.kv{grid-template-columns:1fr}dl.kv dd{margin-bottom:8px}}
+/* footer */
+footer.site{background:#3a0c14 url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22150%22%20height%3D%22150%22%20viewBox%3D%220%200%20150%20150%22%3E%3Cg%20opacity%3D%22.07%22%3E%3Cg%20transform%3D%22translate%28-0.1%202.5%29%20scale%28.7%29%22%20opacity%3D%22.95%22%3E%3Cpath%20d%3D%22M53%2022V78M53%2022H63a12.5%2012.5%200%200%201%200%2025H53M53%2047H67a15.5%2015.5%200%200%201%200%2031H53M24%2022V78M24%2022H41a14%2014%200%200%201%200%2028H24%22%20fill%3D%22none%22%20stroke%3D%22%23ffc2c7%22%20stroke-width%3D%226.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28112.5%2037.5%29%22%3E%3Cpath%20d%3D%22M0-22L16%200%200%2022-16%200z%22%20fill%3D%22none%22%20stroke%3D%22%23c1121f%22%20stroke-width%3D%222.4%22%20stroke-dasharray%3D%225%204%22%20stroke-linecap%3D%22round%22/%3E%3Ccircle%20r%3D%223%22%20fill%3D%22%23c1121f%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%2837.5%20112.5%29%22%3E%3Cpath%20d%3D%22M0-22L16%200%200%2022-16%200z%22%20fill%3D%22none%22%20stroke%3D%22%23c1121f%22%20stroke-width%3D%222.4%22%20stroke-dasharray%3D%225%204%22%20stroke-linecap%3D%22round%22/%3E%3Ccircle%20r%3D%223%22%20fill%3D%22%23c1121f%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%2874.9%2077.5%29%20scale%28.7%29%22%20opacity%3D%22.95%22%3E%3Cpath%20d%3D%22M53%2022V78M53%2022H63a12.5%2012.5%200%200%201%200%2025H53M53%2047H67a15.5%2015.5%200%200%201%200%2031H53M24%2022V78M24%2022H41a14%2014%200%200%201%200%2028H24%22%20fill%3D%22none%22%20stroke%3D%22%23ffc2c7%22%20stroke-width%3D%226.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");color:#e9dcde;margin-top:48px;padding:40px 0 20px}
+footer.site .c4{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:28px}
+footer.site a{color:#ffc2c7}
+footer.site h4{margin:0 0 10px;color:#fff;font-family:var(--serif);font-size:1.05rem}
 footer.site ul{list-style:none;padding:0;margin:0}
 footer.site li{margin:6px 0}
-.reclamo-btn{display:inline-flex;align-items:center;gap:10px;background:#fff;color:#2a1f18;border-radius:10px;padding:10px 14px;text-decoration:none;font-weight:700;margin-top:8px}
-.reclamo-btn b{background:#c0392b;color:#fff;border-radius:6px;padding:2px 8px;font-size:.8rem}
-.copy{border-top:1px solid #4a3a2d;margin-top:24px;padding-top:14px;font-size:.82rem;color:#bfae99}
-.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%) translateY(120px);background:#2a1f18;color:#fff;padding:12px 18px;border-radius:999px;z-index:60;transition:transform .25s;max-width:92%}
+footer.site .link{color:#ffc2c7}
+footer.site input{min-height:42px}
+.lr{display:inline-flex;align-items:center;gap:10px;background:#fff;color:#3a0c14!important;border-radius:10px;padding:10px 14px;text-decoration:none;font-weight:700;margin-top:6px}
+.lr b{background:#d62828;color:#fff;border-radius:6px;padding:2px 8px;font-size:.8rem}
+.pay{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.pay span{background:#5a1a28;border-radius:6px;padding:3px 9px;font-size:.78rem;font-weight:700}
+.copy{border-top:1px solid #5a2230;margin-top:26px;padding-top:14px;font-size:.8rem;color:#c8aeb4}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(140px);background:#3a0c14;color:#fff;padding:12px 18px;border-radius:999px;z-index:90;transition:transform .25s;max-width:92%;text-align:center}
 .toast.show{transform:translateX(-50%) translateY(0)}
-.cookie{position:fixed;left:12px;right:12px;bottom:12px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:var(--r);padding:14px;z-index:45;max-width:640px;margin:0 auto;display:none}
+.cookie{position:fixed;left:12px;right:12px;bottom:12px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);border-radius:var(--r);padding:16px;z-index:60;max-width:700px;margin:0 auto;display:none}
 .cookie.show{display:block}
-.cookie .acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+.cookie .a{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.help{position:fixed;right:14px;bottom:14px;z-index:35;background:var(--brand);color:#fff;border-radius:999px;padding:12px 18px;font-weight:700;text-decoration:none;box-shadow:var(--shadow)}
+.help:hover{background:var(--brand-d)}
+.pw{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media print{.top,header.site,footer.site,.help,.cookie,.drawer,.dbg,button{display:none!important}}
+.ttl,h2.h{color:var(--brand)}
+.price{color:var(--red)}
+.tag{background:var(--red)}
+.logo{display:inline-flex;align-items:center;gap:10px}
+.logo .lg{flex:none}
+.logo .wm{display:block}
+footer.site .flogo{display:flex;align-items:center;gap:10px;margin-bottom:10px;color:#fff;font-family:var(--serif);font-weight:800;letter-spacing:.06em;font-size:1.3rem}
+footer.site .flogo small{display:block;font-family:system-ui,sans-serif;font-weight:600;font-size:.58rem;letter-spacing:.2em;color:#ffc2c7}
+
+/* ===== v3: correcciones de la revisión ===== */
+.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none;display:block}
+.i.fill{fill:currentColor}
+.ib .i{width:22px;height:22px}
+.sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip{padding:12px 16px}
+.logo{min-height:44px;min-width:0}
+.acts{flex:none}
+nav.main a{padding:11px 14px}
+.navonly{display:none}
+@media (max-width:860px){nav.main a{padding:13px 10px}}
+@media (max-width:560px){
+ .hd{gap:8px}.acts{gap:4px}
+ .logo .lg{width:36px;height:36px}
+ .logo .wm{font-size:1.2rem;letter-spacing:.04em}.logo .wm small{display:none}
+ .acts .wishlink{display:none}.navonly{display:block}
+}
+@media (max-width:340px){.logo .wm{display:none}}
+/* carrusel: controles de 44 px y pausa */
+.slide .sl-t{margin:8px 0 14px}
+.sl-ctl{bottom:6px;gap:0}
+.dot{width:44px;height:44px;border:0;background:none;padding:0;position:relative;border-radius:0}
+.dot::before{content:"";position:absolute;left:50%;top:50%;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:999px;border:2px solid #fff;transition:width .2s,margin .2s}
+.dot[aria-current="true"]{background:none;width:44px}
+.dot[aria-current="true"]::before{background:#fff;width:28px;margin-left:-14px}
+.pausebtn{width:44px;height:44px;border:0;background:none;color:#fff;display:grid;place-items:center;border-radius:999px;margin-right:6px}
+.pausebtn:hover{background:rgba(255,255,255,.18)}
+.arrow{width:44px;height:44px;place-items:center}
+@media (min-width:861px){.arrow{display:grid}}
+@media (max-width:860px){.slide{padding-bottom:96px}}
+/* beneficios con íconos de la marca */
+.benefits .ic{width:42px;height:42px;border-radius:12px;background:#d9dbde;color:var(--brand);display:grid;place-items:center;flex:none;line-height:1}
+.benefits .ic .i{width:22px;height:22px}
+.noteic{display:flex;gap:10px;align-items:flex-start}
+.noteic .i{margin-top:2px;color:var(--brand)}
+/* áreas táctiles de 44 px */
+.btn.sm{min-height:44px}
+.link{min-height:44px;min-width:44px;padding:10px 6px}
+.chip{min-height:44px}
+.swb{width:44px;height:44px}
+.wish{width:44px;height:44px}
+.sz{min-height:44px;min-width:48px}
+.qty button{width:44px;height:44px}
+.check input{width:24px;height:24px}
+.qchip button{width:32px;height:32px;display:grid;place-items:center;padding:0}
+.qchip .i{width:14px;height:14px}
+.crumbs{margin-bottom:4px}
+.crumbs a{display:inline-block;padding:12px 2px}
+footer.site li a{display:inline-block;padding:10px 0}
+.card h2 a,.card h3 a{display:block;padding:12px 0;margin:-12px 0}
+.lbl{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+/* texto mínimo 12 px */
+.tag{font-size:.78rem}
+.cat{font-size:.8rem}
+/* títulos de tarjeta (h2 en listados, h3 en secciones) */
+.card h2,.card h3{margin:0;font-size:1.02rem;font-family:inherit;font-weight:700;line-height:1.3}
+.card h2 a{color:var(--ink);text-decoration:none}
+.card h2 a:hover{text-decoration:underline}
+/* escenario de producto más claro */
+.gal{box-shadow:inset 0 0 0 1px #a7aaaf}
+/* cookies y ayuda */
+.cookie{padding:14px 16px}
+.cookie p{margin:4px 0 0;font-size:.88rem}
+.cookie .a{align-items:center}
+.cookie .a .link{margin-left:auto}
+body.ck-open .help{display:none}
+.help{display:inline-flex;align-items:center;gap:8px;padding:0 18px;min-height:48px}
+@media (max-width:860px){
+ .help{width:48px;height:48px;padding:0;justify-content:center;right:12px;bottom:12px}.help .t{display:none}
+ footer.site{padding-bottom:84px}
+}
+@media (max-width:600px){
+ .cookie{left:8px;right:8px;bottom:8px;padding:12px}
+ .cookie strong{display:none}
+ .cookie .a{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+ .cookie .a .link{grid-column:1/-1;margin:0;justify-self:center}
+ .cookie .a .btn{padding:8px 10px;font-size:.84rem}
+}
+/* pasos del checkout en una sola línea */
+.steps{flex-wrap:nowrap;gap:6px}
+.steps li{white-space:nowrap}
+.steps li+li::before{width:14px;margin-right:2px}
+@media (max-width:420px){.steps li{font-size:.86rem;gap:6px}.steps li b{width:26px;height:26px}.steps li+li::before{width:8px}}
+/* resumen del pedido */
+.sum .nm{display:flex;flex-direction:column;min-width:0}
+.sum .pr{white-space:nowrap;font-weight:600}
+details.sumd>summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px;min-height:44px;font-weight:800;font-size:1.05rem}
+details.sumd>summary::-webkit-details-marker{display:none}
+details.sumd>summary .tt{display:flex;align-items:center;gap:10px;font-family:var(--serif);color:var(--brand);font-size:1.15rem}
+details.sumd>summary .tt::after{content:"";width:8px;height:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);margin-top:-4px;transition:transform .2s}
+details.sumd[open]>summary .tt::after{transform:rotate(-135deg);margin-top:4px}
+details.sumd .body{padding-top:6px}
+@media (min-width:901px){details.sumd>summary .tt::after{display:none}}
+@media (max-width:900px){.checkout #ckSum{order:-1}}
 </style>
 </head>
 <body>
 <a class="skip" href="#app">Saltar al contenido</a>
-<div class="demo" role="note">PROTOTIPO DE DEMOSTRACIÓN · No se procesan pagos reales ni se guardan datos fuera de este navegador</div>
+<div class="top" role="note"><b>PROTOTIPO DE DEMOSTRACIÓN</b> · No se procesan pagos reales · Los datos solo se guardan en este navegador</div>
 
 <header class="site">
-  <div class="wrap bar">
-    <a class="logo" href="#/" aria-label="Piarella Bags, inicio">PIARELLA<small>BAGS · CUERO PERUANO</small></a>
-    <button class="icon-btn" id="menuBtn" aria-expanded="false" aria-controls="nav">☰ Menú</button>
+  <div class="wrap hd">
+    <button class="ib" id="menuBtn" aria-expanded="false" aria-controls="nav" aria-label="Abrir menú"><svg class="i " viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    <a class="logo" href="#/" aria-label="Piarella Bags, inicio"><svg class="lg" width="40" height="40" viewBox="0 0 120 120" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="4" width="112" height="112" rx="24" fill="#7b1226" stroke="#c1121f" stroke-width="3"/><rect x="11" y="11" width="98" height="98" rx="18" fill="none" stroke="#ffc2c7" stroke-width="1.6" stroke-dasharray="4 3" stroke-linecap="round"/><g transform="translate(60 56) scale(1.12) translate(-54 -50)"><path d="M53 22V78M53 22H63a12.5 12.5 0 0 1 0 25H53M53 47H67a15.5 15.5 0 0 1 0 31H53" fill="none" stroke="#eceef0" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><path d="M24 22V78M24 22H41a14 14 0 0 1 0 28H24" fill="none" stroke="#7b1226" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/><path d="M24 22V78M24 22H41a14 14 0 0 1 0 28H24" fill="none" stroke="#eceef0" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></g><path d="M60 96l3.6 4.4L60 105l-3.6-4.6z" fill="#c1121f"/></svg><span class="wm">PIARELLA<small>BAGS · CUERO PERUANO</small></span></a>
     <nav class="main" id="nav" aria-label="Principal">
       <a href="#/" data-r="home">Inicio</a>
+      <a href="#/catalogo/gen/Dama" data-r="dama">Dama</a>
+      <a href="#/catalogo/gen/Caballeros" data-r="cab">Caballeros</a>
       <a href="#/catalogo" data-r="catalogo">Catálogo</a>
-      <a href="#/envios" data-r="envios">Envíos</a>
-      <a href="#/reclamos" data-r="reclamos">Libro de Reclamaciones</a>
-      <button class="icon-btn" id="cartBtn" aria-label="Abrir carrito">🛍 Carrito <span class="badge" id="cartCount">0</span></button>
+      <a href="#/nosotros" data-r="nosotros">Nosotros</a>
+      <a href="#/contacto" data-r="contacto">Contacto</a>
+      <a href="#/favoritos" class="navonly">Favoritos</a>
     </nav>
+    <div class="acts">
+      <button class="ib" data-act="search" aria-label="Buscar productos"><svg class="i " viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg></button>
+      <a class="ib wishlink" href="#/favoritos" aria-label="Favoritos" style="text-decoration:none"><svg class="i " viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7-4.6-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.4-7 10-7 10z"/></svg><span class="badge" id="wishCount" data-n="0"></span></a>
+      <button class="ib" data-act="cart" aria-label="Abrir carrito"><svg class="i " viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 8h14l-1 12H6L5 8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg><span class="badge" id="cartCount" data-n="0"></span></button>
+    </div>
   </div>
 </header>
 
-<main id="app" tabindex="-1" class="wrap" style="padding-top:0;padding-bottom:0;max-width:none;padding:0"></main>
+<main id="app" tabindex="-1"></main>
 
 <footer class="site">
   <div class="wrap">
-    <div class="cols4">
+    <div class="c4">
       <div>
+        <div class="flogo"><svg class="lg" width="36" height="36" viewBox="0 0 120 120" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="4" width="112" height="112" rx="24" fill="#7b1226" stroke="#c1121f" stroke-width="3"/><rect x="11" y="11" width="98" height="98" rx="18" fill="none" stroke="#ffc2c7" stroke-width="1.6" stroke-dasharray="4 3" stroke-linecap="round"/><g transform="translate(60 56) scale(1.12) translate(-54 -50)"><path d="M53 22V78M53 22H63a12.5 12.5 0 0 1 0 25H53M53 47H67a15.5 15.5 0 0 1 0 31H53" fill="none" stroke="#eceef0" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><path d="M24 22V78M24 22H41a14 14 0 0 1 0 28H24" fill="none" stroke="#7b1226" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/><path d="M24 22V78M24 22H41a14 14 0 0 1 0 28H24" fill="none" stroke="#eceef0" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></g><path d="M60 96l3.6 4.4L60 105l-3.6-4.6z" fill="#c1121f"/></svg><span>PIARELLA<small>BAGS · CUERO PERUANO</small></span></div>
         <h4>Industrias Marzzelli Perú Cueros E.I.R.L.</h4>
-        <p>Nombre comercial: Piarella Bags<br>RUC: 20603787952<br>Calle Solidaridad Mza. M-1 Lote 5, Z.I. Parque Industrial Parcela II, Villa El Salvador, Lima, Perú</p>
+        <p style="margin:0 0 8px">Nombre comercial: Piarella Bags<br>RUC 20603787952<br>Calle Solidaridad Mza. M-1 Lote 5, Z.I. Parque Industrial Parcela II, Villa El Salvador, Lima, Perú</p>
+        <div class="pay" aria-label="Medios de pago"><span>Visa</span><span>Mastercard</span><span>Yape</span><span>Plin</span></div>
+      </div>
+      <div>
+        <h4>Tienda</h4>
+        <ul>
+          <li><a href="#/catalogo/gen/Dama">Para dama</a></li>
+          <li><a href="#/catalogo/gen/Caballeros">Para caballeros</a></li>
+          <li><a href="#/catalogo/mat/Tela y cuero">Tela y cuero</a></li>
+          <li><a href="#/seguimiento">Seguir mi pedido</a></li>
+        </ul>
       </div>
       <div>
         <h4>Ayuda</h4>
         <ul>
+          <li><a href="#/faq">Preguntas frecuentes</a></li>
           <li><a href="#/envios">Envíos y plazos</a></li>
           <li><a href="#/cambios">Cambios y devoluciones</a></li>
           <li><a href="#/terminos">Términos y condiciones</a></li>
           <li><a href="#/privacidad">Política de privacidad</a></li>
+          <li><a href="#/cookies">Política de cookies</a></li>
+          <li><button class="link" data-act="ck-cfg">Preferencias de cookies</button></li>
         </ul>
+        <a class="lr" href="#/reclamos"><b>LR</b> Libro de Reclamaciones</a>
       </div>
       <div>
-        <h4>Atención al consumidor</h4>
-        <a class="reclamo-btn" href="#/reclamos"><b>LR</b> Libro de Reclamaciones</a>
-        <p style="font-size:.85rem">Contacto: [correo y teléfono por definir]</p>
+        <h4>Novedades</h4>
+        <form id="nlForm" novalidate>
+          <div class="f" style="margin-bottom:8px"><label for="nlEmail" class="hint" style="color:#e9dcde">Tu correo</label><input id="nlEmail" type="email" autocomplete="email" aria-describedby="e-nlEmail"><span class="err" id="e-nlEmail" style="color:#ffb4ab"></span></div>
+          <div class="check"><input type="checkbox" id="nlAc"><label for="nlAc" style="font-size:.82rem">Autorizo recibir promociones por correo. Puedo retirar mi permiso cuando quiera. <span class="err" id="e-nlAc" style="color:#ffb4ab"></span></label></div>
+          <button class="btn light sm" type="submit">Suscribirme</button>
+        </form>
       </div>
     </div>
-    <div class="copy">© <span id="yr"></span> Industrias Marzzelli Perú Cueros E.I.R.L. Prototipo con datos y productos de ejemplo. Los textos legales son borradores y deben ser revisados por un abogado antes de publicarse.</div>
+    <div class="copy">© <span id="yr"></span> Industrias Marzzelli Perú Cueros E.I.R.L. Todos los derechos reservados. Precios en soles, incluyen IGV. · Prototipo con productos y textos de ejemplo; los textos legales son borradores sujetos a revisión legal. · <a href="#/admin">Acceso administrador (demo)</a></div>
   </div>
 </footer>
 
-<div class="drawer-bg" id="bg"></div>
-<aside class="drawer" id="drawer" aria-label="Carrito de compras" aria-hidden="true">
-  <header><strong>Tu carrito</strong><button class="icon-btn" id="closeCart" aria-label="Cerrar carrito">✕</button></header>
-  <div class="body" id="drawerBody"></div>
-  <footer id="drawerFoot"></footer>
+<a class="help" href="#/contacto" aria-label="Ayuda y contacto"><svg class="i " viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h16v11H9l-5 4z"/></svg><span class="t">Ayuda</span></a>
+
+<div class="dbg" id="dbg"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Carrito de compras" aria-hidden="true">
+  <div class="dh"><strong>Tu carrito</strong><button class="ib" data-act="cart-close" aria-label="Cerrar carrito"><svg class="i " viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="db" id="dBody"></div>
+  <div class="df" id="dFoot"></div>
 </aside>
 
+<div class="modal" id="modal"><div class="mbox" id="mbox" role="dialog" aria-modal="true" tabindex="-1"></div></div>
+
 <div class="cookie" id="cookie" role="dialog" aria-label="Preferencias de cookies">
-  <strong>Cookies</strong>
-  <p style="margin:6px 0 0;font-size:.9rem">Usamos solo cookies necesarias para que la tienda funcione. Las de análisis o publicidad solo se activarían con tu permiso.</p>
-  <div class="acts"><button class="btn" id="ckOk">Entendido</button><a class="btn ghost" href="#/privacidad">Ver política</a></div>
+  <strong>Tu privacidad</strong>
+  <p>Usamos cookies necesarias para que la tienda funcione. Las de análisis y marketing solo con tu permiso. <a href="#/cookies">Más información</a>.</p>
+  <div class="a"><button class="btn sm" data-act="ck-all">Aceptar todas</button><button class="btn sm ghost" data-act="ck-nec">Solo necesarias</button><button class="link" data-act="ck-cfg">Configurar</button></div>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
+<noscript><p style="padding:20px">Esta tienda necesita JavaScript para funcionar.</p></noscript>
 
 <script>
-(function(){
+(()=>{
 "use strict";
-/* ---------- utilidades seguras ---------- */
-var $=function(s,r){return (r||document).querySelector(s)};
-var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
-function esc(v){return String(v==null?"":v).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
-function money(n){return "S/ "+Number(n).toFixed(2)}
-var store={
-  get:function(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},
-  set:function(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+/* ============ utilidades ============ */
+const $=(s,r=document)=>r.querySelector(s);
+const $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const money=n=>"S/ "+Number(n).toFixed(2);
+const norm=s=>String(s).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");
+const mem={};
+const store={
+  get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return k in mem?mem[k]:d}},
+  set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){mem[k]=v}}
 };
+const sess={
+  get(k){try{return sessionStorage.getItem(k)}catch(e){return mem["s"+k]||null}},
+  set(k,v){try{sessionStorage.setItem(k,v)}catch(e){mem["s"+k]=v}},
+  del(k){try{sessionStorage.removeItem(k)}catch(e){delete mem["s"+k]}}
+};
+const reduced=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-/* ---------- datos de ejemplo (productos ficticios) ---------- */
-var PRODUCTS=[
-  {id:1,name:"Cartera Tote Clásica",cat:"Carteras",gen:"Dama",mat:"Cuero",price:189,color:"#8b4a24",desc:"Cartera amplia con forro interior y bolsillo con cierre. Ideal para la oficina."},
-  {id:2,name:"Cartera Bandolera Tela y Cuero",cat:"Carteras",gen:"Dama",mat:"Tela y cuero",price:149,color:"#9a6a3a",desc:"Tela textil resistente combinada con acabados y correa de cuero."},
-  {id:3,name:"Mochila Cuero Viajera",cat:"Mochilas",gen:"Caballeros",mat:"Cuero",price:259,color:"#a3622f",desc:"Mochila con compartimento para laptop de 14\" y bolsillos organizadores."},
-  {id:4,name:"Mochila Urbana Lona y Cuero",cat:"Mochilas",gen:"Dama",mat:"Tela y cuero",price:199,color:"#6b4a35",desc:"Liviana y espaciosa, con base y detalles en cuero."},
-  {id:5,name:"Morral Casual Tela y Cuero",cat:"Morrales",gen:"Caballeros",mat:"Tela y cuero",price:129,color:"#7a5a3a",desc:"Morral de uso diario con solapa y tirantes ajustables."},
-  {id:6,name:"Morral Mensajero Cuero",cat:"Morrales",gen:"Caballeros",mat:"Cuero",price:179,color:"#4a2c1a",desc:"Morral estilo mensajero con cierre de hebilla y correa larga."},
-  {id:7,name:"Mocasín de Cuero",cat:"Calzado",gen:"Caballeros",mat:"Cuero",price:219,color:"#3b2415",desc:"Calzado de cuero con suela flexible. Tallas por confirmar."},
-  {id:8,name:"Sandalia de Cuero",cat:"Calzado",gen:"Dama",mat:"Cuero",price:139,color:"#b4773c",desc:"Sandalia cómoda con plantilla acolchada. Tallas por confirmar."},
-  {id:9,name:"Correa de Cuero Premium",cat:"Correas",gen:"Caballeros",mat:"Cuero",price:89,color:"#5c3a21",desc:"Correa de cuero con hebilla metálica. Varias tallas."},
-  {id:10,name:"Correa Fina para Dama",cat:"Correas",gen:"Dama",mat:"Cuero",price:79,color:"#8b4a24",desc:"Correa delgada y elegante, ideal para vestidos y pantalones."},
-  {id:11,name:"Billetera Slim",cat:"Billeteras",gen:"Caballeros",mat:"Cuero",price:79,color:"#2f1d12",desc:"Billetera compacta con 6 ranuras para tarjetas y compartimento para billetes."},
-  {id:12,name:"Billetera Larga Tela y Cuero",cat:"Billeteras",gen:"Dama",mat:"Tela y cuero",price:89,color:"#a3622f",desc:"Billetera larga con cierre, varios compartimentos y portamonedas."},
-  {id:13,name:"Monedero Artesanal",cat:"Monederos",gen:"Dama",mat:"Cuero",price:49,color:"#c8923a",desc:"Monedero con cierre de cremallera y acabado artesanal."},
-  {id:14,name:"Monedero Tela y Cuero",cat:"Monederos",gen:"Dama",mat:"Tela y cuero",price:45,color:"#8a6b4a",desc:"Pequeño y práctico, combina tela estampada con detalles de cuero."}
+/* ============ datos ============ */
+const COL={cafe:["Café","#6b3e22"],miel:["Miel","#b4773c"],negro:["Negro","#2a1d14"],tabaco:["Tabaco","#8b4a24"],crema:["Crema","#d9b98a"],verde:["Verde oliva","#5b6b3a"],vino:["Vino","#6e2230"]};
+const P=[
+ {id:1,name:"Cartera Tote Clásica",cat:"Carteras",gen:"Dama",mat:"Cuero",price:189,col:["cafe","miel","negro"],nuevo:1,desc:"Cartera amplia y elegante, pensada para el día a día y la oficina."},
+ {id:2,name:"Cartera Bandolera Tela y Cuero",cat:"Carteras",gen:"Dama",mat:"Tela y cuero",price:149,col:["crema","miel","verde"],desc:"Tela textil resistente combinada con acabados y correa de cuero."},
+ {id:3,name:"Mochila Cuero Viajera",cat:"Mochilas",gen:"Caballeros",mat:"Cuero",price:259,col:["cafe","negro"],desc:"Mochila resistente para trabajo y viajes cortos."},
+ {id:4,name:"Mochila Urbana Lona y Cuero",cat:"Mochilas",gen:"Dama",mat:"Tela y cuero",price:199,col:["vino","verde","crema"],nuevo:1,desc:"Liviana y espaciosa, con base y detalles en cuero."},
+ {id:5,name:"Morral Casual Tela y Cuero",cat:"Morrales",gen:"Caballeros",mat:"Tela y cuero",price:129,col:["verde","cafe","negro"],desc:"Morral de uso diario con solapa y tirantes ajustables."},
+ {id:6,name:"Morral Mensajero Cuero",cat:"Morrales",gen:"Caballeros",mat:"Cuero",price:179,col:["cafe","tabaco"],desc:"Estilo mensajero con cierre de hebilla y correa larga."},
+ {id:7,name:"Mocasín de Cuero",cat:"Calzado",gen:"Caballeros",mat:"Cuero",price:219,col:["negro","cafe"],desc:"Calzado de cuero cómodo para la oficina y ocasiones formales."},
+ {id:8,name:"Sandalia de Cuero",cat:"Calzado",gen:"Dama",mat:"Cuero",price:139,col:["miel","negro","crema"],nuevo:1,desc:"Sandalia cómoda y fresca para el día a día."},
+ {id:9,name:"Correa de Cuero Premium",cat:"Correas",gen:"Caballeros",mat:"Cuero",price:89,col:["negro","cafe"],desc:"Correa de cuero con hebilla metálica para vestir o uso diario."},
+ {id:10,name:"Correa Fina para Dama",cat:"Correas",gen:"Dama",mat:"Cuero",price:79,col:["miel","negro","vino"],desc:"Correa delgada y elegante, ideal para vestidos y pantalones."},
+ {id:11,name:"Billetera Slim",cat:"Billeteras",gen:"Caballeros",mat:"Cuero",price:79,col:["negro","cafe"],desc:"Billetera compacta para llevar lo esencial."},
+ {id:12,name:"Billetera Larga Tela y Cuero",cat:"Billeteras",gen:"Dama",mat:"Tela y cuero",price:89,col:["vino","crema"],desc:"Billetera larga con varios compartimentos y portamonedas."},
+ {id:13,name:"Monedero Artesanal",cat:"Monederos",gen:"Dama",mat:"Cuero",price:49,col:["tabaco","miel"],desc:"Monedero pequeño con acabado artesanal."},
+ {id:14,name:"Monedero Tela y Cuero",cat:"Monederos",gen:"Dama",mat:"Tela y cuero",price:45,col:["verde","crema","vino"],desc:"Pequeño y práctico: tela estampada con detalles de cuero."}
 ];
-var FEATURED=[1,4,7,9];
-var CATS=["Todos","Carteras","Mochilas","Morrales","Calzado","Correas","Billeteras","Monederos"];
-var GENS=["Todos","Dama","Caballeros"];
-var SHIP={lima:{n:"Lima Metropolitana (2-3 días hábiles)",p:12},prov:{n:"Provincias (4-7 días hábiles)",p:20},rec:{n:"Recojo en taller (gratis)",p:0}};
+const FEATS={
+ Carteras:["Forro interior y bolsillo con cierre","Asas reforzadas con costura doble","Cierre metálico resistente"],
+ Mochilas:["Compartimento acolchado para laptop de 14\"","Tirantes ajustables","Bolsillo frontal con cierre"],
+ Morrales:["Solapa con cierre de hebilla","Correa regulable","Compartimento interior organizador"],
+ Calzado:["Plantilla acolchada","Suela flexible antideslizante","Tallas por confirmar con el taller"],
+ Correas:["Hebilla metálica","Acabado resistente","Varias medidas"],
+ Billeteras:["Ranuras para tarjetas","Compartimento para billetes","Costura reforzada"],
+ Monederos:["Cierre de cremallera","Interior forrado","Tamaño compacto"]
+};
+const CATS=["Carteras","Mochilas","Morrales","Calzado","Correas","Billeteras","Monederos"];
+const ZONAS={lima:{n:"Lima Metropolitana",p:12,t:"2 a 3 días hábiles"},prov:{n:"Provincias (agencia)",p:20,t:"4 a 7 días hábiles"},rec:{n:"Recojo en taller (Villa El Salvador)",p:0,t:"A coordinar"}};
+const FREE=250;
+const DIST=["Villa El Salvador","Villa María del Triunfo","San Juan de Miraflores","Chorrillos","Santiago de Surco","Miraflores","San Isidro","San Borja","La Molina","Lince","Jesús María","Magdalena","Pueblo Libre","San Miguel","Callao","Los Olivos","San Martín de Porras","Independencia","Comas","Ate","San Juan de Lurigancho","Lurín","Pachacámac","Otro distrito de Lima"];
+const DEPT=["Amazonas","Áncash","Apurímac","Arequipa","Ayacucho","Cajamarca","Cusco","Huancavelica","Huánuco","Ica","Junín","La Libertad","Lambayeque","Loreto","Madre de Dios","Moquegua","Pasco","Piura","Puno","San Martín","Tacna","Tumbes","Ucayali"];
+const ESTADOS=["Pago confirmado","En preparación","Enviado","Entregado"];
+const COUPON={code:"BIENVENIDA10",pct:10};
+const find=id=>P.find(p=>p.id===Number(id));
+const hex=p=>COL[p.col[0]][1];
+const sizesOf=p=>p.cat==="Calzado"?(p.gen==="Dama"?["36","37","38","39","40","41"]:["39","40","41","42","43","44"]):p.cat==="Correas"?["90 cm","100 cm","110 cm","120 cm"]:null;
+const stockMap=()=>store.get("pb2_stock",{});
+const stk=id=>{const m=stockMap();return id in m?m[id]:10};
+const setStk=(id,n)=>{const m=stockMap();m[id]=Math.max(0,n|0);store.set("pb2_stock",m)};
 
+/* ============ ilustraciones ============ */
 function bag(color,size,cat){
   size=size||160;
-  var hi='rgba(255,255,255,.14)',gold='#f3d9a4',g='';
-  if(cat==="Calzado"){
-    g='<path d="M14 84V68c16-1 28-10 34-24l12 6c8 10 22 14 40 15 8 1 8 19 8 19z" fill="'+color+'"/><rect x="12" y="84" width="98" height="9" rx="4" fill="#1d130c"/><path d="M52 52l6 12M62 56l6 12" stroke="'+gold+'" stroke-width="3" stroke-linecap="round"/>';
-  }else if(cat==="Correas"){
-    g='<rect x="8" y="50" width="104" height="20" rx="5" fill="'+color+'"/><rect x="8" y="50" width="104" height="6" rx="3" fill="'+hi+'"/><rect x="74" y="42" width="24" height="36" rx="5" fill="none" stroke="'+gold+'" stroke-width="5"/><rect x="84" y="58" width="16" height="4" rx="2" fill="'+gold+'"/><circle cx="26" cy="60" r="2.6" fill="#1d130c"/><circle cx="38" cy="60" r="2.6" fill="#1d130c"/><circle cx="50" cy="60" r="2.6" fill="#1d130c"/>';
-  }else if(cat==="Billeteras"){
-    g='<rect x="16" y="34" width="88" height="58" rx="9" fill="'+color+'"/><rect x="16" y="34" width="88" height="18" rx="9" fill="'+hi+'"/><path d="M16 56h88" stroke="rgba(0,0,0,.25)" stroke-width="2"/><rect x="82" y="60" width="22" height="16" rx="5" fill="'+gold+'"/><circle cx="92" cy="68" r="3" fill="'+color+'"/>';
-  }else if(cat==="Monederos"){
-    g='<path d="M20 74a40 32 0 0 1 80 0v12a8 8 0 0 1-8 8H28a8 8 0 0 1-8-8z" fill="'+color+'"/><path d="M26 66h68" stroke="'+gold+'" stroke-width="3" stroke-dasharray="5 4" stroke-linecap="round"/><circle cx="60" cy="66" r="5" fill="'+gold+'"/>';
-  }else if(cat==="Mochilas"){
-    g='<path d="M44 30c0-10 6-16 16-16s16 6 16 16" fill="none" stroke="'+color+'" stroke-width="6" stroke-linecap="round"/><rect x="26" y="28" width="68" height="78" rx="22" fill="'+color+'"/><rect x="26" y="28" width="68" height="20" rx="14" fill="'+hi+'"/><rect x="40" y="68" width="40" height="26" rx="8" fill="rgba(0,0,0,.18)"/><path d="M40 68h40" stroke="'+gold+'" stroke-width="3"/><path d="M22 50v40M98 50v40" stroke="'+color+'" stroke-width="8" stroke-linecap="round"/>';
-  }else if(cat==="Morrales"){
-    g='<path d="M10 40c20-26 80-26 100 0" fill="none" stroke="'+color+'" stroke-width="6" stroke-linecap="round"/><rect x="24" y="44" width="72" height="56" rx="8" fill="'+color+'"/><path d="M24 44h72v22c-14 10-58 10-72 0z" fill="'+hi+'"/><rect x="54" y="62" width="12" height="16" rx="3" fill="'+gold+'"/>';
-  }else{
-    g='<path d="M40 44c0-18 8-28 20-28s20 10 20 28" fill="none" stroke="'+color+'" stroke-width="6" stroke-linecap="round"/><rect x="22" y="42" width="76" height="62" rx="10" fill="'+color+'"/><rect x="22" y="42" width="76" height="16" rx="8" fill="'+hi+'"/><circle cx="60" cy="66" r="5" fill="'+gold+'"/>';
-  }
-  return '<svg width="'+size+'" height="'+size+'" viewBox="0 0 120 120" role="img" aria-label="Ilustración de producto" style="max-width:100%;height:auto">'+g+'</svg>';
+  const hi="rgba(255,255,255,.14)",gold="#f3d9a4";let g="";
+  if(cat==="Calzado")g=`<path d="M14 84V68c16-1 28-10 34-24l12 6c8 10 22 14 40 15 8 1 8 19 8 19z" fill="${color}"/><rect x="12" y="84" width="98" height="9" rx="4" fill="#1d130c"/><path d="M52 52l6 12M62 56l6 12" stroke="${gold}" stroke-width="3" stroke-linecap="round"/>`;
+  else if(cat==="Correas")g=`<rect x="8" y="50" width="104" height="20" rx="5" fill="${color}"/><rect x="8" y="50" width="104" height="6" rx="3" fill="${hi}"/><rect x="74" y="42" width="24" height="36" rx="5" fill="none" stroke="${gold}" stroke-width="5"/><rect x="84" y="58" width="16" height="4" rx="2" fill="${gold}"/><circle cx="26" cy="60" r="2.6" fill="#1d130c"/><circle cx="38" cy="60" r="2.6" fill="#1d130c"/><circle cx="50" cy="60" r="2.6" fill="#1d130c"/>`;
+  else if(cat==="Billeteras")g=`<rect x="16" y="34" width="88" height="58" rx="9" fill="${color}"/><rect x="16" y="34" width="88" height="18" rx="9" fill="${hi}"/><path d="M16 56h88" stroke="rgba(0,0,0,.25)" stroke-width="2"/><rect x="82" y="60" width="22" height="16" rx="5" fill="${gold}"/><circle cx="92" cy="68" r="3" fill="${color}"/>`;
+  else if(cat==="Monederos")g=`<path d="M20 74a40 32 0 0 1 80 0v12a8 8 0 0 1-8 8H28a8 8 0 0 1-8-8z" fill="${color}"/><path d="M26 66h68" stroke="${gold}" stroke-width="3" stroke-dasharray="5 4" stroke-linecap="round"/><circle cx="60" cy="66" r="5" fill="${gold}"/>`;
+  else if(cat==="Mochilas")g=`<path d="M44 30c0-10 6-16 16-16s16 6 16 16" fill="none" stroke="${color}" stroke-width="6" stroke-linecap="round"/><rect x="26" y="28" width="68" height="78" rx="22" fill="${color}"/><rect x="26" y="28" width="68" height="20" rx="14" fill="${hi}"/><rect x="40" y="68" width="40" height="26" rx="8" fill="rgba(0,0,0,.18)"/><path d="M40 68h40" stroke="${gold}" stroke-width="3"/><path d="M22 50v40M98 50v40" stroke="${color}" stroke-width="8" stroke-linecap="round"/>`;
+  else if(cat==="Morrales")g=`<path d="M10 40c20-26 80-26 100 0" fill="none" stroke="${color}" stroke-width="6" stroke-linecap="round"/><rect x="24" y="44" width="72" height="56" rx="8" fill="${color}"/><path d="M24 44h72v22c-14 10-58 10-72 0z" fill="${hi}"/><rect x="54" y="62" width="12" height="16" rx="3" fill="${gold}"/>`;
+  else g=`<path d="M40 44c0-18 8-28 20-28s20 10 20 28" fill="none" stroke="${color}" stroke-width="6" stroke-linecap="round"/><rect x="22" y="42" width="76" height="62" rx="10" fill="${color}"/><rect x="22" y="42" width="76" height="16" rx="8" fill="${hi}"/><circle cx="60" cy="66" r="5" fill="${gold}"/>`;
+  return `<svg width="${size}" height="${size}" viewBox="0 0 120 120" role="img" aria-label="Ilustración de producto" style="max-width:100%;height:auto">${g}</svg>`;
 }
-function tint(c){return "linear-gradient(145deg,"+c+"22,"+c+"0d)"}
+const tint=c=>`linear-gradient(145deg,${c}26,${c}0d)`;
 
-/* ---------- carrito ---------- */
-var cart=store.get("pb_cart",[]);
-if(!Array.isArray(cart))cart=[];
-function saveCart(){store.set("pb_cart",cart);updateCart()}
-function findP(id){for(var i=0;i<PRODUCTS.length;i++)if(PRODUCTS[i].id===id)return PRODUCTS[i]}
-function addToCart(id){
-  var it=cart.filter(function(c){return c.id===id})[0];
-  if(it){if(it.q<10)it.q++}else cart.push({id:id,q:1});
-  saveCart();toast("Agregado al carrito");
+const ICONS={"search": "<circle cx=\"11\" cy=\"11\" r=\"6.5\"/><path d=\"M16 16l4.5 4.5\"/>", "bag": "<path d=\"M5 8h14l-1 12H6L5 8z\"/><path d=\"M9 8V6.5a3 3 0 0 1 6 0V8\"/>", "heart": "<path d=\"M12 20s-7-4.6-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.4-7 10-7 10z\"/>", "lock": "<rect x=\"5\" y=\"11\" width=\"14\" height=\"9\" rx=\"2\"/><path d=\"M8 11V8a4 4 0 0 1 8 0v3\"/>", "truck": "<path d=\"M3 6h11v10H3z\"/><path d=\"M14 9h4l3 3v4h-7\"/><circle cx=\"7.5\" cy=\"17.5\" r=\"1.8\"/><circle cx=\"17\" cy=\"17.5\" r=\"1.8\"/>", "receipt": "<path d=\"M6 3h12v18l-3-2-3 2-3-2-3 2z\"/><path d=\"M9 8h6M9 12h6\"/>", "return": "<path d=\"M9 14L4 9l5-5\"/><path d=\"M4 9h10a6 6 0 0 1 0 12h-3\"/>", "chat": "<path d=\"M4 5h16v11H9l-5 4z\"/>", "menu": "<path d=\"M4 7h16M4 12h16M4 17h16\"/>", "close": "<path d=\"M6 6l12 12M18 6L6 18\"/>", "pause": "<path d=\"M9 6v12M15 6v12\" stroke-width=\"2.6\"/>", "play": "<path d=\"M8 5l11 7-11 7z\" fill=\"currentColor\"/>", "left": "<path d=\"M15 5l-7 7 7 7\"/>", "right": "<path d=\"M9 5l7 7-7 7\"/>"};
+const ic=(n,c="")=>`<svg class="i ${c}" viewBox="0 0 24 24" aria-hidden="true" focusable="false">${ICONS[n]}</svg>`;
+const heartI=on=>ic("heart",on?"fill":"");
+const stage=h=>`linear-gradient(145deg,${h}1f,${h}0a),radial-gradient(circle at 50% 38%,#f7f8f9,#e1e3e6 72%)`;
+
+/* ============ carrito ============ */
+let cart=store.get("pb2_cart",[]);if(!Array.isArray(cart))cart=[];
+let wish=store.get("pb2_wish",[]);if(!Array.isArray(wish))wish=[];
+let coupon=store.get("pb2_coupon","")||"";
+const kOf=(id,c,s)=>[id,c,s||""].join("|");
+const saveCart=()=>{store.set("pb2_cart",cart);updCart()};
+function addCart(id,c,s,q){
+  const p=find(id);if(!p)return false;
+  const max=Math.min(10,stk(id));
+  const it=cart.find(x=>x.k===kOf(id,c,s));
+  const have=cart.filter(x=>x.id===id).reduce((a,x)=>a+x.q,0);
+  if(have+q>max){toast(max<=0?"Producto agotado":`Solo hay ${max} unidad(es) disponible(s)`);return false}
+  if(it)it.q+=q;else cart.push({k:kOf(id,c,s),id,c,s,q});
+  saveCart();return true;
 }
-function setQty(id,d){
-  cart.forEach(function(c){if(c.id===id)c.q+=d});
-  cart=cart.filter(function(c){return c.q>0});
-  saveCart();
-}
-function removeItem(id){cart=cart.filter(function(c){return c.id!==id});saveCart()}
-function subtotal(){return cart.reduce(function(s,c){var p=findP(c.id);return s+(p?p.price*c.q:0)},0)}
-function count(){return cart.reduce(function(s,c){return s+c.q},0)}
-function updateCart(){
-  $("#cartCount").textContent=count();
-  var b=$("#drawerBody"),f=$("#drawerFoot");
-  if(!cart.length){b.innerHTML='<p>Tu carrito está vacío.</p>';f.innerHTML='<a class="btn" href="#/catalogo" style="width:100%">Ver catálogo</a>';}
+const cartCount=()=>cart.reduce((a,x)=>a+x.q,0);
+const subtotal=()=>cart.reduce((a,x)=>{const p=find(x.id);return a+(p?p.price*x.q:0)},0);
+const discount=()=>coupon===COUPON.code?Math.round(subtotal()*COUPON.pct)/100:0;
+function shipCost(zona){const base=subtotal()-discount();if(zona==="rec")return 0;if(base>=FREE)return 0;return ZONAS[zona].p}
+function totals(zona){const sub=subtotal(),d=discount(),sh=cart.length?shipCost(zona):0,t=sub-d+sh;return{sub,d,sh,t,igv:t-t/1.18}}
+const isW=id=>wish.includes(id);
+function toggleW(id){wish=isW(id)?wish.filter(x=>x!==id):[...wish,id];store.set("pb2_wish",wish);$("#wishCount").textContent=wish.length;$("#wishCount").dataset.n=wish.length;toast(isW(id)?"Guardado en favoritos":"Quitado de favoritos")}
+
+function updCart(){
+  const n=cartCount();$("#cartCount").textContent=n;$("#cartCount").dataset.n=n;
+  $("#wishCount").textContent=wish.length;$("#wishCount").dataset.n=wish.length;
+  const b=$("#dBody"),f=$("#dFoot");
+  if(!cart.length){b.innerHTML='<p>Tu carrito está vacío.</p><p class="hint">Explora el catálogo y agrega tus productos favoritos.</p>';f.innerHTML='<a class="btn block" href="#/catalogo" data-act="cart-close">Ver catálogo</a>'}
   else{
-    b.innerHTML='<ul class="cartlist">'+cart.map(function(c){var p=findP(c.id);if(!p)return"";
-      return '<li><div style="display:flex;gap:10px"><div class="mini" style="background:'+tint(p.color)+'">'+bag(p.color,40,p.cat)+'</div><div><strong>'+esc(p.name)+'</strong><br>'+
-      '<span class="qty"><button data-q="-1" data-id="'+p.id+'" aria-label="Quitar uno">−</button><span>'+c.q+'</span><button data-q="1" data-id="'+p.id+'" aria-label="Agregar uno">+</button></span> '+
-      '<button class="link-btn" data-rm="'+p.id+'">Eliminar</button></div></div><strong>'+money(p.price*c.q)+'</strong></li>'}).join("")+'</ul>';
-    f.innerHTML='<div class="tot"><span>Subtotal (incl. IGV)</span><span>'+money(subtotal())+'</span></div><p style="font-size:.82rem;color:var(--muted)">El costo de envío se calcula en el siguiente paso.</p><a class="btn" href="#/checkout" style="width:100%">Ir a pagar</a>';
+    const base=subtotal()-discount(),falta=Math.max(0,FREE-base),pct=Math.min(100,base/FREE*100);
+    b.innerHTML=`<p class="hint" style="margin:0">${falta>0?`Te faltan <b>${money(falta)}</b> para envío gratis (ejemplo).`:"¡Tienes envío gratis a Lima y provincias!"}</p><div class="prog" aria-hidden="true"><i style="width:${pct}%"></i></div><ul class="cartlist">`+cart.map(x=>{const p=find(x.id);if(!p)return"";const h=COL[x.c][1];
+      return `<li><div style="display:flex;gap:10px"><div class="mini" style="background:${tint(h)}">${bag(h,44,p.cat)}</div><div><strong>${esc(p.name)}</strong><br><span class="hint">${COL[x.c][0]}${x.s?" · "+esc(x.s):""}</span><br><span class="qty" style="margin-top:4px"><button data-act="cq" data-k="${esc(x.k)}" data-d="-1" aria-label="Quitar uno">−</button><span>${x.q}</span><button data-act="cq" data-k="${esc(x.k)}" data-d="1" aria-label="Agregar uno">+</button></span> <button class="link red" data-act="crm" data-k="${esc(x.k)}">Eliminar</button></div></div><strong>${money(p.price*x.q)}</strong></li>`}).join("")+"</ul>";
+    f.innerHTML=`<div class="tot"><span>Subtotal (incl. IGV)</span><strong>${money(subtotal())}</strong></div><p class="hint">Envío y descuentos se calculan en el siguiente paso.</p><a class="btn block" href="#/checkout" data-act="cart-close">Ir a pagar</a>`;
   }
-  if(location.hash.indexOf("#/checkout")===0&&$("#ckSum"))renderCheckoutSummary();
+  if(location.hash.startsWith("#/checkout")&&$("#ckSum"))updSum();
 }
-var lastFocus=null;
-function openCart(){lastFocus=document.activeElement;$("#drawer").classList.add("open");$("#bg").classList.add("open");$("#drawer").setAttribute("aria-hidden","false");$("#closeCart").focus()}
-function closeCart(){$("#drawer").classList.remove("open");$("#bg").classList.remove("open");$("#drawer").setAttribute("aria-hidden","true");if(lastFocus&&lastFocus.focus)lastFocus.focus()}
-var tt;function toast(m){var t=$("#toast");t.textContent=m;t.classList.add("show");clearTimeout(tt);tt=setTimeout(function(){t.classList.remove("show")},1800)}
+let lastF=null;
+const INERT=["#app","header.site","footer.site",".help"];
+function setInert(on){INERT.forEach(q=>{const e=$(q);if(e){if(on)e.setAttribute("inert","");else e.removeAttribute("inert")}})}
+function openCart(){lastF=document.activeElement;$("#drawer").classList.add("open");$("#dbg").classList.add("open");$("#drawer").setAttribute("aria-hidden","false");setInert(true);const c=$("#drawer .ib");c&&c.focus()}
+function closeCart(){if(!$("#drawer").classList.contains("open"))return;$("#drawer").classList.remove("open");$("#dbg").classList.remove("open");$("#drawer").setAttribute("aria-hidden","true");setInert(false);lastF&&lastF.focus&&lastF.focus()}
+function setCk(on){$("#cookie").classList.toggle("show",on);document.body.classList.toggle("ck-open",on)}
+let tt;function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("show");clearTimeout(tt);tt=setTimeout(()=>t.classList.remove("show"),2000)}
 
-/* ---------- tarjetas ---------- */
-function card(p){
-  return '<article class="card"><a class="ph" href="#/producto/'+p.id+'" style="background:'+tint(p.color)+'" aria-label="Ver '+esc(p.name)+'">'+bag(p.color,150,p.cat)+'</a>'+
-  '<div class="info"><span class="cat">'+esc(p.cat)+' · '+esc(p.gen)+'</span><h3>'+esc(p.name)+'</h3><span class="price">'+money(p.price)+'</span><span class="mat">'+esc(p.mat)+'</span>'+
-  '<div class="row"><a class="btn ghost" href="#/producto/'+p.id+'">Ver</a><button class="btn" data-add="'+p.id+'">Agregar</button></div></div></article>';
+/* ============ modal ============ */
+let modalLast=null,modalLock=false;
+function openModal(html,label,lock){
+  modalLast=document.activeElement;modalLock=!!lock;
+  const b=$("#mbox");b.innerHTML=html;b.setAttribute("aria-label",label||"Ventana");
+  $("#modal").classList.add("open");
+  const f=b.querySelector("input,button,select,a[href]");(f||b).focus();
 }
+function closeModal(){$("#modal").classList.remove("open");$("#mbox").innerHTML="";modalLock=false;modalLast&&modalLast.focus&&modalLast.focus()}
 
-/* ---------- vistas ---------- */
-var V={};
-V.home=function(){
-  return '<section class="hero"><div class="wrap grid"><div><h1>Marroquinería en cuero, hecha en el Perú</h1><p>Carteras, mochilas, morrales, calzado, correas, billeteras y monederos para dama y caballero, en cuero o en tela combinada con cuero. Fabricados en Villa El Salvador, con entrega a todo el país.</p><p style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn light" href="#/catalogo">Ver catálogo</a><a class="btn ghost" style="color:#fff;border-color:#fff" href="#/envios">Cómo enviamos</a></p></div><div class="art" aria-hidden="true">'+bag("#f3d9a4",220)+'</div></div></section>'+
-  '<section class="blk"><div class="wrap"><div class="trust"><div><b>🔒 Pago seguro</b>Tus datos de tarjeta los procesa una pasarela certificada.</div><div><b>🚚 Envíos a todo el Perú</b>Lima y provincias con seguimiento.</div><div><b>🧵 Cuero y tela</b>Diseños en cuero y en tela textil combinada con cuero.</div><div><b>↩ Cambios</b>Política clara de cambios y garantía.</div><div><b>📒 Libro de Reclamaciones</b>Siempre disponible en línea.</div></div></div></section>'+
-  '<section class="blk" style="padding-top:0"><div class="wrap"><h2>Categorías</h2><div class="cats">'+CATS.slice(1).map(function(c){var ex=PRODUCTS.filter(function(p){return p.cat===c})[0];return '<a href="#/catalogo/'+encodeURIComponent(c)+'">'+bag(ex.color,64,c)+c+'</a>'}).join("")+'</div></div></section>'+
-  '<section class="blk" style="padding-top:0"><div class="wrap"><h2>Destacados</h2><div class="grid-p">'+FEATURED.map(findP).map(card).join("")+'</div></div></section>';
-};
-var catSel="Todos",genSel="Todos";
-V.catalogo=function(){
-  var list=PRODUCTS.filter(function(p){return (catSel==="Todos"||p.cat===catSel)&&(genSel==="Todos"||p.gen===genSel)});
-  return '<section class="blk"><div class="wrap"><h2>Catálogo</h2>'+
-  '<p class="fl">Categoría</p><div class="filters" role="group" aria-label="Filtrar por categoría">'+
-  CATS.map(function(c){return '<button class="chip" data-cat="'+c+'" aria-pressed="'+(c===catSel)+'">'+c+'</button>'}).join("")+'</div>'+
-  '<p class="fl">Para</p><div class="filters" role="group" aria-label="Filtrar por género">'+
-  GENS.map(function(c){return '<button class="chip" data-gen="'+c+'" aria-pressed="'+(c===genSel)+'">'+(c==="Todos"?"Dama y caballeros":c)+'</button>'}).join("")+'</div>'+
-  '<p style="color:var(--muted)">'+list.length+' producto'+(list.length===1?"":"s")+' · Precios de ejemplo, incluyen IGV.</p>'+
-  (list.length?'<div class="grid-p">'+list.map(card).join("")+'</div>':'<div class="panel">No hay productos con esa combinación. Prueba con otra categoría.</div>')+'</div></section>';
-};
-V.producto=function(id){
-  var p=findP(Number(id));
-  if(!p)return V.notfound();
-  return '<section class="blk"><div class="wrap"><div class="crumbs"><a href="#/">Inicio</a> / <a href="#/catalogo">Catálogo</a> / '+esc(p.name)+'</div><div class="detail"><div class="ph" style="background:'+tint(p.color)+'">'+bag(p.color,260,p.cat)+'</div><div><span class="cat">'+esc(p.cat)+' · '+esc(p.gen)+'</span><h1 style="margin:4px 0 8px">'+esc(p.name)+'</h1><p class="price" style="font-size:1.6rem">'+money(p.price)+' <small style="font-weight:400;color:var(--muted);font-size:.8rem">incl. IGV</small></p><p>'+esc(p.desc)+'</p><ul><li>Material: '+esc(p.mat)+'</li><li>Para: '+esc(p.gen==='Dama'?'dama':'caballeros')+'</li><li>Fabricado en Lima, Perú</li><li>Garantía por defectos de fabricación</li></ul><p><button class="btn" data-add="'+p.id+'">Agregar al carrito</button></p><p style="font-size:.85rem;color:var(--muted)">Ver <a href="#/cambios">cambios y devoluciones</a> y <a href="#/envios">envíos</a>.</p></div></div></div></section>';
-};
-V.checkout=function(){
-  if(!cart.length)return '<section class="blk"><div class="wrap"><div class="panel"><h2>Tu carrito está vacío</h2><a class="btn" href="#/catalogo">Ir al catálogo</a></div></div></section>';
-  return '<section class="blk"><div class="wrap"><h1 style="font-size:1.8rem">Finalizar compra</h1><div class="checkout"><form class="panel" id="coForm" novalidate>'+
-  '<h2>Tus datos</h2>'+
-  '<div class="cols">'+fld("nombre","Nombres y apellidos","text","name")+fld("doc","DNI / RUC","text","off",'inputmode="numeric" maxlength="11"')+fld("email","Correo electrónico","email","email")+fld("tel","Celular","tel","tel",'inputmode="numeric" maxlength="9"')+'</div>'+
-  fld("dir","Dirección de entrega","text","street-address")+
-  '<div class="f"><label for="envio">Tipo de envío</label><select id="envio"><option value="lima">'+SHIP.lima.n+' – S/ 12.00</option><option value="prov">'+SHIP.prov.n+' – S/ 20.00</option><option value="rec">'+SHIP.rec.n+'</option></select></div>'+
-  '<div class="f"><label for="comp">Comprobante</label><select id="comp"><option>Boleta</option><option>Factura</option></select></div>'+
-  '<h2>Método de pago</h2>'+
-  '<div class="f"><select id="pago" aria-label="Método de pago"><option>Tarjeta (ventana segura de la pasarela)</option><option>Yape</option><option>Plin</option></select></div>'+
-  '<div class="note">🔒 <strong>Así funcionará en producción:</strong> el pago se completa en la ventana segura de la pasarela (Culqi / Niubiz / Izipay) con 3D Secure. Esta tienda nunca ve ni guarda los datos de tu tarjeta. En este prototipo el pago es simulado.</div>'+
-  '<div class="check"><input type="checkbox" id="acPriv"><label for="acPriv">He leído y acepto la <a href="#/privacidad" target="_blank" rel="noopener">Política de Privacidad</a> y los <a href="#/terminos" target="_blank" rel="noopener">Términos y Condiciones</a>. <span class="err" id="e-acPriv"></span></label></div>'+
-  '<div class="check"><input type="checkbox" id="acMkt"><label for="acMkt">(Opcional) Deseo recibir promociones por correo o WhatsApp.</label></div>'+
-  '<button class="btn" type="submit" style="width:100%">Simular pago</button></form>'+
-  '<div class="panel" id="ckSum"></div></div></div></section>';
-};
-function fld(id,label,type,ac,extra){
-  return '<div class="f"><label for="'+id+'">'+label+'</label><input id="'+id+'" type="'+type+'" autocomplete="'+ac+'" '+(extra||"")+' aria-describedby="e-'+id+'"><span class="err" id="e-'+id+'"></span></div>';
-}
-function renderCheckoutSummary(){
-  var el=$("#ckSum");if(!el)return;
-  var envSel=$("#envio");var key=envSel?envSel.value:"lima";
-  var sub=subtotal(),ship=SHIP[key].p;
-  el.innerHTML='<h2>Resumen</h2><ul class="sum">'+cart.map(function(c){var p=findP(c.id);return p?'<li><span>'+esc(p.name)+' × '+c.q+'</span><span>'+money(p.price*c.q)+'</span></li>':""}).join("")+'</ul>'+
-  '<div class="tot" style="font-weight:400;font-size:1rem"><span>Subtotal</span><span>'+money(sub)+'</span></div>'+
-  '<div class="tot" style="font-weight:400;font-size:1rem"><span>Envío</span><span>'+money(ship)+'</span></div>'+
-  '<div class="tot"><span>Total (incl. IGV)</span><span>'+money(sub+ship)+'</span></div>';
-}
-V.gracias=function(code){
-  return '<section class="blk"><div class="wrap"><div class="panel note ok"><h1 style="margin-top:0">¡Gracias por tu compra de prueba!</h1><p>Código de pedido: <strong>'+esc(code||"—")+'</strong></p><p>En la tienda real recibirías un correo con tu boleta o factura electrónica y el seguimiento de tu envío.</p><a class="btn" href="#/catalogo">Seguir comprando</a></div></div></section>';
-};
-V.reclamos=function(){
-  var saved=store.get("pb_reclamos",[]);
-  return '<section class="blk"><div class="wrap"><div class="panel legal"><h1>Libro de Reclamaciones</h1>'+
-  '<p><strong>Industrias Marzzelli Perú Cueros E.I.R.L.</strong> · RUC 20603787952<br>Calle Solidaridad Mza. M-1 Lote 5, Z.I. Parque Industrial Parcela II, Villa El Salvador, Lima.</p>'+
-  '<div class="note">Plazo de respuesta: a confirmar con la normativa vigente de Indecopi antes de publicar. Al enviar, se genera un código y se enviará una copia al correo del consumidor.</div>'+
-  '<form id="rcForm" novalidate><h2>1. Identificación del consumidor</h2><div class="cols">'+fld("r_nombre","Nombres y apellidos","text","name")+fld("r_doc","DNI / CE","text","off",'inputmode="numeric" maxlength="12"')+fld("r_dom","Domicilio","text","street-address")+fld("r_email","Correo electrónico","email","email")+fld("r_tel","Teléfono","tel","tel")+'</div>'+
-  '<h2>2. Bien contratado</h2><div class="cols"><div class="f"><label for="r_bien">Tipo</label><select id="r_bien"><option>Producto</option><option>Servicio</option></select></div>'+fld("r_monto","Monto reclamado (S/)","text","off",'inputmode="decimal"')+'</div>'+
-  '<div class="f"><label for="r_desc">Descripción del producto o servicio</label><input id="r_desc" type="text"><span class="err" id="e-r_desc"></span></div>'+
-  '<h2>3. Detalle de la reclamación</h2><div class="f"><label for="r_tipo">Tipo</label><select id="r_tipo"><option>Reclamo (disconformidad con el producto o servicio)</option><option>Queja (malestar con la atención)</option></select></div>'+
-  '<div class="f"><label for="r_det">Detalle</label><textarea id="r_det"></textarea><span class="err" id="e-r_det"></span></div>'+
-  '<div class="f"><label for="r_ped">Pedido del consumidor</label><textarea id="r_ped"></textarea><span class="err" id="e-r_ped"></span></div>'+
-  '<div class="check"><input type="checkbox" id="r_ac"><label for="r_ac">Acepto el tratamiento de mis datos según la <a href="#/privacidad" target="_blank" rel="noopener">Política de Privacidad</a>. <span class="err" id="e-r_ac"></span></label></div>'+
-  '<button class="btn" type="submit">Enviar reclamo</button></form>'+
-  '<div id="rcOut" aria-live="polite"></div>'+(saved.length?'<p style="color:var(--muted);font-size:.85rem">Reclamos de prueba guardados en este navegador: '+saved.length+'</p>':"")+'</div></div></section>';
-};
-V.envios=function(){return legal("Envíos y plazos",[
- ["Cobertura","Realizamos envíos a Lima Metropolitana y a provincias. También puedes recoger tu pedido en nuestro taller de Villa El Salvador."],
- ["Plazos (referenciales)","Lima: 2 a 3 días hábiles. Provincias: 4 a 7 días hábiles, contados desde la confirmación del pago."],
- ["Costos","Se muestran antes de pagar, junto con el total final con IGV."],
- ["Seguimiento","Recibirás un correo con el estado de tu pedido."]
-])};
-V.cambios=function(){return legal("Cambios y devoluciones",[
- ["Cambios","[Por definir con la dueña: plazo, estado del producto, quién paga el envío.]"],
- ["Garantía","Por defectos de fabricación, según la normativa de protección al consumidor."],
- ["Cómo solicitarlo","Escríbenos con tu código de pedido o usa el Libro de Reclamaciones."]
-])};
-V.terminos=function(){return legal("Términos y condiciones",[
- ["1. Titular del sitio","Industrias Marzzelli Perú Cueros E.I.R.L. (Piarella Bags), RUC 20603787952."],
- ["2. Proceso de compra","Las compras están sujetas a disponibilidad de stock y a la confirmación del pago."],
- ["3. Precios","Los precios se muestran en soles e incluyen IGV. Ante errores evidentes de precio, la empresa se reserva el derecho de corregirlos antes de confirmar el pedido."],
- ["4. Envíos, cambios y garantías","Ver las secciones correspondientes."],
- ["5. Propiedad intelectual","Las marcas, fotografías y diseños pertenecen a la empresa."],
- ["6. Borrador","Este texto es un borrador de prototipo y debe ser revisado por un abogado."]
-])};
-V.privacidad=function(){return legal("Política de privacidad",[
- ["Responsable","Industrias Marzzelli Perú Cueros E.I.R.L., RUC 20603787952."],
- ["Datos que recopilamos","Nombre, documento, correo, teléfono y dirección, solo para procesar pedidos, emitir comprobantes, coordinar envíos y atender reclamos."],
- ["Pagos","No almacenamos datos de tarjetas. Los procesa la pasarela de pagos."],
- ["Marketing","Solo con tu autorización expresa y separada, que puedes retirar cuando quieras."],
- ["Tus derechos","Acceso, rectificación, cancelación y oposición, conforme a la Ley N.° 29733 y su reglamento vigente. Medio de contacto: [por definir]."],
- ["Borrador","Debe ser revisada por un abogado y alinearse con el registro del banco de datos que corresponda."]
-])};
-V.notfound=function(){return '<section class="blk"><div class="wrap panel"><h1>Página no encontrada</h1><a class="btn" href="#/">Volver al inicio</a></div></section>'};
-function legal(title,secs){
-  return '<section class="blk"><div class="wrap"><div class="panel legal"><h1>'+esc(title)+'</h1><div class="note">Texto de ejemplo para el prototipo.</div>'+secs.map(function(s){return '<h2>'+esc(s[0])+'</h2><p>'+esc(s[1])+'</p>'}).join("")+'</div></div></section>';
-}
-
-/* ---------- validación ---------- */
-function setErr(id,msg){var i=$("#"+id),e=$("#e-"+id);if(e)e.textContent=msg||"";if(i&&i.type!=="checkbox")i.setAttribute("aria-invalid",msg?"true":"false");return !msg}
+/* ============ componentes ============ */
+const fld=(id,l,t="text",ac="off",x="",h="")=>`<div class="f"><label for="${id}">${l}</label><input id="${id}" type="${t}" autocomplete="${ac}" ${x} aria-describedby="e-${id}">${h?`<span class="hint">${h}</span>`:""}<span class="err" id="e-${id}" role="alert"></span></div>`;
+const sel=(id,l,opts,x="")=>`<div class="f"><label for="${id}">${l}</label><select id="${id}" ${x}>${opts.map(o=>Array.isArray(o)?`<option value="${esc(o[0])}">${esc(o[1])}</option>`:`<option>${esc(o)}</option>`).join("")}</select><span class="err" id="e-${id}" role="alert"></span></div>`;
+const area=(id,l)=>`<div class="f"><label for="${id}">${l}</label><textarea id="${id}" aria-describedby="e-${id}"></textarea><span class="err" id="e-${id}" role="alert"></span></div>`;
+const chk=(id,h)=>`<div class="check"><input type="checkbox" id="${id}"><label for="${id}">${h} <span class="err" id="e-${id}" role="alert"></span></label></div>`;
+function setErr(id,m){const i=$("#"+id),e=$("#e-"+id);if(e)e.textContent=m||"";if(i&&i.type!=="checkbox")i.setAttribute("aria-invalid",m?"true":"false");return !m}
 function checkForm(rules){
-  var ok=true,first=null;
-  rules.forEach(function(r){
-    var el=$("#"+r.id);var v=el.type==="checkbox"?el.checked:el.value.trim();var m="";
-    if(r.req&&!v)m=r.msg||"Campo obligatorio";
-    else if(r.re&&v&&!r.re.test(v))m=r.msg||"Formato no válido";
+  let ok=true,first=null;
+  rules.forEach(r=>{
+    const el=$("#"+r.id);if(!el||el.closest("[hidden]"))return;
+    const v=el.type==="checkbox"?el.checked:el.value.trim();let m="";
+    if(r.req&&!v)m=r.msg||"Campo obligatorio";else if(v&&r.fn)m=r.fn(v)||"";
     if(!setErr(r.id,m)){ok=false;if(!first)first=el}
   });
-  if(first)first.focus();
-  return ok;
+  if(first)first.focus();return ok;
 }
-function wireCheckout(){
-  renderCheckoutSummary();
-  $("#envio").addEventListener("change",renderCheckoutSummary);
-  $("#coForm").addEventListener("submit",function(ev){
-    ev.preventDefault();
-    var ok=checkForm([
-      {id:"nombre",req:1},
-      {id:"doc",req:1,re:/^(\d{8}|\d{11})$/,msg:"Ingresa un DNI (8) o RUC (11 dígitos)"},
-      {id:"email",req:1,re:/^[^\s@]+@[^\s@]+\.[^\s@]+$/,msg:"Correo no válido"},
-      {id:"tel",req:1,re:/^9\d{8}$/,msg:"Celular de 9 dígitos que empiece con 9"},
-      {id:"dir",req:1},
-      {id:"acPriv",req:1,msg:"Debes aceptar para continuar"}
-    ]);
-    if(!ok)return;
-    var code="PB-"+Date.now().toString(36).toUpperCase();
-    cart=[];saveCart();
-    location.hash="#/gracias/"+code;
-  });
+const vMail=v=>/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)?"":"Correo no válido";
+const vTel=v=>/^9\d{8}$/.test(v)?"":"Celular de 9 dígitos que empiece con 9";
+const vDNI=v=>/^\d{8}$/.test(v)?"":"El DNI tiene 8 dígitos";
+function vRUC(v){
+  if(!/^\d{11}$/.test(v)||!["10","15","17","20"].includes(v.slice(0,2)))return "RUC no válido (11 dígitos)";
+  const w=[5,4,3,2,7,6,5,4,3,2];let s=0;for(let i=0;i<10;i++)s+=w[i]*Number(v[i]);
+  let d=11-(s%11);if(d===10)d=0;if(d===11)d=1;
+  return d===Number(v[10])?"":"RUC no válido (dígito verificador)";
 }
-function wireReclamo(){
-  $("#rcForm").addEventListener("submit",function(ev){
-    ev.preventDefault();
-    var ok=checkForm([
-      {id:"r_nombre",req:1},{id:"r_doc",req:1,re:/^[A-Za-z0-9]{8,12}$/,msg:"Documento no válido"},
-      {id:"r_dom",req:1},{id:"r_email",req:1,re:/^[^\s@]+@[^\s@]+\.[^\s@]+$/,msg:"Correo no válido"},
-      {id:"r_tel",req:1,re:/^\+?\d{7,12}$/,msg:"Teléfono no válido"},
-      {id:"r_desc",req:1},{id:"r_det",req:1},{id:"r_ped",req:1},{id:"r_ac",req:1,msg:"Debes aceptar para continuar"}
-    ]);
-    if(!ok)return;
-    var list=store.get("pb_reclamos",[]);
-    var code="HR-"+new Date().getFullYear()+"-"+String(list.length+1).padStart(4,"0");
-    list.push({code:code,fecha:new Date().toISOString(),tipo:$("#r_tipo").value});
-    store.set("pb_reclamos",list);
-    $("#rcOut").innerHTML='<div class="note ok"><strong>Reclamo registrado.</strong> Código de seguimiento: <strong>'+esc(code)+'</strong>. En producción se enviaría una copia a <strong>'+esc($("#r_email").value.trim())+'</strong>.</div>';
-    $("#rcForm").reset();$("#rcOut").scrollIntoView({behavior:"smooth",block:"center"});
-  });
+function card(p,lv=3){
+  const out=stk(p.id)<=0,sz=sizesOf(p),h=hex(p);
+  return `<article class="card"><div class="ph" style="background:${tint(h)}"><a href="#/producto/${p.id}" aria-label="Ver ${esc(p.name)}">${bag(h,150,p.cat)}</a><div class="tags">${p.nuevo?'<span class="tag">Nuevo</span>':""}${p.mat!=="Cuero"?'<span class="tag t2">Tela + cuero</span>':""}${out?'<span class="tag t3">Agotado</span>':""}</div><button class="wish" data-act="wish" data-id="${p.id}" aria-pressed="${isW(p.id)}" aria-label="Guardar ${esc(p.name)} en favoritos">${heartI(isW(p.id))}</button></div>
+  <div class="info"><span class="cat">${p.cat} · ${p.gen}</span><h${lv}><a href="#/producto/${p.id}">${esc(p.name)}</a></h${lv}><div class="sw" aria-hidden="true">${p.col.map(c=>`<i style="background:${COL[c][1]}"></i>`).join("")}</div><span class="price">${money(p.price)}</span><span class="mat">${p.mat}</span>
+  <div class="row"><a class="btn ghost" href="#/producto/${p.id}">Ver</a>${out?'<button class="btn" disabled>Agotado</button>':sz?`<a class="btn" href="#/producto/${p.id}">Elegir talla</a>`:`<button class="btn" data-act="qadd" data-id="${p.id}">Agregar</button>`}</div></div></article>`;
+}
+function legal(title,secs,extra=""){
+  return `<section class="blk"><div class="wrap"><div class="panel legal"><h1 class="ttl">${esc(title)}</h1><div class="note">Texto de ejemplo para el prototipo. Debe ser revisado por un abogado antes de publicarse.</div>${secs.map(s=>`<h2>${esc(s[0])}</h2><p>${esc(s[1])}</p>`).join("")}${extra}</div></div></section>`;
 }
 
-/* ---------- router ---------- */
+/* ============ catálogo (estado) ============ */
+const F0=()=>({cat:"Todos",gen:"Todos",mat:"Todos",max:0,sort:"rel",q:""});
+let F=F0(),pendingQ=null;
+function filtered(){
+  const q=norm(F.q);
+  const l=P.filter(p=>(F.cat==="Todos"||p.cat===F.cat)&&(F.gen==="Todos"||p.gen===F.gen)&&(F.mat==="Todos"||p.mat===F.mat)&&(!F.max||p.price<=F.max)&&(!q||norm(`${p.name} ${p.cat} ${p.gen} ${p.mat}`).includes(q)));
+  if(F.sort==="pa")l.sort((a,b)=>a.price-b.price);else if(F.sort==="pd")l.sort((a,b)=>b.price-a.price);else if(F.sort==="az")l.sort((a,b)=>a.name.localeCompare(b.name,"es"));
+  return l;
+}
+function catTitle(){
+  if(F.q)return `Resultados para “${F.q}”`;
+  if(F.cat!=="Todos")return F.cat+(F.gen!=="Todos"?" para "+(F.gen==="Dama"?"dama":"caballeros"):"");
+  if(F.gen!=="Todos")return "Para "+(F.gen==="Dama"?"dama":"caballeros");
+  if(F.mat!=="Todos")return F.mat;
+  return "Catálogo";
+}
+function updCat(){
+  if(!$("#catRes"))return;
+  const l=filtered();
+  $("#catTitle").textContent=catTitle();
+  $$("[data-act=fcat]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.v===F.cat));
+  $("#catCount").textContent=`${l.length} producto${l.length===1?"":"s"}`;
+  $("#qchip").innerHTML=F.q?`<span class="qchip">Búsqueda: ${esc(F.q)} <button data-act="clearq" aria-label="Quitar búsqueda">${ic("close")}</button></span>`:"";
+  $("#catRes").innerHTML=l.length?`<div class="grid-p">${l.map(p=>card(p,2)).join("")}</div>`:`<div class="panel"><b>No encontramos productos con esos filtros.</b><p class="hint">Prueba quitando algún filtro.</p><button class="btn ghost sm" data-act="reset">Quitar filtros</button></div>`;
+}
+
+/* ============ vistas ============ */
+const V={};
+const SLIDES=[
+ {eb:"Para ella",h:"Carteras, mochilas y calzado en cuero",p:"Diseños pensados para el día a día, fabricados en Lima.",cta:"Ver colección dama",href:"#/catalogo/gen/Dama",bg:"linear-gradient(120deg,#3f0a14,#7b1226 55%,#c1121f)",ids:[1,4,8]},
+ {eb:"Para él",h:"Morrales, billeteras y correas para caballero",p:"Cuero resistente con acabados que acompañan por años.",cta:"Ver colección caballeros",href:"#/catalogo/gen/Caballeros",bg:"linear-gradient(120deg,#26272a,#43464b 60%,#6d7177)",ids:[6,11,9]},
+ {eb:"Cuero + tela",h:"Tela textil combinada con cuero",p:"Livianos, coloridos y con el carácter del cuero.",cta:"Ver tela y cuero",href:"#/catalogo/mat/Tela y cuero",bg:"linear-gradient(120deg,#570c1b,#9b1424 55%,#d62828)",ids:[2,5,14]}
+];
+const sl={i:0,t:null,paused:reduced};
+function slideTo(i){
+  sl.i=(i+SLIDES.length)%SLIDES.length;
+  $$(".slide").forEach((s,k)=>s.classList.toggle("on",k===sl.i));
+  $$(".dot").forEach((d,k)=>d.setAttribute("aria-current",k===sl.i));
+}
+function slideAuto(){clearInterval(sl.t);if(reduced||sl.paused)return;sl.t=setInterval(()=>slideTo(sl.i+1),6500)}
+
+V.home=()=>{
+  const featured=[1,4,7,9,12,6,8,11].map(find);
+  return `<h1 class="sr">Piarella Bags: marroquinería en cuero hecha en Lima, Perú</h1><div class="slider" id="slider" aria-roledescription="carrusel" aria-label="Destacados">${SLIDES.map((s,k)=>`<div class="slide ${k===0?"on":""}" style="background:${s.bg}" role="group" aria-label="${k+1} de ${SLIDES.length}"><div class="wrap s-grid"><div><span class="eyebrow">${s.eb}</span><h2 class="sl-t">${s.h}</h2><p>${s.p}</p><p style="margin-top:20px"><a class="btn light" href="${s.href}">${s.cta}</a></p></div><div class="art" aria-hidden="true">${s.ids.map(id=>{const p=find(id);return `<div class="artc">${bag("#eceef0",110,p.cat)}</div>`}).join("")}</div></div></div>`).join("")}
+  <button class="arrow l" data-act="sprev" aria-label="Anterior">${ic("left")}</button><button class="arrow r" data-act="snext" aria-label="Siguiente">${ic("right")}</button>
+  <div class="sl-ctl"><button class="pausebtn" data-act="spause" aria-label="${sl.paused?"Reanudar":"Pausar"} carrusel">${ic(sl.paused?"play":"pause")}</button>${SLIDES.map((s,k)=>`<button class="dot" data-act="sgo" data-i="${k}" aria-label="Ir a la diapositiva ${k+1}" aria-current="${k===0}"></button>`).join("")}</div></div>
+  <section class="blk" style="padding-bottom:0"><div class="wrap"><div class="benefits">
+   <div><span class="ic">${ic("lock")}</span><p style="margin:0"><b>Pago seguro</b><span class="t">Tarjeta, Yape y Plin con pasarela certificada.</span></p></div>
+   <div><span class="ic">${ic("truck")}</span><p style="margin:0"><b>Envíos a todo el Perú</b><span class="t">Lima en 2 a 3 días hábiles. Seguimiento en línea.</span></p></div>
+   <div><span class="ic">${ic("receipt")}</span><p style="margin:0"><b>Boleta o factura</b><span class="t">Comprobante electrónico en cada compra.</span></p></div>
+   <div><span class="ic">${ic("return")}</span><p style="margin:0"><b>Cambios y garantía</b><span class="t">Políticas claras antes de comprar.</span></p></div></div></div></section>
+  <section class="blk"><div class="wrap"><h2 class="h">Compra por categoría</h2><div class="cats">${CATS.map(c=>{const ex=P.find(p=>p.cat===c);return `<a href="#/catalogo/cat/${encodeURIComponent(c)}">${bag(hex(ex),64,c)}${c}</a>`}).join("")}</div></div></section>
+  <section class="blk" style="padding-top:0"><div class="wrap duo">
+   <a href="#/catalogo/gen/Dama" style="background:linear-gradient(135deg,#7b1226,#c1121f)"><h3>Para ella</h3><span>Carteras, mochilas, calzado y más</span>${bag("#fff",120,"Carteras")}</a>
+   <a href="#/catalogo/gen/Caballeros" style="background:linear-gradient(135deg,#2b2d31,#5d6168)"><h3>Para él</h3><span>Morrales, billeteras, correas y más</span>${bag("#fff",120,"Morrales")}</a></div></section>
+  <section class="blk" style="padding-top:0"><div class="wrap"><h2 class="h">Selección del taller</h2><div class="grid-p">${featured.map(p=>card(p)).join("")}</div><p style="text-align:center;margin-top:22px"><a class="btn ghost" href="#/catalogo">Ver todo el catálogo</a></p></div></section>
+  <section class="blk" style="padding-top:0"><div class="wrap"><div class="banner"><div><h2>Hecho en Villa El Salvador</h2><p>Industrias Marzzelli Perú Cueros E.I.R.L. fabrica y comercializa artículos de marroquinería y cuero desde 2019.</p><a class="btn" href="#/nosotros">Conoce al taller</a></div><div style="display:flex;justify-content:center">${bag("#7b1226",150,"Carteras")}</div></div></div></section>`;
+};
+V.catalogo=()=>`<section class="blk"><div class="wrap"><div class="crumbs"><a href="#/">Inicio</a> / Catálogo</div><h1 class="ttl" id="catTitle">${esc(catTitle())}</h1>
+ <div class="filters" role="group" aria-label="Categorías"><button class="chip" data-act="fcat" data-v="Todos" aria-pressed="${F.cat==="Todos"}">Todas</button>${CATS.map(c=>`<button class="chip" data-act="fcat" data-v="${c}" aria-pressed="${F.cat===c}">${c}</button>`).join("")}</div>
+ <div class="fgrid">
+  <div class="f" style="margin:0"><label for="fg">Para</label><select id="fg" data-f="gen"><option value="Todos">Dama y caballeros</option><option value="Dama">Dama</option><option value="Caballeros">Caballeros</option></select></div>
+  <div class="f" style="margin:0"><label for="fm">Material</label><select id="fm" data-f="mat"><option value="Todos">Todos</option><option>Cuero</option><option>Tela y cuero</option></select></div>
+  <div class="f" style="margin:0"><label for="fp">Precio</label><select id="fp" data-f="max"><option value="0">Cualquiera</option><option value="60">Hasta S/ 60</option><option value="100">Hasta S/ 100</option><option value="150">Hasta S/ 150</option><option value="200">Hasta S/ 200</option></select></div>
+  <div class="f" style="margin:0"><label for="fs">Ordenar por</label><select id="fs" data-f="sort"><option value="rel">Recomendados</option><option value="pa">Precio: menor a mayor</option><option value="pd">Precio: mayor a menor</option><option value="az">Nombre A–Z</option></select></div></div>
+ <div class="resbar"><span id="catCount" aria-live="polite"></span><span id="qchip"></span></div><div id="catRes"></div></div></section>`;
+V.producto=id=>{
+  const p=find(id);if(!p)return V.nf();
+  PS={id:p.id,c:p.col[0],s:null,q:1};
+  const sz=sizesOf(p),h=hex(p),out=stk(p.id)<=0;
+  const rel=P.filter(x=>x.id!==p.id&&(x.cat===p.cat||x.gen===p.gen)).slice(0,4);
+  return `<section class="blk"><div class="wrap"><div class="crumbs"><a href="#/">Inicio</a> / <a href="#/catalogo/cat/${encodeURIComponent(p.cat)}">${p.cat}</a> / ${esc(p.name)}</div>
+  <div class="detail"><div class="gal" id="pGal" style="background:${stage(h)}">${bag(h,320,p.cat)}</div>
+  <div><span class="cat">${p.cat} · ${p.gen}</span><h1 class="ttl" style="margin:4px 0 8px">${esc(p.name)}</h1>
+  <p style="margin:0"><span class="price" style="font-size:1.7rem">${money(p.price)}</span> <span class="hint">IGV incluido</span></p>
+  <p>${esc(p.desc)}</p>
+  <div class="lbl">Color: <span id="pColN" style="font-weight:400">${COL[p.col[0]][0]}</span></div>
+  <div class="swatches" role="group" aria-label="Color">${p.col.map((c,k)=>`<button class="swb" data-act="pc" data-c="${c}" aria-pressed="${k===0}" aria-label="${COL[c][0]}" style="background:${COL[c][1]}"></button>`).join("")}</div>
+  ${sz?`<div class="lbl">${p.cat==="Calzado"?"Talla":"Medida"} <button class="link" data-act="guide" data-cat="${p.cat}">Guía de ${p.cat==="Calzado"?"tallas":"medidas"}</button></div><div class="sizes" role="group" aria-label="Talla">${sz.map(s=>`<button class="sz" data-act="ps" data-s="${esc(s)}" aria-pressed="false">${s}</button>`).join("")}</div><span class="err" id="pErr" role="alert"></span>`:'<span id="pErr" class="err" role="alert"></span>'}
+  <div class="buyrow"><span class="qty"><button data-act="pq" data-d="-1" aria-label="Menos">−</button><span id="pQ">1</span><button data-act="pq" data-d="1" aria-label="Más">+</button></span>
+   ${out?'<button class="btn" disabled>Agotado</button>':'<button class="btn" data-act="padd" style="flex:1;min-width:180px">Agregar al carrito</button>'}
+   <button class="btn ghost" data-act="wish" data-id="${p.id}" aria-pressed="${isW(p.id)}" aria-label="Favoritos">${heartI(isW(p.id))}</button></div>
+  <p class="hint">Material: <b>${p.mat}</b> · Fabricado en Lima, Perú · Disponibilidad: ${out?"agotado":"en stock"}</p>
+  <div style="margin-top:16px">
+   <details class="acc" open><summary>Características</summary><div class="b"><ul style="margin:0;padding-left:20px">${FEATS[p.cat].map(f=>`<li>${esc(f)}</li>`).join("")}</ul><p class="hint">Ficha de ejemplo: se reemplazará con los datos reales del taller.</p></div></details>
+   <details class="acc"><summary>Materiales y cuidado</summary><div class="b">${p.mat==="Cuero"?"Fabricado en cuero.":"Fabricado en tela textil combinada con cuero."} Evita la humedad prolongada, limpia con un paño suave y seco y guarda en un lugar ventilado. <i>[Confirmar recomendaciones con el taller]</i></div></details>
+   <details class="acc"><summary>Envíos</summary><div class="b">Lima: 2 a 3 días hábiles. Provincias: 4 a 7 días hábiles. Envío gratis desde ${money(FREE)} (ejemplo). <a href="#/envios">Ver detalle</a></div></details>
+   <details class="acc"><summary>Cambios y garantía</summary><div class="b">Garantía por defectos de fabricación. <a href="#/cambios">Ver política de cambios</a>.</div></details></div></div></div>
+  <h2 class="h" style="margin-top:44px">También te puede gustar</h2><div class="grid-p">${rel.map(p=>card(p)).join("")}</div></div></section>`;
+};
+let PS={id:0,c:"",s:null,q:1};
+function updProd(){
+  const p=find(PS.id);if(!p||!$("#pGal"))return;
+  const h=COL[PS.c][1];$("#pGal").style.background=stage(h);$("#pGal").innerHTML=bag(h,320,p.cat);$("#pColN").textContent=COL[PS.c][0];
+  $$("[data-act=pc]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.c===PS.c));
+  $$("[data-act=ps]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.s===PS.s));
+  $("#pQ").textContent=PS.q;
+}
+V.favoritos=()=>{const l=wish.map(find).filter(Boolean);return `<section class="blk"><div class="wrap"><h1 class="ttl">Mis favoritos</h1>${l.length?`<div class="grid-p">${l.map(p=>card(p,2)).join("")}</div>`:'<div class="panel"><p>Aún no guardaste productos. Toca el corazón de cualquier producto para verlo aquí.</p><a class="btn" href="#/catalogo">Ver catálogo</a></div>'}</div></section>`};
+
+/* ---- checkout ---- */
+let CK={step:1,zona:"lima"};
+V.checkout=()=>{
+  if(!cart.length)return `<section class="blk"><div class="wrap"><div class="panel"><h1 class="ttl">Tu carrito está vacío</h1><a class="btn" href="#/catalogo">Ir al catálogo</a></div></div></section>`;
+  CK={step:1,zona:"lima"};
+  return `<section class="blk"><div class="wrap"><h1 class="ttl">Finalizar compra</h1>
+  <ol class="steps" id="steps"><li><b>1</b>Datos</li><li><b>2</b>Entrega</li><li><b>3</b>Pago</li></ol>
+  <div class="checkout"><form class="panel" id="coForm" novalidate>
+   <div data-step="1"><h2 class="h" style="font-size:1.3rem">Tus datos</h2><p class="hint">Puedes comprar sin crear una cuenta.</p>
+    <div class="cols">${fld("nombre","Nombres y apellidos","text","name")}${fld("email","Correo electrónico","email","email","","Aquí enviaremos tu comprobante y el seguimiento.")}${fld("tel","Celular","tel","tel",'inputmode="numeric" maxlength="9"')}${sel("comp","Comprobante",["Boleta","Factura"])}</div>
+    <div id="fRazon" hidden>${fld("razon","Razón social","text","organization")}</div>
+    ${fld("doc","DNI","text","off",'inputmode="numeric" maxlength="11"')}
+    <button class="btn" type="submit">Continuar a entrega</button></div>
+   <div data-step="2" hidden><h2 class="h" style="font-size:1.3rem">Entrega</h2>
+    ${sel("zona","¿Cómo quieres recibir tu pedido?",[["lima","Lima Metropolitana · 2 a 3 días hábiles"],["prov","Provincias (agencia) · 4 a 7 días hábiles"],["rec","Recojo en taller · Villa El Salvador"]])}
+    <div id="fDist">${sel("dist","Distrito",DIST)}</div><div id="fDept" hidden>${sel("dept","Departamento",DEPT)}</div>
+    <div id="fDir">${fld("dir","Dirección","text","street-address")}${fld("ref","Referencia (opcional)","text","off")}</div>
+    <div id="fRec" class="note" hidden>Recogerás tu pedido en: Calle Solidaridad Mza. M-1 Lote 5, Parque Industrial Parcela II, Villa El Salvador. Te avisaremos cuando esté listo. <i>[Horario por definir]</i></div>
+    <div class="pw"><button class="btn ghost" type="button" data-act="back">Volver</button><button class="btn" type="submit">Continuar a pago</button></div></div>
+   <div data-step="3" hidden><h2 class="h" style="font-size:1.3rem">Pago</h2>
+    <div id="payErr"></div>
+    <label class="opt"><input type="radio" name="pago" value="Tarjeta" checked><span><b>Tarjeta de crédito o débito</b><span class="hint">Pago en la ventana segura de la pasarela, con 3D Secure.</span></span></label>
+    <label class="opt"><input type="radio" name="pago" value="Yape"><span><b>Yape</b><span class="hint">Pagas desde tu celular escaneando un código QR.</span></span></label>
+    <label class="opt"><input type="radio" name="pago" value="Plin"><span><b>Plin</b><span class="hint">Pagas desde tu app bancaria escaneando un código QR.</span></span></label>
+    <div class="note noteic">${ic("lock")}<span>En la tienda real, tus datos de tarjeta se ingresan solo en la pasarela (Culqi, Niubiz, Izipay u otra) certificada PCI-DSS. Esta tienda nunca los ve ni los guarda. En este prototipo el pago es simulado.</span></div>
+    ${chk("acPriv",'He leído y acepto la <a href="#/privacidad" target="_blank" rel="noopener">Política de Privacidad</a> y los <a href="#/terminos" target="_blank" rel="noopener">Términos y Condiciones</a>.')}
+    ${chk("acMkt","(Opcional) Deseo recibir promociones por correo o WhatsApp.")}
+    <div class="pw"><button class="btn ghost" type="button" data-act="back">Volver</button><button class="btn" type="submit" id="payBtn" style="flex:1">Pagar</button></div></div>
+  </form><aside class="panel sticky" id="ckSum" aria-label="Resumen del pedido"></aside></div></div></section>`;
+};
+function showStep(n){
+  CK.step=n;
+  $$("#coForm [data-step]").forEach(d=>d.hidden=Number(d.dataset.step)!==n);
+  $$("#steps li").forEach((li,k)=>{li.classList.toggle("done",k+1<n);if(k+1===n)li.setAttribute("aria-current","step");else li.removeAttribute("aria-current")});
+  const f=$("#coForm [data-step]:not([hidden]) input,#coForm [data-step]:not([hidden]) select");
+  if(n>1){$("#steps").scrollIntoView({block:"start"});}
+  f&&n>1&&f.focus({preventScroll:true});
+}
+function updSum(){
+  const el=$("#ckSum");if(!el)return;
+  const t=totals(CK.zona);
+  const mq=window.matchMedia("(min-width: 901px)");
+  const prev=el.querySelector("details");
+  const open=mq.matches||(prev?prev.open:false);
+  el.innerHTML=`<details class="sumd" ${open?"open":""}><summary><span class="tt">Resumen del pedido</span><span>${money(t.t)}</span></summary><div class="body"><ul class="sum">${cart.map(x=>{const p=find(x.id);return p?`<li><span class="nm">${esc(p.name)}<span class="hint">${COL[x.c][0]}${x.s?" · "+esc(x.s):""} · Cant. ${x.q}</span></span><span class="pr">${money(p.price*x.q)}</span></li>`:""}).join("")}</ul>
+  <div class="coupon"><input id="cpn" placeholder="Código de descuento" aria-label="Código de descuento" value="${esc(coupon)}"><button class="btn ghost sm" type="button" data-act="coupon">Aplicar</button></div><span class="err" id="e-cpn" role="alert"></span>
+  <div class="tot"><span>Subtotal</span><span>${money(t.sub)}</span></div>
+  ${t.d?`<div class="tot" style="color:var(--ok)"><span>Descuento (${COUPON.pct}%)</span><span>− ${money(t.d)}</span></div>`:""}
+  <div class="tot"><span>Envío</span><span>${t.sh?money(t.sh):"Gratis"}</span></div>
+  <div class="tot big"><span>Total</span><span>${money(t.t)}</span></div><p class="hint" style="margin:6px 0 0">Incluye IGV (18%): ${money(t.igv)}. Código de prueba: ${COUPON.code}</p></div></details>`;
+  const d=el.querySelector("details");d.addEventListener("toggle",()=>{if(window.matchMedia("(min-width: 901px)").matches&&!d.open)d.open=true});
+}
+function zonaUI(){
+  const z=$("#zona").value;CK.zona=z;
+  $("#fDist").hidden=z!=="lima";$("#fDept").hidden=z!=="prov";$("#fDir").hidden=z==="rec";$("#fRec").hidden=z!=="rec";
+  updSum();
+}
+function compUI(){
+  const f=$("#comp").value==="Factura";
+  $("#fRazon").hidden=!f;
+  $("label[for=doc]").textContent=f?"RUC":"DNI";$("#doc").maxLength=11;
+  setErr("doc","");
+}
+function readOrderData(){
+  const g=id=>{const e=$("#"+id);return e?e.value.trim():""};
+  return {nombre:g("nombre"),email:g("email"),tel:g("tel"),comp:g("comp"),razon:g("razon"),doc:g("doc"),zona:g("zona"),dist:g("dist"),dept:g("dept"),dir:g("dir"),ref:g("ref"),pago:($("input[name=pago]:checked")||{}).value||"Tarjeta",mkt:$("#acMkt").checked}
+}
+function submitCheckout(){
+  if(CK.step===1){
+    const fact=$("#comp").value==="Factura";
+    if(!checkForm([{id:"nombre",req:1},{id:"email",req:1,fn:vMail},{id:"tel",req:1,fn:vTel},{id:"razon",req:fact},{id:"doc",req:1,fn:fact?vRUC:v=>vDNI(v)}]))return;
+    showStep(2);
+  }else if(CK.step===2){
+    if(!checkForm([{id:"dir",req:CK.zona!=="rec"}]))return;
+    showStep(3);
+  }else{
+    if(!checkForm([{id:"acPriv",req:1,msg:"Debes aceptar para continuar"}]))return;
+    $("#payErr").innerHTML="";
+    const d=readOrderData(),t=totals(d.zona);
+    openModal(`<h2>Pasarela de pago (simulada)</h2><div class="note">Simulación para el prototipo. En la tienda real esta ventana es de la pasarela y la tienda nunca ve tus datos de tarjeta.</div><p style="margin:0"><b>Comercio:</b> Piarella Bags<br><b>Método:</b> ${esc(d.pago)}<br><b>Total a pagar:</b> ${money(t.t)}</p><div id="gw" style="margin-top:14px"><p class="spin">Conectando de forma segura…</p></div>`,"Pasarela de pago",true);
+    setTimeout(()=>{const g=$("#gw");if(!g)return;g.innerHTML=`<p>¿Qué resultado quieres simular?</p><div class="pw"><button class="btn" data-act="gw-ok">Pago aprobado</button><button class="btn ghost" data-act="gw-no">Pago rechazado</button></div>`;const b=g.querySelector("button");b&&b.focus()},1100);
+  }
+}
+function createOrder(){
+  const d=readOrderData(),t=totals(d.zona);
+  const seq=(store.get("pb2_seq",0)|0)+1;store.set("pb2_seq",seq);
+  const code=`PB-${new Date().getFullYear()}-${String(seq).padStart(5,"0")}`;
+  const items=cart.map(x=>{const p=find(x.id);return{id:x.id,name:p.name,c:COL[x.c][0],s:x.s,q:x.q,price:p.price}});
+  const o={code,fecha:new Date().toISOString(),cliente:d,items,sub:t.sub,desc:t.d,envio:t.sh,total:t.t,igv:t.igv,estado:ESTADOS[0]};
+  const orders=store.get("pb2_orders",[]);orders.push(o);store.set("pb2_orders",orders);
+  cart.forEach(x=>setStk(x.id,stk(x.id)-x.q));
+  cart=[];coupon="";store.set("pb2_coupon","");saveCart();
+  return code;
+}
+V.gracias=code=>{
+  const o=store.get("pb2_orders",[]).find(x=>x.code===code);
+  if(!o)return V.nf();
+  return `<section class="blk"><div class="wrap"><div class="panel"><div class="note ok" style="margin-top:0"><h1 class="ttl" style="margin:0 0 6px">¡Gracias por tu compra de prueba!</h1><p style="margin:0">Código de pedido: <b>${esc(o.code)}</b></p></div>
+  <p>En la tienda real recibirías en <b>${esc(o.cliente.email)}</b> tu ${esc(o.cliente.comp.toLowerCase())} electrónica y el enlace de seguimiento.</p>
+  <ul class="sum">${o.items.map(i=>`<li><span class="nm">${esc(i.name)}<span class="hint">${esc(i.c)}${i.s?" · "+esc(i.s):""} · Cant. ${i.q}</span></span><span class="pr">${money(i.price*i.q)}</span></li>`).join("")}</ul>
+  <div class="tot"><span>Envío</span><span>${o.envio?money(o.envio):"Gratis"}</span></div><div class="tot big"><span>Total</span><span>${money(o.total)}</span></div>
+  <p style="margin-top:18px" class="pw"><a class="btn" href="#/seguimiento/${encodeURIComponent(o.code)}">Seguir mi pedido</a><a class="btn ghost" href="#/catalogo">Seguir comprando</a></p></div></div></section>`;
+};
+V.seguimiento=code=>{
+  const o=code?store.get("pb2_orders",[]).find(x=>x.code.toLowerCase()===code.toLowerCase()):null;
+  let res="";
+  if(code&&!o)res=`<div class="note bad">No encontramos el pedido <b>${esc(code)}</b>. Revisa el código (ejemplo: PB-2026-00001).</div>`;
+  if(o){const idx=ESTADOS.indexOf(o.estado);res=`<div class="panel" style="margin-top:16px"><h2 class="h" style="font-size:1.2rem">Pedido ${esc(o.code)}</h2><p class="hint">Realizado el ${new Date(o.fecha).toLocaleDateString("es-PE")} · Total ${money(o.total)}</p><ol class="tl"><li class="on">Pedido recibido</li>${ESTADOS.map((e,k)=>`<li class="${k<=idx?"on":""}">${e}</li>`).join("")}</ol></div>`}
+  return `<section class="blk"><div class="wrap" style="max-width:720px"><h1 class="ttl">Seguimiento de pedido</h1><form class="panel" id="trForm" novalidate>${fld("trCode","Código de pedido","text","off","",'Lo recibes al finalizar tu compra, por ejemplo PB-2026-00001.')}<button class="btn" type="submit">Consultar</button></form>${res}</div></section>`;
+};
+
+/* ---- reclamos ---- */
+V.reclamos=()=>`<section class="blk"><div class="wrap" style="max-width:860px"><div class="panel legal"><h1 class="ttl">Libro de Reclamaciones</h1>
+ <p><b>Industrias Marzzelli Perú Cueros E.I.R.L.</b> · RUC 20603787952<br>Calle Solidaridad Mza. M-1 Lote 5, Z.I. Parque Industrial Parcela II, Villa El Salvador, Lima.</p>
+ <div class="note">Al enviar, se genera un código de seguimiento y se envía una copia al correo del consumidor. Plazo de respuesta: <i>[confirmar con la normativa vigente de Indecopi antes de publicar]</i>.</div>
+ <form id="rcForm" novalidate><h2>1. Identificación del consumidor</h2><div class="cols">${fld("r_nombre","Nombres y apellidos","text","name")}${fld("r_doc","DNI / CE","text","off",'inputmode="numeric" maxlength="12"')}${fld("r_dom","Domicilio","text","street-address")}${fld("r_email","Correo electrónico","email","email")}${fld("r_tel","Teléfono","tel","tel")}</div>
+ <h2>2. Bien contratado</h2><div class="cols">${sel("r_bien","Tipo",["Producto","Servicio"])}${fld("r_monto","Monto reclamado (S/)","text","off",'inputmode="decimal"')}</div>${fld("r_desc","Descripción del producto o servicio")}
+ <h2>3. Detalle</h2>${sel("r_tipo","Tipo",["Reclamo (disconformidad con el producto o servicio)","Queja (malestar con la atención)"])}${area("r_det","Detalle")}${area("r_ped","Pedido del consumidor")}
+ ${chk("r_ac",'Acepto el tratamiento de mis datos según la <a href="#/privacidad" target="_blank" rel="noopener">Política de Privacidad</a>.')}
+ <button class="btn" type="submit">Enviar reclamo</button></form><div id="rcOut" aria-live="polite"></div></div></div></section>`;
+
+/* ---- páginas informativas ---- */
+V.nosotros=()=>`<section class="blk"><div class="wrap" style="max-width:900px"><h1 class="ttl">Nosotros</h1><div class="panel"><p style="font-size:1.1rem">Piarella Bags es el nombre comercial de <b>Industrias Marzzelli Perú Cueros E.I.R.L.</b>, una empresa peruana dedicada a la fabricación y comercialización de artículos de marroquinería y cuero.</p>
+ <p>Confeccionamos carteras, mochilas, morrales, calzado, correas, billeteras y monederos, para dama y caballeros, en cuero o en tela textil combinada con cuero. Nuestro taller está en el Parque Industrial de Villa El Salvador, Lima.</p>
+ <h2 class="h" style="font-size:1.3rem;margin-top:26px">Datos de la empresa</h2>
+ <dl class="kv"><dt>Razón social</dt><dd>Industrias Marzzelli Perú Cueros E.I.R.L.</dd><dt>Nombre comercial</dt><dd>Piarella Bags</dd><dt>RUC</dt><dd>20603787952</dd><dt>Inicio de actividades</dt><dd>4 de agosto de 2019</dd><dt>Domicilio</dt><dd>Calle Solidaridad Mza. M-1 Lote 5, Z.I. Parque Industrial Parcela II, Villa El Salvador, Lima, Perú</dd><dt>Actividad</dt><dd>Fabricación de maletas, bolsos de mano y artículos similares, y artículos de talabartería y guarnicionería (CIIU 1512)</dd></dl>
+ <p style="margin-top:22px"><a class="btn" href="#/catalogo">Ver catálogo</a> <a class="btn ghost" href="#/contacto">Contáctanos</a></p></div></div></section>`;
+V.contacto=()=>`<section class="blk"><div class="wrap"><h1 class="ttl">Contacto</h1><div class="two"><div class="panel"><h2 class="h" style="font-size:1.2rem">Escríbenos</h2><form id="ctForm" novalidate>${fld("c_nombre","Nombre","text","name")}${fld("c_email","Correo electrónico","email","email")}${area("c_msg","Mensaje")}${chk("c_ac",'Acepto el tratamiento de mis datos según la <a href="#/privacidad" target="_blank" rel="noopener">Política de Privacidad</a>.')}<button class="btn" type="submit">Enviar mensaje</button></form><div id="ctOut" aria-live="polite"></div></div>
+ <div class="panel"><h2 class="h" style="font-size:1.2rem">Datos de contacto</h2><dl class="kv"><dt>Taller</dt><dd>Calle Solidaridad Mza. M-1 Lote 5, Z.I. Parque Industrial Parcela II, Villa El Salvador, Lima</dd><dt>Teléfono / WhatsApp</dt><dd>[por definir]</dd><dt>Correo</dt><dd>[por definir]</dd><dt>Horario</dt><dd>[por definir]</dd></dl><div class="note" style="margin-top:18px">También puedes usar el <a href="#/reclamos">Libro de Reclamaciones</a> o <a href="#/seguimiento">seguir tu pedido</a>.</div></div></div></div></section>`;
+const FAQ=[
+ ["¿Cómo compro?","Elige tu producto, color y talla, agrégalo al carrito y completa tus datos, entrega y pago. No necesitas crear una cuenta."],
+ ["¿Qué medios de pago aceptan?","Tarjetas de crédito y débito, Yape y Plin, a través de una pasarela de pago segura."],
+ ["¿Cuánto demora mi pedido?","Lima: 2 a 3 días hábiles. Provincias: 4 a 7 días hábiles, desde la confirmación del pago."],
+ ["¿Puedo recoger mi pedido en el taller?","Sí, en Villa El Salvador. Te avisamos cuando esté listo."],
+ ["¿Emiten boleta o factura?","Sí. Elige el comprobante en el paso de datos; para factura necesitas un RUC válido."],
+ ["¿Cómo elijo mi talla o medida?","En los productos de calzado y correas encontrarás una guía de tallas y medidas junto a las opciones."],
+ ["¿Cómo cuido mi producto de cuero?","Evita la humedad prolongada, límpialo con un paño suave y seco y guárdalo en un lugar ventilado. [Confirmar con el taller]"],
+ ["¿Cómo hago un cambio o un reclamo?","Revisa la política de cambios o usa el Libro de Reclamaciones disponible en esta web."]
+];
+V.faq=()=>`<section class="blk"><div class="wrap" style="max-width:820px"><h1 class="ttl">Preguntas frecuentes</h1><div class="panel">${FAQ.map(f=>`<details class="acc"><summary>${esc(f[0])}</summary><div class="b">${esc(f[1])}</div></details>`).join("")}</div></div></section>`;
+V.envios=()=>legal("Envíos y plazos",[["Cobertura","Enviamos a Lima Metropolitana y a provincias. También puedes recoger tu pedido en el taller de Villa El Salvador."],["Plazos","Lima: 2 a 3 días hábiles. Provincias: 4 a 7 días hábiles, contados desde la confirmación del pago."],["Costos",`Lima ${money(ZONAS.lima.p)}, provincias ${money(ZONAS.prov.p)}. Envío gratis desde ${money(FREE)} (monto de ejemplo). El costo se muestra antes de pagar.`],["Seguimiento","Con tu código de pedido puedes consultar el estado en la sección Seguimiento."]]);
+V.cambios=()=>legal("Cambios y devoluciones",[["Cambios","[Por definir con la dueña: plazo, estado del producto y quién asume el costo del envío.]"],["Garantía","Por defectos de fabricación, conforme a la normativa de protección al consumidor."],["Cómo solicitarlo","Escríbenos con tu código de pedido o usa el Libro de Reclamaciones."]]);
+V.terminos=()=>legal("Términos y condiciones",[["1. Titular del sitio","Industrias Marzzelli Perú Cueros E.I.R.L. (Piarella Bags), RUC 20603787952."],["2. Proceso de compra","Las compras están sujetas a disponibilidad de stock y a la confirmación del pago."],["3. Precios","Los precios se muestran en soles e incluyen IGV. Ante errores evidentes de precio, la empresa podrá corregirlos antes de confirmar el pedido."],["4. Envíos, cambios y garantías","Se rigen por las políticas publicadas en esta web."],["5. Comprobantes","Se emite boleta o factura electrónica según los datos ingresados por el cliente."],["6. Propiedad intelectual","Las marcas, fotografías y diseños pertenecen a la empresa."],["7. Uso del sitio","El usuario se compromete a brindar información veraz y a no usar el sitio con fines ilícitos."],["8. Libro de Reclamaciones","El consumidor puede registrar reclamos y quejas en el Libro de Reclamaciones virtual."]]);
+V.privacidad=()=>legal("Política de privacidad",[["Responsable","Industrias Marzzelli Perú Cueros E.I.R.L., RUC 20603787952, Calle Solidaridad Mza. M-1 Lote 5, Villa El Salvador, Lima."],["Datos que recopilamos","Nombre, documento de identidad, correo, teléfono y dirección, y los datos de reclamos y mensajes que nos envíes."],["Finalidades","Procesar pedidos, emitir comprobantes, coordinar envíos, atender consultas y reclamos. Con tu autorización expresa y separada: enviarte promociones."],["Pagos","No almacenamos datos de tarjetas. Los procesa la pasarela de pagos."],["Terceros","Podemos compartir datos estrictamente necesarios con la pasarela de pago, el servicio de envío y el proveedor de facturación electrónica."],["Conservación","[Por definir: plazo de conservación de los datos.]"],["Tus derechos","Acceso, rectificación, cancelación y oposición, conforme a la Ley N.° 29733 y su reglamento vigente. Para ejercerlos: [correo por definir]."],["Banco de datos","[Verificar con un abogado el registro del banco de datos ante la autoridad competente.]"]]);
+V.cookies=()=>legal("Política de cookies",[["Necesarias","Permiten que el carrito, la compra y la seguridad funcionen. No se pueden desactivar."],["Analíticas","Nos ayudan a entender cómo se usa la tienda. Solo se activan si lo permites."],["Marketing","Permiten mostrarte publicidad relevante. Solo se activan si lo permites."],["Cambiar tu elección","Puedes modificarla en cualquier momento desde “Preferencias de cookies” en el pie de página."]],`<p><button class="btn" data-act="ck-cfg">Preferencias de cookies</button></p>`);
+V.nf=()=>`<section class="blk"><div class="wrap"><div class="panel"><h1 class="ttl">Página no encontrada</h1><p>El enlace no existe o el producto ya no está disponible.</p><a class="btn" href="#/">Volver al inicio</a></div></div></section>`;
+
+/* ---- admin (demo) ---- */
+V.admin=()=>{
+  if(sess.get("pb2_admin")!=="1"){
+    const step=sess.get("pb2_adm1")==="1"?2:1;
+    return `<section class="blk"><div class="wrap" style="max-width:460px"><div class="panel"><h1 class="ttl" style="font-size:1.6rem">Panel del administrador</h1><div class="note">Vista de demostración. En la web real: usuario y contraseña seguros, <b>verificación en dos pasos (2FA)</b>, roles y registro de actividad.</div>
+    ${step===1?`<form id="adForm1" novalidate>${fld("a_user","Correo","email","username")}${fld("a_pass","Contraseña","password","current-password")}<button class="btn block" type="submit">Continuar</button><p class="hint">Demo: cualquier correo y contraseña.</p></form>`:`<form id="adForm2" novalidate>${fld("a_code","Código de verificación (6 dígitos)","text","one-time-code",'inputmode="numeric" maxlength="6"',"Demo: 123456")}<button class="btn block" type="submit">Ingresar</button></form>`}</div></div></section>`;
+  }
+  const orders=store.get("pb2_orders",[]),rc=store.get("pb2_reclamos",[]),msgs=store.get("pb2_msgs",[]),subs=store.get("pb2_news",[]);
+  const ventas=orders.reduce((a,o)=>a+o.total,0);
+  return `<section class="blk"><div class="wrap"><div class="pw" style="justify-content:space-between"><h1 class="ttl" style="margin:0">Panel del administrador</h1><button class="btn ghost sm" data-act="adout">Cerrar sesión</button></div>
+  <div class="note">Vista de demostración: muestra lo que haría el dueño. Los datos son los de las compras y reclamos de prueba hechos en este navegador.</div>
+  <div class="kpis"><div><b>${money(ventas)}</b><span>Ventas (pruebas)</span></div><div><b>${orders.length}</b><span>Pedidos</span></div><div><b>${rc.filter(r=>r.estado!=="Atendido").length}</b><span>Reclamos pendientes</span></div><div><b>${P.filter(p=>stk(p.id)<=0).length}</b><span>Productos agotados</span></div><div><b>${subs.length}</b><span>Suscriptores (con permiso)</span></div></div>
+  <h2 class="h" style="font-size:1.3rem">Pedidos</h2><div class="tbl"><table><thead><tr><th>Código</th><th>Fecha</th><th>Cliente</th><th>Total</th><th>Estado</th></tr></thead><tbody>${orders.length?orders.slice().reverse().map(o=>`<tr><td>${esc(o.code)}</td><td>${new Date(o.fecha).toLocaleDateString("es-PE")}</td><td>${esc(o.cliente.nombre)}<br><span class="hint">${esc(o.cliente.comp)} · ${esc(ZONAS[o.cliente.zona].n)}</span></td><td>${money(o.total)}</td><td><select data-act="ostate" data-code="${esc(o.code)}" aria-label="Estado del pedido ${esc(o.code)}">${ESTADOS.map(e=>`<option ${e===o.estado?"selected":""}>${e}</option>`).join("")}</select></td></tr>`).join(""):'<tr><td colspan="5">Aún no hay pedidos. Haz una compra de prueba.</td></tr>'}</tbody></table></div>
+  <h2 class="h" style="font-size:1.3rem;margin-top:28px">Libro de reclamaciones</h2><div class="tbl"><table><thead><tr><th>Código</th><th>Fecha</th><th>Consumidor</th><th>Tipo</th><th>Estado</th></tr></thead><tbody>${rc.length?rc.slice().reverse().map(r=>`<tr><td>${esc(r.code)}</td><td>${new Date(r.fecha).toLocaleDateString("es-PE")}</td><td>${esc(r.nombre)}<br><span class="hint">${esc(r.email)}</span></td><td>${esc(r.tipo.split(" ")[0])}</td><td><select data-act="rstate" data-code="${esc(r.code)}" aria-label="Estado del reclamo ${esc(r.code)}"><option ${r.estado!=="Atendido"?"selected":""}>Pendiente</option><option ${r.estado==="Atendido"?"selected":""}>Atendido</option></select></td></tr>`).join(""):'<tr><td colspan="5">Sin reclamos.</td></tr>'}</tbody></table></div>
+  <h2 class="h" style="font-size:1.3rem;margin-top:28px">Inventario</h2><div class="tbl"><table><thead><tr><th>Producto</th><th>Categoría</th><th>Precio</th><th>Stock</th></tr></thead><tbody>${P.map(p=>`<tr><td>${esc(p.name)}</td><td>${p.cat} · ${p.gen}</td><td>${money(p.price)}</td><td><input type="number" min="0" max="999" value="${stk(p.id)}" data-act="stock" data-id="${p.id}" aria-label="Stock de ${esc(p.name)}"></td></tr>`).join("")}</tbody></table></div>
+  <p class="hint" style="margin-top:12px">Mensajes de contacto recibidos: ${msgs.length}</p></div></section>`;
+};
+
+/* ============ router ============ */
 function route(keep){
-  var h=location.hash.replace(/^#\/?/,"");var parts=h.split("/");var r=parts[0]||"home";
-  var app=$("#app");var html;
-  if(r==="catalogo"&&!keep){var q=parts[1]?decodeURIComponent(parts[1]):"Todos";catSel=CATS.indexOf(q)>-1?q:"Todos";genSel="Todos"}
+  clearInterval(sl.t);
+  let parts;try{parts=location.hash.replace(/^#\/?/,"").split("/").map(decodeURIComponent)}catch(e){parts=["x"]}
+  const r=parts[0]||"home";
+  if(r==="catalogo"&&!keep){
+    F=F0();
+    if(parts[1]==="cat"&&CATS.includes(parts[2]))F.cat=parts[2];
+    if(parts[1]==="gen"&&["Dama","Caballeros"].includes(parts[2]))F.gen=parts[2];
+    if(parts[1]==="mat"&&["Cuero","Tela y cuero"].includes(parts[2]))F.mat=parts[2];
+    if(pendingQ!==null){F.q=pendingQ;pendingQ=null}
+  }
+  let html;
   if(r==="producto")html=V.producto(parts[1]);
   else if(r==="gracias")html=V.gracias(parts[1]);
-  else if(V[r]&&r!=="notfound")html=V[r]();
-  else html=V.notfound();
-  app.innerHTML=html;
-  $$("nav.main a").forEach(function(a){a.removeAttribute("aria-current");if(a.dataset.r===r)a.setAttribute("aria-current","page")});
+  else if(r==="seguimiento")html=V.seguimiento(parts[1]);
+  else if(V[r]&&r!=="nf")html=V[r]();
+  else html=V.nf();
+  const app=$("#app");app.innerHTML=html;
+  const navKey=r==="catalogo"&&F.gen==="Dama"&&F.cat==="Todos"&&!F.q?"dama":r==="catalogo"&&F.gen==="Caballeros"&&F.cat==="Todos"&&!F.q?"cab":r;
+  $$("nav.main a").forEach(a=>{if(a.dataset.r===navKey)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
   $("#nav").classList.remove("open");$("#menuBtn").setAttribute("aria-expanded","false");
   closeCart();
-  if(r==="checkout"&&cart.length)wireCheckout();
-  if(r==="reclamos")wireReclamo();
-  if(!keep)window.scrollTo(0,0);
-  var t=app.querySelector("h1");document.title=(t?t.textContent+" – ":"")+"Piarella Bags – Prototipo";
+  if(r==="catalogo"){$("#fg").value=F.gen;$("#fm").value=F.mat;$("#fp").value=String(F.max);$("#fs").value=F.sort;updCat()}
+  if(r==="checkout"&&cart.length){showStep(1);updSum()}
+  if(r==="home"){slideAuto();const s=$("#slider");s.addEventListener("mouseenter",()=>clearInterval(sl.t));s.addEventListener("mouseleave",slideAuto);s.addEventListener("focusin",()=>clearInterval(sl.t))}
+  if(!keep){window.scrollTo(0,0);app.focus({preventScroll:true})}
+  const h1=app.querySelector("h1");document.title=(h1&&r!=="home"?h1.textContent+" – ":"")+"Piarella Bags";
 }
 
-/* ---------- eventos globales ---------- */
-document.addEventListener("click",function(e){
-  var t=e.target.closest("[data-add],[data-cat],[data-gen],[data-q],[data-rm]");
-  if(t){
-    if(t.dataset.add){addToCart(Number(t.dataset.add))}
-    else if(t.dataset.cat){catSel=t.dataset.cat;route(true)}
-    else if(t.dataset.gen){genSel=t.dataset.gen;route(true)}
-    else if(t.dataset.q){setQty(Number(t.dataset.id),Number(t.dataset.q))}
-    else if(t.dataset.rm){removeItem(Number(t.dataset.rm))}
+/* ============ eventos ============ */
+let PSstock=null;
+function adminState(){return sess.get("pb2_admin")==="1"}
+document.addEventListener("click",e=>{
+  const t=e.target.closest("[data-act]");
+  if(e.target.id==="dbg"){closeCart();return}
+  if(e.target.id==="modal"&&!modalLock){closeModal();return}
+  if(!t)return;
+  const a=t.dataset.act;
+  switch(a){
+    case"search":openModal(`<h2>Buscar</h2><form id="sForm" role="search"><label for="sq" class="hint">¿Qué estás buscando?</label><input id="sq" type="search" placeholder="Ej.: billetera, mochila, sandalia" autocomplete="off"></form><div class="sres" id="sRes" style="margin-top:10px"></div><p class="hint">Presiona Enter para ver todos los resultados.</p>`,"Buscar");break;
+    case"cart":openCart();break;
+    case"cart-close":closeCart();break;
+    case"cq":{const it=cart.find(x=>x.k===t.dataset.k);if(it){const d=Number(t.dataset.d);if(d>0&&it.q>=Math.min(10,stk(it.id))){toast("Stock máximo alcanzado");break}it.q+=d;cart=cart.filter(x=>x.q>0);saveCart()}break}
+    case"crm":cart=cart.filter(x=>x.k!==t.dataset.k);saveCart();break;
+    case"wish":{const id=Number(t.dataset.id);toggleW(id);const on=isW(id);$$(`[data-act=wish][data-id="${id}"]`).forEach(b=>{b.setAttribute("aria-pressed",on);b.innerHTML=heartI(on)});if(location.hash==="#/favoritos")route(true);break}
+    case"qadd":{const p=find(t.dataset.id);if(p&&addCart(p.id,p.col[0],null,1)){toast("Agregado al carrito")}break}
+    case"fcat":F.cat=t.dataset.v;updCat();break;
+    case"clearq":F.q="";updCat();break;
+    case"reset":F=F0();$("#fg").value="Todos";$("#fm").value="Todos";$("#fp").value="0";$("#fs").value="rel";updCat();break;
+    case"pc":PS.c=t.dataset.c;updProd();break;
+    case"ps":PS.s=t.dataset.s;$("#pErr").textContent="";updProd();break;
+    case"pq":PS.q=Math.min(10,Math.max(1,PS.q+Number(t.dataset.d)));updProd();break;
+    case"padd":{const p=find(PS.id);if(sizesOf(p)&&!PS.s){$("#pErr").textContent=p.cat==="Calzado"?"Elige una talla para continuar":"Elige una medida para continuar";const b=$("[data-act=ps]");b&&b.focus();break}
+      if(addCart(PS.id,PS.c,PS.s,PS.q))openCart();break}
+    case"guide":openModal(t.dataset.cat==="Calzado"?`<h2>Guía de tallas</h2><p class="hint">Largo del pie en centímetros (referencial, por confirmar con el taller). Apoya tu pie en una hoja, marca talón y dedo más largo y mide.</p><div class="tbl"><table><thead><tr><th>Talla</th><th>Largo del pie</th></tr></thead><tbody>${[["36","22.8"],["37","23.5"],["38","24.2"],["39","24.8"],["40","25.5"],["41","26.2"],["42","26.8"],["43","27.5"],["44","28.2"]].map(r=>`<tr><td>${r[0]}</td><td>${r[1]} cm</td></tr>`).join("")}</tbody></table></div><p><button class="btn" data-act="mclose">Entendido</button></p>`:`<h2>Guía de medidas</h2><p>Mide una correa que ya te quede bien: desde el extremo de la hebilla hasta el hueco que usas habitualmente. Esa es la medida que debes elegir.</p><p class="hint">[Confirmar medidas con el taller]</p><p><button class="btn" data-act="mclose">Entendido</button></p>`,"Guía");break;
+    case"mclose":closeModal();break;
+    case"back":showStep(CK.step-1);break;
+    case"coupon":{const v=($("#cpn").value||"").trim().toUpperCase();if(v===COUPON.code){coupon=v;store.set("pb2_coupon",v);updSum();toast("Descuento aplicado")}else{coupon="";store.set("pb2_coupon","");updSum();$("#e-cpn").textContent=v?"Código no válido":""}break}
+    case"gw-ok":{const code=createOrder();closeModal();location.hash="#/gracias/"+code;break}
+    case"gw-no":closeModal();showStep(3);$("#payErr").innerHTML='<div class="note bad" role="alert"><b>El pago fue rechazado.</b> No se hizo ningún cargo. Puedes intentar de nuevo o elegir otro método de pago.</div>';break;
+    case"spause":sl.paused=!sl.paused;t.innerHTML=ic(sl.paused?"play":"pause");t.setAttribute("aria-label",(sl.paused?"Reanudar":"Pausar")+" carrusel");if(sl.paused)clearInterval(sl.t);else slideAuto();break;
+    case"sprev":slideTo(sl.i-1);slideAuto();break;
+    case"snext":slideTo(sl.i+1);slideAuto();break;
+    case"sgo":slideTo(Number(t.dataset.i));slideAuto();break;
+    case"ck-all":store.set("pb2_ck",{a:1,m:1});setCk(false);toast("Preferencias guardadas");break;
+    case"ck-nec":store.set("pb2_ck",{a:0,m:0});setCk(false);toast("Preferencias guardadas");break;
+    case"ck-cfg":{const c=store.get("pb2_ck",{a:0,m:0});openModal(`<h2>Preferencias de cookies</h2><div class="opt" style="cursor:default"><input type="checkbox" checked disabled aria-label="Necesarias"><span><b>Necesarias</b><span class="hint">Siempre activas: carrito, compra y seguridad.</span></span></div><label class="opt"><input type="checkbox" id="ckA" ${c.a?"checked":""}><span><b>Analíticas</b><span class="hint">Nos ayudan a mejorar la tienda.</span></span></label><label class="opt"><input type="checkbox" id="ckM" ${c.m?"checked":""}><span><b>Marketing</b><span class="hint">Publicidad personalizada.</span></span></label><p class="pw"><button class="btn" data-act="ck-save">Guardar</button><button class="btn ghost" data-act="mclose">Cancelar</button></p>`,"Cookies");break}
+    case"ck-save":store.set("pb2_ck",{a:$("#ckA").checked?1:0,m:$("#ckM").checked?1:0});closeModal();setCk(false);toast("Preferencias guardadas");break;
+    case"adout":sess.del("pb2_admin");sess.del("pb2_adm1");route();break;
   }
 });
-$("#cartBtn").addEventListener("click",openCart);
-$("#closeCart").addEventListener("click",closeCart);
-$("#bg").addEventListener("click",closeCart);
-document.addEventListener("keydown",function(e){if(e.key==="Escape")closeCart()});
-$("#menuBtn").addEventListener("click",function(){var n=$("#nav");var o=n.classList.toggle("open");this.setAttribute("aria-expanded",o)});
-$("#ckOk").addEventListener("click",function(){store.set("pb_ck",1);$("#cookie").classList.remove("show")});
-window.addEventListener("hashchange",function(){route()});
+document.addEventListener("change",e=>{
+  const t=e.target;
+  if(t.dataset.f){const k=t.dataset.f;F[k]=k==="max"?Number(t.value):t.value;updCat();return}
+  if(t.id==="zona"){zonaUI();return}
+  if(t.id==="comp"){compUI();return}
+  if(t.dataset.act==="ostate"){const o=store.get("pb2_orders",[]);const x=o.find(y=>y.code===t.dataset.code);if(x){x.estado=t.value;store.set("pb2_orders",o);toast("Estado actualizado")}return}
+  if(t.dataset.act==="rstate"){const o=store.get("pb2_reclamos",[]);const x=o.find(y=>y.code===t.dataset.code);if(x){x.estado=t.value;store.set("pb2_reclamos",o);route(true);toast("Estado actualizado")}return}
+  if(t.dataset.act==="stock"){setStk(Number(t.dataset.id),Number(t.value)||0);route(true);toast("Stock actualizado")}
+});
+document.addEventListener("input",e=>{
+  if(e.target.id==="sq"){
+    const q=norm(e.target.value.trim());const el=$("#sRes");
+    if(!q){el.innerHTML="";return}
+    const l=P.filter(p=>norm(`${p.name} ${p.cat} ${p.gen} ${p.mat}`).includes(q)).slice(0,6);
+    el.innerHTML=l.length?l.map(p=>`<a href="#/producto/${p.id}" data-act="mclose"><span class="mini" style="background:${tint(hex(p))}">${bag(hex(p),44,p.cat)}</span><span><b>${esc(p.name)}</b><br><span class="hint">${p.cat} · ${p.gen} · ${money(p.price)}</span></span></a>`).join(""):'<p class="hint">Sin resultados.</p>';
+  }
+});
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape"){if($("#modal").classList.contains("open")&&!modalLock)closeModal();else closeCart()}
+  if(e.key==="Tab"&&$("#drawer").classList.contains("open")){
+    const f=$$("#drawer button:not([disabled]),#drawer a[href],#drawer input,#drawer select").filter(x=>x.getClientRects().length);
+    if(f.length){const a=f[0],z=f[f.length-1];
+      if(!$("#drawer").contains(document.activeElement)){e.preventDefault();a.focus()}
+      else if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus()}
+      else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus()}}
+  }
+  if(e.key==="Tab"&&$("#modal").classList.contains("open")){
+    const f=$$("#mbox button:not([disabled]),#mbox input:not([disabled]),#mbox select,#mbox a[href]");if(!f.length)return;
+    const a=f[0],z=f[f.length-1];
+    if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus()}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus()}
+  }
+});
+document.addEventListener("submit",e=>{
+  e.preventDefault();const id=e.target.id;
+  if(id==="sForm"){const v=$("#sq").value.trim();closeModal();pendingQ=v;if(location.hash==="#/catalogo")route();else location.hash="#/catalogo"}
+  else if(id==="coForm")submitCheckout();
+  else if(id==="trForm"){if(checkForm([{id:"trCode",req:1}])){const c=$("#trCode").value.trim();const h="#/seguimiento/"+encodeURIComponent(c);if(location.hash===h)route();else location.hash=h}}
+  else if(id==="nlForm"){
+    if(!checkForm([{id:"nlEmail",req:1,fn:vMail},{id:"nlAc",req:1,msg:"Necesitamos tu autorización"}]))return;
+    const s=store.get("pb2_news",[]);s.push({email:$("#nlEmail").value.trim(),fecha:new Date().toISOString()});store.set("pb2_news",s);e.target.reset();toast("¡Gracias por suscribirte!");
+  }
+  else if(id==="ctForm"){
+    if(!checkForm([{id:"c_nombre",req:1},{id:"c_email",req:1,fn:vMail},{id:"c_msg",req:1},{id:"c_ac",req:1,msg:"Debes aceptar para continuar"}]))return;
+    const m=store.get("pb2_msgs",[]);m.push({nombre:$("#c_nombre").value.trim(),email:$("#c_email").value.trim(),msg:$("#c_msg").value.trim(),fecha:new Date().toISOString()});store.set("pb2_msgs",m);
+    $("#ctOut").innerHTML='<div class="note ok">¡Gracias! Recibimos tu mensaje y te responderemos pronto.</div>';e.target.reset();
+  }
+  else if(id==="rcForm"){
+    if(!checkForm([{id:"r_nombre",req:1},{id:"r_doc",req:1,fn:v=>/^[A-Za-z0-9]{8,12}$/.test(v)?"":"Documento no válido"},{id:"r_dom",req:1},{id:"r_email",req:1,fn:vMail},{id:"r_tel",req:1,fn:v=>/^\+?\d{7,12}$/.test(v)?"":"Teléfono no válido"},{id:"r_desc",req:1},{id:"r_det",req:1},{id:"r_ped",req:1},{id:"r_ac",req:1,msg:"Debes aceptar para continuar"}]))return;
+    const list=store.get("pb2_reclamos",[]);const code=`HR-${new Date().getFullYear()}-${String(list.length+1).padStart(4,"0")}`;
+    list.push({code,fecha:new Date().toISOString(),nombre:$("#r_nombre").value.trim(),email:$("#r_email").value.trim(),tipo:$("#r_tipo").value,det:$("#r_det").value.trim(),estado:"Pendiente"});store.set("pb2_reclamos",list);
+    $("#rcOut").innerHTML=`<div class="note ok"><b>Reclamo registrado.</b> Código de seguimiento: <b>${esc(code)}</b>. En la web real se enviaría una copia a <b>${esc($("#r_email").value.trim())}</b>.</div>`;
+    e.target.reset();$("#rcOut").scrollIntoView({behavior:"smooth",block:"center"});
+  }
+  else if(id==="adForm1"){if(checkForm([{id:"a_user",req:1,fn:vMail},{id:"a_pass",req:1}])){sess.set("pb2_adm1","1");route()}}
+  else if(id==="adForm2"){
+    if(!checkForm([{id:"a_code",req:1,fn:v=>v==="123456"?"":"Código incorrecto (demo: 123456)"}]))return;
+    sess.set("pb2_admin","1");sess.del("pb2_adm1");route();
+  }
+});
+$("#menuBtn").addEventListener("click",function(){const o=$("#nav").classList.toggle("open");this.setAttribute("aria-expanded",o)});
+window.addEventListener("hashchange",()=>route());
+try{window.matchMedia("(min-width: 901px)").addEventListener("change",()=>{if($("#ckSum"))updSum()})}catch(e){}
 $("#yr").textContent=new Date().getFullYear();
-if(!store.get("pb_ck",0))$("#cookie").classList.add("show");
-updateCart();route();
+if(!store.get("pb2_ck",null))setCk(true);
+window.addEventListener("error",e=>{try{console.error("PB error:",e.message)}catch(_){}});
+updCart();route();
 })();
 </script>
 </body>
