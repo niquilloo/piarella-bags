@@ -501,7 +501,7 @@ footer.site::before{content:"";display:block;height:3px;background:linear-gradie
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><filter id="lth" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="4" result="n"/><feDiffuseLighting in="n" lighting-color="#fff" surfaceScale="1.0" result="l"><feDistantLight azimuth="235" elevation="58"/></feDiffuseLighting><feComposite in="SourceGraphic" in2="l" operator="arithmetic" k1="1.08" k2=".06" k3="0" k4="0" result="c"/><feComposite in="c" in2="SourceGraphic" operator="in"/></filter></defs></svg>
 <a class="skip" href="#app">Saltar al contenido</a>
-<div class="top" role="note"><b>Versión de demostración</b> · Pagos simulados · Los datos se guardan solo en este navegador</div>
+<div class="top" role="note"><b>Envíos a todo el Perú</b> · Pedidos y pagos por Yape, Plin o transferencia · Atención por WhatsApp</div>
 
 <header class="site">
   <div class="wrap hd">
@@ -533,7 +533,7 @@ footer.site::before{content:"";display:block;height:3px;background:linear-gradie
         <div class="flogo"><svg class="lg" width="36" height="36" viewBox="0 0 120 120" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="4" width="112" height="112" rx="24" fill="#7b1226" stroke="#c1121f" stroke-width="3"/><rect x="11" y="11" width="98" height="98" rx="18" fill="none" stroke="#ffc2c7" stroke-width="1.6" stroke-dasharray="4 3" stroke-linecap="round"/><g transform="translate(60 56) scale(1.12) translate(-54 -50)"><path d="M53 22V78M53 22H63a12.5 12.5 0 0 1 0 25H53M53 47H67a15.5 15.5 0 0 1 0 31H53" fill="none" stroke="#eceef0" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><path d="M24 22V78M24 22H41a14 14 0 0 1 0 28H24" fill="none" stroke="#7b1226" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/><path d="M24 22V78M24 22H41a14 14 0 0 1 0 28H24" fill="none" stroke="#eceef0" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></g><path d="M60 96l3.6 4.4L60 105l-3.6-4.6z" fill="#c1121f"/></svg><span>PIARELLA<small>BAGS · CUERO PERUANO</small></span></div>
         <h4>Industrias Marzzelli Perú Cueros E.I.R.L.</h4>
         <p style="margin:0 0 8px">Nombre comercial: Piarella Bags<br>RUC 20603787952<br>Calle Solidaridad Mza. M-1 Lote 5, Z.I. Parque Industrial Parcela II, Villa El Salvador, Lima, Perú</p>
-        <div class="pay" aria-label="Medios de pago"><span>Visa</span><span>Mastercard</span><span>Yape</span><span>Plin</span></div>
+        <div class="pay" aria-label="Medios de pago"><span>Yape</span><span>Plin</span><span>Transferencia</span></div>
       </div>
       <div>
         <h4>Tienda</h4>
@@ -566,11 +566,11 @@ footer.site::before{content:"";display:block;height:3px;background:linear-gradie
         </form>
       </div>
     </div>
-    <div class="copy">© <span id="yr"></span> Industrias Marzzelli Perú Cueros E.I.R.L. Todos los derechos reservados. Precios en soles, incluyen IGV. · Prototipo con productos y textos de ejemplo; los textos legales son borradores sujetos a revisión legal. · <a href="#/admin">Acceso administrador (demo)</a></div>
+    <div class="copy">© <span id="yr"></span> Industrias Marzzelli Perú Cueros E.I.R.L. Todos los derechos reservados. Precios en soles, incluyen IGV. · Los textos legales son borradores sujetos a revisión legal.</div>
   </div>
 </footer>
 
-<a class="help" href="#/contacto" aria-label="Ayuda y contacto"><svg class="i " viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h16v11H9l-5 4z"/></svg><span class="t">Ayuda</span></a>
+<a class="help" href="#" id="waFloat" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp"><svg class="i " viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h16v11H9l-5 4z"/></svg><span class="t">Ayuda</span></a>
 
 <div class="dbg" id="dbg"></div>
 <aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Carrito de compras" aria-hidden="true">
@@ -642,7 +642,9 @@ const ZONAS={lima:{n:"Lima Metropolitana",p:12,t:"2 a 3 días hábiles"},prov:{n
 const FREE=250;
 const DIST=["Villa El Salvador","Villa María del Triunfo","San Juan de Miraflores","Chorrillos","Santiago de Surco","Miraflores","San Isidro","San Borja","La Molina","Lince","Jesús María","Magdalena","Pueblo Libre","San Miguel","Callao","Los Olivos","San Martín de Porras","Independencia","Comas","Ate","San Juan de Lurigancho","Lurín","Pachacámac","Otro distrito de Lima"];
 const DEPT=["Amazonas","Áncash","Apurímac","Arequipa","Ayacucho","Cajamarca","Cusco","Huancavelica","Huánuco","Ica","Junín","La Libertad","Lambayeque","Loreto","Madre de Dios","Moquegua","Pasco","Piura","Puno","San Martín","Tacna","Tumbes","Ucayali"];
-const ESTADOS=["Pago confirmado","En preparación","Enviado","Entregado"];
+const ESTADOS=["Pendiente de pago","Pago confirmado","En preparación","Enviado","Entregado"];
+/* ===== DATOS DEL NEGOCIO: EDITAR AQUÍ ===== */
+const CFG={wa:"51900000000",waShow:"900 000 000",yape:"900 000 000",plin:"900 000 000",titular:"Industrias Marzzelli Perú Cueros E.I.R.L.",banco:"[Banco y número de cuenta / CCI]",horario:"Lunes a sábado, 9:00 a 18:00"};
 const COUPON={code:"BIENVENIDA10",pct:10};
 const find=id=>P.find(p=>p.id===Number(id));
 const hex=p=>COL[p.col[0]][1];
@@ -705,7 +707,7 @@ function updCart(){
       return `<li><div style="display:flex;gap:10px"><div class="mini" style="background:${tint(h)}">${bag(h,44,p.cat)}</div><div><strong>${esc(p.name)}</strong><br><span class="hint">${COL[x.c][0]}${x.s?" · "+esc(x.s):""}</span><br><span class="qty" style="margin-top:4px"><button data-act="cq" data-k="${esc(x.k)}" data-d="-1" aria-label="Quitar uno">−</button><span>${x.q}</span><button data-act="cq" data-k="${esc(x.k)}" data-d="1" aria-label="Agregar uno">+</button></span> <button class="link red" data-act="crm" data-k="${esc(x.k)}">Eliminar</button></div></div><strong>${money(p.price*x.q)}</strong></li>`}).join("")+"</ul>";
     f.innerHTML=`<div class="tot"><span>Subtotal (incl. IGV)</span><strong>${money(subtotal())}</strong></div><p class="hint">Envío y descuentos se calculan en el siguiente paso.</p><a class="btn block" href="#/checkout" data-act="cart-close">Ir a pagar</a>`;
   }
-  if(location.hash.startsWith("#/checkout")&&$("#ckSum"))updSum();
+  if(curHash().startsWith("#/checkout")&&$("#ckSum"))updSum();
 }
 let lastF=null;
 const INERT=["#app","header.site","footer.site",".help"];
@@ -758,7 +760,7 @@ function card(p,lv=3){
   <div class="row"><a class="btn ghost" href="#/producto/${p.id}">Ver</a>${out?'<button class="btn" disabled>Agotado</button>':sz?`<a class="btn" href="#/producto/${p.id}">Elegir talla</a>`:`<button class="btn" data-act="qadd" data-id="${p.id}">Agregar</button>`}</div></div></article>`;
 }
 function legal(title,secs,extra=""){
-  return `<section class="blk"><div class="wrap"><div class="panel legal"><h1 class="ttl">${esc(title)}</h1><div class="note">Texto de ejemplo para el prototipo. Debe ser revisado por un abogado antes de publicarse.</div>${secs.map(s=>`<h2>${esc(s[0])}</h2><p>${esc(s[1])}</p>`).join("")}${extra}</div></div></section>`;
+  return `<section class="blk"><div class="wrap"><div class="panel legal"><h1 class="ttl">${esc(title)}</h1><div class="note">Borrador pendiente de revisión legal. Debe ser revisado por un abogado antes de publicarse.</div>${secs.map(s=>`<h2>${esc(s[0])}</h2><p>${esc(s[1])}</p>`).join("")}${extra}</div></div></section>`;
 }
 
 /* ============ catálogo (estado) ============ */
@@ -808,7 +810,7 @@ V.home=()=>{
   <button class="arrow l" data-act="sprev" aria-label="Anterior">${ic("left")}</button><button class="arrow r" data-act="snext" aria-label="Siguiente">${ic("right")}</button>
   <div class="sl-ctl"><button class="pausebtn" data-act="spause" aria-label="${sl.paused?"Reanudar":"Pausar"} carrusel">${ic(sl.paused?"play":"pause")}</button>${SLIDES.map((s,k)=>`<button class="dot" data-act="sgo" data-i="${k}" aria-label="Ir a la diapositiva ${k+1}" aria-current="${k===0}"></button>`).join("")}</div></div>
   <section class="blk" style="padding-bottom:0"><div class="wrap"><div class="benefits">
-   <div><span class="ic">${ic("lock")}</span><p style="margin:0"><b>Pago seguro</b><span class="t">Tarjeta, Yape y Plin con pasarela certificada.</span></p></div>
+   <div><span class="ic">${ic("lock")}</span><p style="margin:0"><b>Pago fácil</b><span class="t">Yape, Plin o transferencia, confirmado por WhatsApp.</span></p></div>
    <div><span class="ic">${ic("truck")}</span><p style="margin:0"><b>Envíos a todo el Perú</b><span class="t">Lima en 2 a 3 días hábiles. Seguimiento en línea.</span></p></div>
    <div><span class="ic">${ic("receipt")}</span><p style="margin:0"><b>Boleta o factura</b><span class="t">Comprobante electrónico en cada compra.</span></p></div>
    <div><span class="ic">${ic("return")}</span><p style="margin:0"><b>Cambios y garantía</b><span class="t">Políticas claras antes de comprar.</span></p></div></div></div></section>
@@ -879,13 +881,13 @@ V.checkout=()=>{
     <div id="fDist">${sel("dist","Distrito",DIST)}</div><div id="fDept" hidden>${sel("dept","Departamento",DEPT)}</div>
     <div id="fDir">${fld("dir","Dirección","text","street-address")}${fld("ref","Referencia (opcional)","text","off")}</div>
     <div id="fRec" class="note" hidden>Recogerás tu pedido en: Calle Solidaridad Mza. M-1 Lote 5, Parque Industrial Parcela II, Villa El Salvador. Te avisaremos cuando esté listo. <i>[Horario por definir]</i></div>
-    <div class="pw"><button class="btn ghost" type="button" data-act="back">Volver</button><button class="btn" type="submit">Continuar a pago</button></div></div>
+    <div class="pw"><button class="btn ghost" type="button" data-act="back">Volver</button><button class="btn" type="submit">Continuar</button></div></div>
    <div data-step="3" hidden><h2 class="h" style="font-size:1.3rem">Pago</h2>
     <div id="payErr"></div>
-    <label class="opt"><input type="radio" name="pago" value="Tarjeta" checked><span><b>Tarjeta de crédito o débito</b><span class="hint">Pago en la ventana segura de la pasarela, con 3D Secure.</span></span></label>
-    <label class="opt"><input type="radio" name="pago" value="Yape"><span><b>Yape</b><span class="hint">Pagas desde tu celular escaneando un código QR.</span></span></label>
-    <label class="opt"><input type="radio" name="pago" value="Plin"><span><b>Plin</b><span class="hint">Pagas desde tu app bancaria escaneando un código QR.</span></span></label>
-    <div class="note noteic">${ic("lock")}<span>En la tienda real, tus datos de tarjeta se ingresan solo en la pasarela (Culqi, Niubiz, Izipay u otra) certificada PCI-DSS. Esta tienda nunca los ve ni los guarda. En este prototipo el pago es simulado.</span></div>
+    <label class="opt"><input type="radio" name="pago" value="Yape" checked><span><b>Yape</b><span class="hint">Al confirmar te damos el número y envías la captura por WhatsApp.</span></span></label>
+    <label class="opt"><input type="radio" name="pago" value="Plin"><span><b>Plin</b><span class="hint">Igual que Yape, desde tu app bancaria.</span></span></label>
+    <label class="opt"><input type="radio" name="pago" value="Transferencia"><span><b>Transferencia bancaria</b><span class="hint">Te enviamos la cuenta por WhatsApp.</span></span></label>
+    <div class="note noteic">${ic("lock")}<span>No pedimos datos de tarjeta en esta web. Tu pedido se confirma por WhatsApp una vez recibido el pago, y recién entonces lo preparamos y enviamos.</span></div>
     ${chk("acPriv",'He leído y acepto la <a href="#/privacidad" target="_blank" rel="noopener">Política de Privacidad</a> y los <a href="#/terminos" target="_blank" rel="noopener">Términos y Condiciones</a>.')}
     ${chk("acMkt","(Opcional) Deseo recibir promociones por correo o WhatsApp.")}
     <div class="pw"><button class="btn ghost" type="button" data-act="back">Volver</button><button class="btn" type="submit" id="payBtn" style="flex:1">Pagar</button></div></div>
@@ -926,7 +928,7 @@ function compUI(){
 }
 function readOrderData(){
   const g=id=>{const e=$("#"+id);return e?e.value.trim():""};
-  return {nombre:g("nombre"),email:g("email"),tel:g("tel"),comp:g("comp"),razon:g("razon"),doc:g("doc"),zona:g("zona"),dist:g("dist"),dept:g("dept"),dir:g("dir"),ref:g("ref"),pago:($("input[name=pago]:checked")||{}).value||"Tarjeta",mkt:$("#acMkt").checked}
+  return {nombre:g("nombre"),email:g("email"),tel:g("tel"),comp:g("comp"),razon:g("razon"),doc:g("doc"),zona:g("zona"),dist:g("dist"),dept:g("dept"),dir:g("dir"),ref:g("ref"),pago:($("input[name=pago]:checked")||{}).value||"Yape",mkt:$("#acMkt").checked}
 }
 function submitCheckout(){
   if(CK.step===1){
@@ -939,10 +941,16 @@ function submitCheckout(){
   }else{
     if(!checkForm([{id:"acPriv",req:1,msg:"Debes aceptar para continuar"}]))return;
     $("#payErr").innerHTML="";
-    const d=readOrderData(),t=totals(d.zona);
-    openModal(`<h2>Pasarela de pago (simulada)</h2><div class="note">Simulación para el prototipo. En la tienda real esta ventana es de la pasarela y la tienda nunca ve tus datos de tarjeta.</div><p style="margin:0"><b>Comercio:</b> Piarella Bags<br><b>Método:</b> ${esc(d.pago)}<br><b>Total a pagar:</b> ${money(t.t)}</p><div id="gw" style="margin-top:14px"><p class="spin">Conectando de forma segura…</p></div>`,"Pasarela de pago",true);
-    setTimeout(()=>{const g=$("#gw");if(!g)return;g.innerHTML=`<p>¿Qué resultado quieres simular?</p><div class="pw"><button class="btn" data-act="gw-ok">Pago aprobado</button><button class="btn ghost" data-act="gw-no">Pago rechazado</button></div>`;const b=g.querySelector("button");b&&b.focus()},1100);
+    const code=createOrder();const o=store.get("pb2_orders",[]).find(x=>x.code===code);
+    try{window.open(waLink(o),"_blank","noopener")}catch(e){}
+    go("#/gracias/"+code);
   }
+}
+function waLink(o){
+  const c=o.cliente,L=[`Hola Piarella Bags, quiero confirmar mi pedido *${o.code}*`,""];
+  o.items.forEach(i=>L.push(`• ${i.name} (${i.c}${i.s?", talla "+i.s:""}) x${i.q} — ${money(i.price*i.q)}`));
+  L.push("",`Envío: ${o.envio?money(o.envio):"Gratis"}`,`*Total: ${money(o.total)}*`,"",`Cliente: ${c.nombre}`,`Celular: ${c.tel}`,`${c.comp==="Factura"?"RUC":"DNI"}: ${c.doc}${c.comp==="Factura"?" ("+c.razon+")":""}`,`Entrega: ${c.zona==="rec"?"Recojo en taller":(c.dir+", "+c.dist+", "+c.dept)}`,`Pago: ${c.pago}`);
+  return "https://wa.me/"+CFG.wa+"?text="+encodeURIComponent(L.join("\n"));
 }
 function createOrder(){
   const d=readOrderData(),t=totals(d.zona);
@@ -958,11 +966,14 @@ function createOrder(){
 V.gracias=code=>{
   const o=store.get("pb2_orders",[]).find(x=>x.code===code);
   if(!o)return V.nf();
-  return `<section class="blk"><div class="wrap"><div class="panel"><div class="note ok" style="margin-top:0"><h1 class="ttl" style="margin:0 0 6px">¡Gracias por tu compra de prueba!</h1><p style="margin:0">Código de pedido: <b>${esc(o.code)}</b></p></div>
-  <p>En la tienda real recibirías en <b>${esc(o.cliente.email)}</b> tu ${esc(o.cliente.comp.toLowerCase())} electrónica y el enlace de seguimiento.</p>
+  const pg=o.cliente.pago,dato=pg==="Yape"?`Yape al <b>${esc(CFG.yape)}</b> a nombre de ${esc(CFG.titular)}`:pg==="Plin"?`Plin al <b>${esc(CFG.plin)}</b> a nombre de ${esc(CFG.titular)}`:`Transferencia a: <b>${esc(CFG.banco)}</b> (${esc(CFG.titular)})`;
+  return `<section class="blk"><div class="wrap"><div class="panel"><div class="note ok" style="margin-top:0"><h1 class="ttl" style="margin:0 0 6px">¡Pedido recibido!</h1><p style="margin:0">Código de pedido: <b>${esc(o.code)}</b></p></div>
+  <h2 class="h" style="font-size:1.1rem;justify-content:flex-start">Para confirmarlo, sigue estos 2 pasos</h2>
+  <ol><li>Paga <b>${money(o.total)}</b> por ${dato}.</li><li>Envía tu pedido y la captura del pago por WhatsApp. Te confirmamos y coordinamos la entrega (${esc(CFG.horario)}).</li></ol>
+  <p><a class="btn" href="${waLink(o)}" target="_blank" rel="noopener">Enviar pedido por WhatsApp</a></p>
   <ul class="sum">${o.items.map(i=>`<li><span class="nm">${esc(i.name)}<span class="hint">${esc(i.c)}${i.s?" · "+esc(i.s):""} · Cant. ${i.q}</span></span><span class="pr">${money(i.price*i.q)}</span></li>`).join("")}</ul>
   <div class="tot"><span>Envío</span><span>${o.envio?money(o.envio):"Gratis"}</span></div><div class="tot big"><span>Total</span><span>${money(o.total)}</span></div>
-  <p style="margin-top:18px" class="pw"><a class="btn" href="#/seguimiento/${encodeURIComponent(o.code)}">Seguir mi pedido</a><a class="btn ghost" href="#/catalogo">Seguir comprando</a></p></div></div></section>`;
+  <p style="margin-top:18px" class="pw"><a class="btn ghost" href="#/seguimiento/${encodeURIComponent(o.code)}">Ver estado del pedido</a><a class="btn ghost" href="#/catalogo">Seguir comprando</a></p></div></div></section>`;
 };
 V.seguimiento=code=>{
   const o=code?store.get("pb2_orders",[]).find(x=>x.code.toLowerCase()===code.toLowerCase()):null;
@@ -992,8 +1003,8 @@ V.contacto=()=>`<section class="blk"><div class="wrap"><h1 class="ttl">Contacto<
  <div class="panel"><h2 class="h" style="font-size:1.2rem">Datos de contacto</h2><dl class="kv"><dt>Taller</dt><dd>Calle Solidaridad Mza. M-1 Lote 5, Z.I. Parque Industrial Parcela II, Villa El Salvador, Lima</dd><dt>Teléfono / WhatsApp</dt><dd>[por definir]</dd><dt>Correo</dt><dd>[por definir]</dd><dt>Horario</dt><dd>[por definir]</dd></dl><div class="note" style="margin-top:18px">También puedes usar el <a href="#/reclamos">Libro de Reclamaciones</a> o <a href="#/seguimiento">seguir tu pedido</a>.</div></div></div></div></section>`;
 const FAQ=[
  ["¿Cómo compro?","Elige tu producto, color y talla, agrégalo al carrito y completa tus datos, entrega y pago. No necesitas crear una cuenta."],
- ["¿Qué medios de pago aceptan?","Tarjetas de crédito y débito, Yape y Plin, a través de una pasarela de pago segura."],
- ["¿Cuánto demora mi pedido?","Lima: 2 a 3 días hábiles. Provincias: 4 a 7 días hábiles, desde la confirmación del pago."],
+ ["¿Qué medios de pago aceptan?","Yape, Plin y transferencia bancaria. Al finalizar tu pedido te damos los datos de pago y lo confirmas por WhatsApp."],
+ ["¿Cuánto demora mi pedido?","Lima: 2 a 3 días hábiles. Provincias: 4 a 7 días hábiles, desde la confirmación del pago por WhatsApp."],
  ["¿Puedo recoger mi pedido en el taller?","Sí, en Villa El Salvador. Te avisamos cuando esté listo."],
  ["¿Emiten boleta o factura?","Sí. Elige el comprobante en el paso de datos; para factura necesitas un RUC válido."],
  ["¿Cómo elijo mi talla o medida?","En los productos de calzado y correas encontrarás una guía de tallas y medidas junto a las opciones."],
@@ -1027,9 +1038,12 @@ V.admin=()=>{
 };
 
 /* ============ router ============ */
+let HASH=location.hash||"";
+const curHash=()=>HASH;
+function go(h){HASH=h;try{history.pushState(null,"",h)}catch(e){}route()}
 function route(keep){
   clearInterval(sl.t);
-  let parts;try{parts=location.hash.replace(/^#\/?/,"").split("/").map(decodeURIComponent)}catch(e){parts=["x"]}
+  let parts;try{parts=HASH.replace(/^#\/?/,"").split("/").map(decodeURIComponent)}catch(e){parts=["x"]}
   const r=parts[0]||"home";
   if(r==="catalogo"&&!keep){
     F=F0();
@@ -1060,6 +1074,9 @@ function route(keep){
 let PSstock=null;
 function adminState(){return sess.get("pb2_admin")==="1"}
 document.addEventListener("click",e=>{
+  const nl=e.target.closest&&e.target.closest('a[href^="#/"]');
+  if(nl&&!nl.target&&!e.ctrlKey&&!e.metaKey&&!e.shiftKey&&e.button===0){e.preventDefault();const h=nl.getAttribute("href");if(h===curHash()&&!h.startsWith("#/catalogo")){window.scrollTo(0,0)}else go(h);return}
+
   const t=e.target.closest("[data-act]");
   if(e.target.id==="dbg"){closeCart();return}
   if(e.target.id==="modal"&&!modalLock){closeModal();return}
@@ -1071,7 +1088,7 @@ document.addEventListener("click",e=>{
     case"cart-close":closeCart();break;
     case"cq":{const it=cart.find(x=>x.k===t.dataset.k);if(it){const d=Number(t.dataset.d);if(d>0&&it.q>=Math.min(10,stk(it.id))){toast("Stock máximo alcanzado");break}it.q+=d;cart=cart.filter(x=>x.q>0);saveCart()}break}
     case"crm":cart=cart.filter(x=>x.k!==t.dataset.k);saveCart();break;
-    case"wish":{const id=Number(t.dataset.id);toggleW(id);const on=isW(id);$$(`[data-act=wish][data-id="${id}"]`).forEach(b=>{b.setAttribute("aria-pressed",on);b.innerHTML=heartI(on)});if(location.hash==="#/favoritos")route(true);break}
+    case"wish":{const id=Number(t.dataset.id);toggleW(id);const on=isW(id);$$(`[data-act=wish][data-id="${id}"]`).forEach(b=>{b.setAttribute("aria-pressed",on);b.innerHTML=heartI(on)});if(curHash()==="#/favoritos")route(true);break}
     case"qadd":{const p=find(t.dataset.id);if(p&&addCart(p.id,p.col[0],null,1)){toast("Agregado al carrito")}break}
     case"fcat":F.cat=t.dataset.v;updCat();break;
     case"clearq":F.q="";updCat();break;
@@ -1085,7 +1102,7 @@ document.addEventListener("click",e=>{
     case"mclose":closeModal();break;
     case"back":showStep(CK.step-1);break;
     case"coupon":{const v=($("#cpn").value||"").trim().toUpperCase();if(v===COUPON.code){coupon=v;store.set("pb2_coupon",v);updSum();toast("Descuento aplicado")}else{coupon="";store.set("pb2_coupon","");updSum();$("#e-cpn").textContent=v?"Código no válido":""}break}
-    case"gw-ok":{const code=createOrder();closeModal();location.hash="#/gracias/"+code;break}
+    case"gw-ok":{const code=createOrder();closeModal();go("#/gracias/"+code);break}
     case"gw-no":closeModal();showStep(3);$("#payErr").innerHTML='<div class="note bad" role="alert"><b>El pago fue rechazado.</b> No se hizo ningún cargo. Puedes intentar de nuevo o elegir otro método de pago.</div>';break;
     case"spause":sl.paused=!sl.paused;t.innerHTML=ic(sl.paused?"play":"pause");t.setAttribute("aria-label",(sl.paused?"Reanudar":"Pausar")+" carrusel");if(sl.paused)clearInterval(sl.t);else slideAuto();break;
     case"sprev":slideTo(sl.i-1);slideAuto();break;
@@ -1132,9 +1149,9 @@ document.addEventListener("keydown",e=>{
 });
 document.addEventListener("submit",e=>{
   e.preventDefault();const id=e.target.id;
-  if(id==="sForm"){const v=$("#sq").value.trim();closeModal();pendingQ=v;if(location.hash==="#/catalogo")route();else location.hash="#/catalogo"}
+  if(id==="sForm"){const v=$("#sq").value.trim();closeModal();pendingQ=v;if(curHash()==="#/catalogo")route();else go("#/catalogo")}
   else if(id==="coForm")submitCheckout();
-  else if(id==="trForm"){if(checkForm([{id:"trCode",req:1}])){const c=$("#trCode").value.trim();const h="#/seguimiento/"+encodeURIComponent(c);if(location.hash===h)route();else location.hash=h}}
+  else if(id==="trForm"){if(checkForm([{id:"trCode",req:1}])){const c=$("#trCode").value.trim();const h="#/seguimiento/"+encodeURIComponent(c);if(curHash()===h)route();else go(h)}}
   else if(id==="nlForm"){
     if(!checkForm([{id:"nlEmail",req:1,fn:vMail},{id:"nlAc",req:1,msg:"Necesitamos tu autorización"}]))return;
     const s=store.get("pb2_news",[]);s.push({email:$("#nlEmail").value.trim(),fecha:new Date().toISOString()});store.set("pb2_news",s);e.target.reset();toast("¡Gracias por suscribirte!");
@@ -1158,11 +1175,12 @@ document.addEventListener("submit",e=>{
   }
 });
 $("#menuBtn").addEventListener("click",function(){const o=$("#nav").classList.toggle("open");this.setAttribute("aria-expanded",o)});
-window.addEventListener("hashchange",()=>route());
+window.addEventListener("hashchange",()=>{HASH=location.hash;route()});window.addEventListener("popstate",()=>{HASH=location.hash;route()});
 try{window.matchMedia("(min-width: 901px)").addEventListener("change",()=>{if($("#ckSum"))updSum()})}catch(e){}
 $("#yr").textContent=new Date().getFullYear();
 if(!store.get("pb2_ck",null))setCk(true);
 window.addEventListener("error",e=>{try{console.error("PB error:",e.message)}catch(_){}});
+try{$("#waFloat").href="https://wa.me/"+CFG.wa+"?text="+encodeURIComponent("Hola Piarella Bags, quisiera más información.")}catch(e){}
 updCart();route();
 })();
 </script>
