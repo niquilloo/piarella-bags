@@ -561,6 +561,35 @@ header.site.over .ib{border-color:rgba(255,255,255,.45);background:transparent}
 .tag,.tag.t1,.tag.t2,.tag.t3{border:0!important;background:none!important;padding:0!important;color:#2b0a12;display:flex;align-items:center;gap:7px}
 .tag::before{content:"";width:6px;height:6px;background:#c1121f;transform:rotate(45deg);flex:none}
 .card .ph .tag{margin:12px 0 0 12px}
+/* ===== MENOS ADORNO, MÁS OFICIO ===== */
+.dust,.ghostw,.marq{display:none!important}
+.art::before,.art::after,.slide::before,.slide::after,.duo a::before,.duo a::after,.manif::before,.banner::before,.gal::after,.detail h1::after,.card:hover .ph::after,.cats a:hover::after,.tag::before{display:none!important;content:none!important}
+.hero-bag,.slide::before{animation:none!important}
+.hero-bag svg{filter:none!important}
+footer.site{background-image:none}
+h2.h::before,h2.h::after{display:none}
+h2.h{display:block;text-align:left;text-transform:none;letter-spacing:.01em;font-size:clamp(1.5rem,2.6vw,2.2rem);border-bottom:1px solid var(--line);padding-bottom:14px}
+.slide .sl-t{font-weight:400;max-width:14ch}
+.slide .sl-t em,.duo a h3 em,.manif h2 em{font-style:normal;color:inherit}
+.duo a h3,.manif h2,.detail h1,.ttl{text-transform:none;letter-spacing:0}
+.detail h1{font-size:clamp(1.7rem,3vw,2.5rem)}
+.tag{letter-spacing:.1em}
+/* producto como dibujo técnico de taller */
+svg[aria-label="Ilustración de producto"] [filter]{filter:none}
+svg[aria-label="Ilustración de producto"] ellipse{display:none}
+svg[aria-label="Ilustración de producto"] path,svg[aria-label="Ilustración de producto"] rect,svg[aria-label="Ilustración de producto"] circle,svg[aria-label="Ilustración de producto"] polygon{fill-opacity:.72;stroke:#2b0a12;stroke-width:1;stroke-linejoin:round;stroke-linecap:round}
+.card .ph,.gal{background:var(--surface)!important}
+.gal svg{filter:none!important}
+.gal .glare{display:none}
+.gal{cursor:default}
+.slide.on,.slide{background-image:none!important}
+.manif .lead{max-width:56ch;margin:0 auto 34px;color:#e6d6d9;font-size:1.05rem;line-height:1.7}
+.slide p{max-width:40ch}
+.duo a{background:#3a0c14!important}.duo a+a{background:#2d2f33!important}
+.duo a svg{display:none!important}
+.duo a{min-height:min(52vh,440px)}
+.slide .sl-t{font-size:clamp(2.1rem,4.6vw,4rem)!important;max-width:18ch!important;line-height:1.08}
+.slide{min-height:max(88vh,600px)}.slider{min-height:max(88vh,600px)}
 </style>
 </head>
 <body>
@@ -866,9 +895,9 @@ function updCat(){
 /* ============ vistas ============ */
 const V={};
 const SLIDES=[
- {eb:"Colección dama",h:"El cuero tiene <em>memoria</em>",p:"Carteras, mochilas y calzado hechos a mano en Lima. Piezas que mejoran con los años.",cta:"Descubrir la colección",href:"#/catalogo/gen/Dama",bg:"radial-gradient(ellipse at 72% 48%,#8a1328 0%,#44091a 36%,#15040a 78%)",col:"#b4773c",cat:"Carteras"},
- {eb:"Colección caballeros",h:"Hecho para durar <em>contigo</em>",p:"Morrales, billeteras y correas con acabados que acompañan toda una vida.",cta:"Descubrir la colección",href:"#/catalogo/gen/Caballeros",bg:"radial-gradient(ellipse at 72% 48%,#666a72 0%,#2c2e33 38%,#0e0f11 80%)",col:"#8b4a24",cat:"Morrales"},
- {eb:"Cuero + tela",h:"Dos materiales, un solo <em>carácter</em>",p:"Livianos, con color y con el alma del cuero en cada costura.",cta:"Ver tela y cuero",href:"#/catalogo/mat/Tela y cuero",bg:"radial-gradient(ellipse at 72% 48%,#a3182c 0%,#4a0a1c 38%,#14040a 80%)",col:"#4f7a52",cat:"Mochilas"}
+ {eb:"Dama",h:"Carteras, mochilas y calzado de cuero",p:"Fabricados en Lima por Industrias Marzzelli Perú Cueros.",cta:"Ver colección dama",href:"#/catalogo/gen/Dama",bg:"#3a0c14",col:"#b4773c",cat:"Carteras"},
+ {eb:"Caballeros",h:"Morrales, billeteras y correas",p:"Cuero y tela combinada con cuero. Pedidos por WhatsApp.",cta:"Ver colección caballeros",href:"#/catalogo/gen/Caballeros",bg:"#2d2f33",col:"#8b4a24",cat:"Morrales"},
+ {eb:"Tela y cuero",h:"Más livianos, con detalles en cuero",p:"Modelos en tela combinada con cuero, en varios colores.",cta:"Ver modelos",href:"#/catalogo/mat/Tela y cuero",bg:"#570c1b",col:"#4f7a52",cat:"Mochilas"}
 ];
 const sl={i:0,t:null,paused:reduced};
 function slideTo(i){
@@ -891,10 +920,10 @@ V.home=()=>{
    <div><span class="ic">${ic("return")}</span><p style="margin:0"><b>Cambios y garantía</b><span class="t">Políticas claras antes de comprar.</span></p></div></div></div></section>
   <section class="blk"><div class="wrap"><h2 class="h">Compra por categoría</h2><div class="cats">${CATS.map(c=>{const ex=P.find(p=>p.cat===c);return `<a href="#/catalogo/cat/${encodeURIComponent(c)}">${bag(hex(ex),64,c)}${c}</a>`}).join("")}</div></div></section>
   <section class="blk" style="padding-top:0"><div class="wrap duo">
-   <a href="#/catalogo/gen/Dama" style="background:linear-gradient(135deg,#7b1226,#c1121f)"><h3>Para <em>ella</em></h3><span>Carteras, mochilas, calzado y más</span>${bag("#fff",120,"Carteras")}</a>
-   <a href="#/catalogo/gen/Caballeros" style="background:linear-gradient(135deg,#2b2d31,#5d6168)"><h3>Para <em>él</em></h3><span>Morrales, billeteras, correas y más</span>${bag("#fff",120,"Morrales")}</a></div></section>
+   <a href="#/catalogo/gen/Dama" style="background:linear-gradient(135deg,#7b1226,#c1121f)"><h3>Dama</h3><span>Carteras, mochilas, calzado y más</span>${bag("#fff",120,"Carteras")}</a>
+   <a href="#/catalogo/gen/Caballeros" style="background:linear-gradient(135deg,#2b2d31,#5d6168)"><h3>Caballeros</h3><span>Morrales, billeteras, correas y más</span>${bag("#fff",120,"Morrales")}</a></div></section>
   <section class="blk" style="padding-top:0"><div class="wrap"><h2 class="h">Novedades</h2><div class="grid-p">${featured.map(p=>card(p)).join("")}</div><p style="text-align:center;margin-top:22px"><a class="btn ghost" href="#/catalogo">Ver todo el catálogo</a></p></div></section>
-  <section class="manif"><div class="wrap"><span class="eyebrow2">Nuestro taller</span><h2>Cortado, cosido y terminado <em>a mano</em> en Villa El Salvador.</h2><div class="stats"><div><b>2019</b><span>Año de fundación</span></div><div><b>100%</b><span>Hecho en Lima</span></div><div><b>7</b><span>Líneas de producto</span></div></div><a class="btn light" href="#/nosotros">Conoce el taller</a></div></section>`;
+  <section class="manif"><div class="wrap"><span class="eyebrow2">Nuestro taller</span><h2>Fabricamos en Villa El Salvador, Lima, desde 2019.</h2><p class="lead">Industrias Marzzelli Perú Cueros E.I.R.L. confecciona carteras, mochilas, morrales, calzado, correas, billeteras y monederos para dama y caballeros.</p><a class="btn light" href="#/nosotros">Conocer más</a></div></section>`;
 };
 V.catalogo=()=>`<section class="blk"><div class="wrap"><div class="crumbs"><a href="#/">Inicio</a> / Catálogo</div><h1 class="ttl" id="catTitle">${esc(catTitle())}</h1>
  <div class="filters" role="group" aria-label="Categorías"><button class="chip" data-act="fcat" data-v="Todos" aria-pressed="${F.cat==="Todos"}">Todas</button>${CATS.map(c=>`<button class="chip" data-act="fcat" data-v="${c}" aria-pressed="${F.cat===c}">${c}</button>`).join("")}</div>
