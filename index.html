@@ -1126,7 +1126,7 @@ const sb={
   del(t,id){return this.req(`/rest/v1/${t}?id=eq.${encodeURIComponent(id)}`,{method:"DELETE"})},
   async upload(path,blob){
     await this.fresh();
-    const r=await fetch(`${SB.url}/storage/v1/object/${SB.bucket}/${path}`,{method:"POST",headers:{...this.hdr(false),"Content-Type":blob.type,"x-upsert":"true","cache-control":"31536000"},body:blob});
+    const r=await fetch(`${SB.url}/storage/v1/object/${SB.bucket}/${path}`,{method:"POST",headers:{...this.hdr(false),"Content-Type":blob.type,"cache-control":"31536000"},body:blob});
     if(!r.ok){const j=await r.json().catch(()=>({}));throw new Error(j.message||j.error||"No se pudo subir la foto")}
     return `${SB.url}/storage/v1/object/public/${SB.bucket}/${path}`;
   },
