@@ -411,7 +411,7 @@ footer.site .btn.light{margin-top:4px}
 @media (max-width:600px){.cookie{left:8px;right:8px;bottom:8px;max-width:none;padding:16px}}
 .help{position:fixed;right:18px;bottom:18px;z-index:35;background:var(--ink);color:#fff;padding:0 20px;min-height:48px;display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-size:.66rem;letter-spacing:.2em;text-transform:uppercase}
 .help:hover{background:#3a3a3a}
-body.ck-open .help{display:none}
+body.ck-open .help,body.is-admin .help{display:none}
 @media (max-width:860px){.help{width:48px;padding:0;justify-content:center;right:12px;bottom:12px}.help .t{display:none}footer.site{padding-bottom:90px}}
 
 /* ---------- aparición suave ---------- */
@@ -972,7 +972,7 @@ function route(keep){
   else if(r==="seguimiento")html=V.seguimiento(parts[1]);
   else if(V[r]&&r!=="nf")html=V[r]();
   else html=V.nf();
-  const app=$("#app");app.innerHTML=html;
+  const app=$("#app");app.innerHTML=html;document.body.classList.toggle("is-admin",r==="admin");
   const navKey=r==="catalogo"&&F.gen==="Dama"&&F.cat==="Todos"&&!F.q?"dama":r==="catalogo"&&F.gen==="Caballeros"&&F.cat==="Todos"&&!F.q?"cab":r;
   $$("nav.main a").forEach(a=>{if(a.dataset.r===navKey)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
   $("#nav").classList.remove("open");$("#menuBtn").setAttribute("aria-expanded","false");
@@ -1296,7 +1296,7 @@ function admRecl(){
   const l=ADM.recl;if(!l)return '<p class="spin">Cargando reclamos…</p>';
   if(!l.length)return '<div class="panel"><p>Sin reclamos registrados.</p></div>';
   return `<div class="tbl"><table><thead><tr><th>Código</th><th>Consumidor</th><th>Detalle</th><th>Estado</th></tr></thead><tbody>${l.map(r=>{const d=r.datos||{};return `<tr><td><b style="font-weight:500">${esc(r.codigo||"")}</b><br><span class="hint">${ago(r.fecha)}</span></td><td>${esc(r.nombre)}<br><span class="hint">${esc(r.email)}${d.tel?" · "+esc(d.tel):""}</span></td>
-  <td><b style="font-weight:500">${esc(r.tipo)}</b>: ${esc(d.desc||"")}<details><summary class="hint" style="cursor:pointer;padding:6px 0">Ver más</summary><p class="hint" style="margin:0">${esc(d.det||"")}<br><b>Pedido del consumidor:</b> ${esc(d.ped||"")}</p></details></td>
+  <td><b style="font-weight:500">${esc(r.tipo)}</b> · ${esc(d.bien||"")}${d.monto?" · S/ "+esc(d.monto):""}<br>${esc(d.desc||"")}<details><summary class="hint" style="cursor:pointer;padding:6px 0">Ver más</summary><p class="hint" style="margin:0">${esc(d.det||"")}<br><b>Pedido del consumidor:</b> ${esc(d.ped||"")}</p></details></td>
   <td><select data-act="rstate" data-code="${esc(r.codigo||"")}" aria-label="Estado del reclamo ${esc(r.codigo||"")}"><option ${r.estado!=="Atendido"?"selected":""}>Pendiente</option><option ${r.estado==="Atendido"?"selected":""}>Atendido</option></select></td></tr>`}).join("")}</tbody></table></div>`;
 }
 function admMsgs(){
@@ -1367,7 +1367,7 @@ async function sendReclamo(form){
   const g=id=>{const x=$("#"+id);return x?x.value.trim():""};
   const b=form.querySelector("button[type=submit]");if(b){b.disabled=true}
   try{
-    const code=await sb.rpc("crear_reclamo",{datos:{nombre:g("r_nombre"),doc:g("r_doc"),dom:g("r_dom"),email:g("r_email"),tel:g("r_tel"),tipo:g("r_tipo"),desc:g("r_desc"),det:g("r_det"),ped:g("r_ped")}});
+    const code=await sb.rpc("crear_reclamo",{datos:{nombre:g("r_nombre"),doc:g("r_doc"),dom:g("r_dom"),email:g("r_email"),tel:g("r_tel"),tipo:g("r_tipo"),bien:g("r_bien"),monto:g("r_monto"),desc:g("r_desc"),det:g("r_det"),ped:g("r_ped")}});
     $("#rcOut").innerHTML=`<div class="note ok"><b>Reclamo registrado.</b> Código de seguimiento: <b>${esc(code)}</b>. Te responderemos al correo <b>${esc(g("r_email"))}</b> en un plazo máximo de 15 días hábiles.</div>`;
     form.reset();
   }catch(err){$("#rcOut").innerHTML=`<div class="note bad">No se pudo registrar el reclamo: ${esc(err.status?err.message:"revisa tu conexión a internet")}.</div>`}
