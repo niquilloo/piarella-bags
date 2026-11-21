@@ -562,7 +562,7 @@ const FEATS={
 };
 const CATS=["Carteras","Mochilas","Morrales","Calzado","Correas","Billeteras","Monederos"];
 const ZONAS={lima:{n:"Lima Metropolitana",p:12,t:"2 a 3 días hábiles"},prov:{n:"Provincias (agencia)",p:20,t:"4 a 7 días hábiles"},rec:{n:"Recojo en taller (Villa El Salvador)",p:0,t:"A coordinar"}};
-const FREE=250;
+let FREE=250;
 const DIST=["Villa El Salvador","Villa María del Triunfo","San Juan de Miraflores","Chorrillos","Santiago de Surco","Miraflores","San Isidro","San Borja","La Molina","Lince","Jesús María","Magdalena","Pueblo Libre","San Miguel","Callao","Los Olivos","San Martín de Porras","Independencia","Comas","Ate","San Juan de Lurigancho","Lurín","Pachacámac","Otro distrito de Lima"];
 const DEPT=["Amazonas","Áncash","Apurímac","Arequipa","Ayacucho","Cajamarca","Cusco","Huancavelica","Huánuco","Ica","Junín","La Libertad","Lambayeque","Loreto","Madre de Dios","Moquegua","Pasco","Piura","Puno","San Martín","Tacna","Tumbes","Ucayali"];
 const ESTADOS=["Pendiente de pago","Pago confirmado","En preparación","Enviado","Entregado"];
@@ -927,7 +927,7 @@ const FAQ=[
  ["¿Cómo hago un cambio o un reclamo?","Revisa la política de cambios o usa el Libro de Reclamaciones disponible en esta web."]
 ];
 V.faq=()=>`<section class="blk"><div class="wrap" style="max-width:820px"><h1 class="ttl">Preguntas frecuentes</h1><div class="panel">${FAQ.map(f=>`<details class="acc"><summary>${esc(f[0])}</summary><div class="b">${esc(f[1])}</div></details>`).join("")}</div></div></section>`;
-V.envios=()=>legal("Envíos y plazos",[["Cobertura","Enviamos a Lima Metropolitana y a provincias. También puedes recoger tu pedido en el taller de Villa El Salvador."],["Plazos","Lima: 2 a 3 días hábiles. Provincias: 4 a 7 días hábiles, contados desde la confirmación del pago."],["Costos",`Lima ${money(ZONAS.lima.p)}, provincias ${money(ZONAS.prov.p)}. Envío gratis desde ${money(FREE)} (monto de ejemplo). El costo se muestra antes de pagar.`],["Seguimiento","Con tu código de pedido puedes consultar el estado en la sección Seguimiento."]]);
+V.envios=()=>legal("Envíos y plazos",[["Cobertura","Enviamos a Lima Metropolitana y a provincias. También puedes recoger tu pedido en el taller de Villa El Salvador."],["Plazos","Lima: 2 a 3 días hábiles. Provincias: 4 a 7 días hábiles, contados desde la confirmación del pago."],["Costos",`Lima ${money(ZONAS.lima.p)}, provincias ${money(ZONAS.prov.p)}. Envío gratis desde ${money(FREE)}. El costo se muestra antes de pagar.`],["Seguimiento","Con tu código de pedido puedes consultar el estado en la sección Seguimiento."]]);
 V.cambios=()=>legal("Cambios y devoluciones",[["Cambios","Puedes solicitar el cambio de talla, color o modelo dentro de los 7 días calendario de recibido tu pedido, siempre que el producto esté sin uso, con sus etiquetas y empaque original. El primer cambio por talla es sin costo de envío en Lima."],["Garantía","Por defectos de fabricación, conforme a la normativa de protección al consumidor."],["Cómo solicitarlo","Escríbenos con tu código de pedido o usa el Libro de Reclamaciones."]]);
 V.terminos=()=>legal("Términos y condiciones",[["1. Titular del sitio","Industrias Marzzelli Perú Cueros E.I.R.L. (Piarella Bags), RUC 20603787952."],["2. Proceso de compra","Las compras están sujetas a disponibilidad de stock y a la confirmación del pago."],["3. Precios","Los precios se muestran en soles e incluyen IGV. Ante errores evidentes de precio, la empresa podrá corregirlos antes de confirmar el pedido."],["4. Envíos, cambios y garantías","Se rigen por las políticas publicadas en esta web."],["5. Comprobantes","Se emite boleta o factura electrónica según los datos ingresados por el cliente."],["6. Propiedad intelectual","Las marcas, fotografías y diseños pertenecen a la empresa."],["7. Uso del sitio","El usuario se compromete a brindar información veraz y a no usar el sitio con fines ilícitos."],["8. Libro de Reclamaciones","El consumidor puede registrar reclamos y quejas en el Libro de Reclamaciones virtual."]]);
 V.privacidad=()=>legal("Política de privacidad",[["Responsable","Industrias Marzzelli Perú Cueros E.I.R.L., RUC 20603787952, Calle Solidaridad Mza. M-1 Lote 5, Villa El Salvador, Lima."],["Datos que recopilamos","Nombre, documento de identidad, correo, teléfono y dirección, y los datos de reclamos y mensajes que nos envíes."],["Finalidades","Procesar pedidos, emitir comprobantes, coordinar envíos, atender consultas y reclamos. Con tu autorización expresa y separada: enviarte promociones."],["Pagos","No almacenamos datos de tarjetas. Los procesa la pasarela de pagos."],["Terceros","Podemos compartir datos estrictamente necesarios con la pasarela de pago, el servicio de envío y el proveedor de facturación electrónica."],["Conservación","Conservamos tus datos mientras sea necesario para atender tu pedido y cumplir obligaciones legales y tributarias."],["Tus derechos",`Acceso, rectificación, cancelación y oposición, conforme a la Ley N.° 29733 y su reglamento vigente. Para ejercerlos, escríbenos a ${CFG.email}.`],["Banco de datos","Los datos se almacenan en un banco de datos de titularidad de Industrias Marzzelli Perú Cueros E.I.R.L., con medidas de seguridad adecuadas."]]);
@@ -1139,6 +1139,7 @@ const toP=r=>({id:Number(r.id),name:r.nombre,cat:r.categoria,gen:r.genero,mat:r.
 function setProducts(rows){const l=rows.map(toP).filter(p=>p.activo!==false);P.length=0;l.forEach(p=>P.push(p))}
 (function(){const c=store.get("pb3_prod",null);if(Array.isArray(c)&&c.length)setProducts(c)})();
 async function loadProducts(rerender){
+  loadCfg();
   try{
     const rows=await sb.get("productos?select=*&activo=eq.true&order=orden.asc,id.asc");
     sb.online=true;
@@ -1162,13 +1163,14 @@ function shrink(file,max=1600){
 }
 
 /* ============ panel del administrador ============ */
-const ADM={hay:null,ok:null,tab:"productos",prods:null,orders:null,recl:null,msgs:null,subs:null,edit:null,busy:false,err:"",delArm:false};
-const admReset=()=>Object.assign(ADM,{ok:null,prods:null,orders:null,recl:null,msgs:null,subs:null,edit:null,err:"",delArm:false});
+const ADM={hay:null,ok:null,tab:"productos",cfg:null,prods:null,orders:null,recl:null,msgs:null,subs:null,edit:null,busy:false,err:"",delArm:false};
+const admReset=()=>Object.assign(ADM,{ok:null,cfg:null,prods:null,orders:null,recl:null,msgs:null,subs:null,edit:null,err:"",delArm:false});
 async function admLoad(what){
   try{
     if(!what||what==="productos")ADM.prods=await sb.get("productos?select=*&order=orden.asc,id.asc");
     if(!what||what==="pedidos")ADM.orders=await sb.get("pedidos?select=*&order=fecha.desc&limit=200");
     if(!what||what==="reclamos")ADM.recl=await sb.get("reclamos?select=*&order=fecha.desc&limit=200");
+    if(!what||what==="ajustes"){const r=await sb.get("ajustes?select=datos&id=eq.1");ADM.cfg=r&&r[0]?r[0].datos:{}}
     if(!what||what==="mensajes"){ADM.msgs=await sb.get("mensajes?select=*&order=fecha.desc&limit=200");ADM.subs=await sb.get("suscriptores?select=*&order=fecha.desc&limit=500")}
     ADM.err="";
   }catch(e){ADM.err=e.status===401?"Tu sesión expiró. Vuelve a iniciar sesión.":"No se pudieron cargar los datos: "+e.message;if(e.status===401){sb.logout();admReset()}}
@@ -1196,7 +1198,7 @@ V.admin=()=>{
   }
   if(ADM.ok===null)return wrap('<p class="spin">Verificando tu cuenta…</p>');
   if(!ADM.ok)return wrap(`<div class="panel" style="max-width:520px;margin:0 auto"><h1 class="ttl" style="font-size:1.6rem">Sin permisos</h1><p>La cuenta <b>${esc(sb.sess.email||"")}</b> no es administradora de la tienda.</p><button class="btn" data-act="adout">Cerrar sesión</button></div>`);
-  const T=[["productos","Productos"],["pedidos","Pedidos"],["reclamos","Reclamos"],["mensajes","Mensajes"]];
+  const T=[["productos","Productos"],["pedidos","Pedidos"],["reclamos","Reclamos"],["mensajes","Mensajes"],["ajustes","Ajustes"]];
   const head=`<div class="pw" style="justify-content:space-between;margin-bottom:6px"><h1 class="ttl" style="margin:0">Administración</h1><span class="pw"><span class="hint">${esc(sb.sess.email||"")}</span><button class="btn ghost sm" data-act="adref">Actualizar</button><button class="btn ghost sm" data-act="adout">Cerrar sesión</button></span></div>
   <div class="filters" role="tablist">${T.map(([k,n])=>`<button class="chip" role="tab" data-act="adtab" data-t="${k}" aria-pressed="${ADM.tab===k}" aria-selected="${ADM.tab===k}">${n}</button>`).join("")}</div>
   ${ADM.err?`<div class="note bad">${esc(ADM.err)}</div>`:""}`;
@@ -1205,6 +1207,7 @@ V.admin=()=>{
   else if(ADM.tab==="productos")body=admProds();
   else if(ADM.tab==="pedidos")body=admOrders();
   else if(ADM.tab==="reclamos")body=admRecl();
+  else if(ADM.tab==="ajustes")body=admCfg();
   else body=admMsgs();
   return wrap(head+body);
 };
@@ -1306,7 +1309,7 @@ function admMsgs(){
 }
 document.addEventListener("click",async e=>{
   const t=e.target.closest("[data-act]");if(!t)return;const a=t.dataset.act;
-  if(a==="adtab"){ADM.tab=t.dataset.t;ADM.edit=null;route(true);if(!ADM[{productos:"prods",pedidos:"orders",reclamos:"recl",mensajes:"msgs"}[ADM.tab]])admLoad(ADM.tab)}
+  if(a==="adtab"){ADM.tab=t.dataset.t;ADM.edit=null;route(true);if(!ADM[{productos:"prods",pedidos:"orders",reclamos:"recl",mensajes:"msgs",ajustes:"cfg"}[ADM.tab]])admLoad(ADM.tab)}
   else if(a==="adref"){admLoad();toast("Datos actualizados")}
   else if(a==="adnew"){ADM.edit={colores:["cafe"],activo:true,stock:10,imagenes:[]};ADM.delArm=false;route(true);scrollTo(0,0)}
   else if(a==="adedit"){const r=(ADM.prods||[]).find(x=>String(x.id)===t.dataset.id);if(r){ADM.edit=JSON.parse(JSON.stringify(r));ADM.delArm=false;route(true);scrollTo(0,0)}}
@@ -1375,6 +1378,48 @@ async function sendReclamo(form){
   $("#rcOut").scrollIntoView({behavior:"smooth",block:"center"});
 }
 document.addEventListener("click",e=>{const t=e.target.closest("[data-act=pimg]");if(!t)return;PS.i=Number(t.dataset.i)||0;updProd();$$("[data-act=pimg]").forEach(b=>b.setAttribute("aria-pressed",b===t))});
+
+/* ---- ajustes de la tienda (editables desde el panel) ---- */
+const CFG_KEYS=[["wa","WhatsApp de la tienda (9 dígitos)","tel"],["yape","Número de Yape","text"],["plin","Número de Plin","text"],["titular","Titular de las cuentas","text"],["banco","Banco y número de cuenta / CCI","text"],["email","Correo de atención","email"],["horario","Horario de atención","text"],["barra","Mensaje de la barra superior","text"],["envio_gratis","Envío gratis desde (S/)","number"],["envio_lima","Costo de envío Lima (S/)","number"],["envio_prov","Costo de envío provincias (S/)","number"],["cupon","Código de cupón","text"],["cupon_pct","Descuento del cupón (%)","number"]];
+function applyCfg(d){
+  if(!d)return;
+  const wa=String(d.wa||"").replace(/\D/g,"");
+  if(wa){CFG.wa=(wa.length===9?"51":"")+wa;CFG.waShow=wa.length===9?wa.replace(/(\d{3})(\d{3})(\d{3})/,"$1 $2 $3"):wa}
+  ["yape","plin","titular","banco","email","horario"].forEach(k=>{if(d[k])CFG[k]=String(d[k])});
+  if(d.envio_gratis!=null&&d.envio_gratis!=="")FREE=Number(d.envio_gratis);
+  if(d.envio_lima!=null&&d.envio_lima!=="")ZONAS.lima.p=Number(d.envio_lima);
+  if(d.envio_prov!=null&&d.envio_prov!=="")ZONAS.prov.p=Number(d.envio_prov);
+  if(d.cupon!=null){COUPON.code=String(d.cupon).trim().toUpperCase();COUPON.pct=Number(d.cupon_pct)||0}
+  const b=$(".top b");if(b&&d.barra)b.textContent=d.barra;
+  try{$("#waFloat").href="https://wa.me/"+CFG.wa+"?text="+encodeURIComponent("Hola Piarella Bags, quisiera más información.")}catch(e){}
+}
+applyCfg(store.get("pb3_cfg",null));
+async function loadCfg(){
+  try{const r=await sb.get("ajustes?select=datos&id=eq.1");if(r&&r[0]){store.set("pb3_cfg",r[0].datos);applyCfg(r[0].datos);return r[0].datos}}catch(e){}
+  return null;
+}
+function admCfg(){
+  const d=ADM.cfg;if(!d)return '<p class="spin">Cargando ajustes…</p>';
+  const f=([k,l,t])=>`<div class="f"><label for="cf_${k}">${l}</label><input id="cf_${k}" type="${t}" ${t==="number"?'min="0" step="0.5"':""} value="${esc(d[k]??"")}" aria-describedby="e-cf_${k}"><span class="err" id="e-cf_${k}"></span></div>`;
+  const g=keys=>keys.map(k=>f(CFG_KEYS.find(x=>x[0]===k))).join("");
+  return `<form id="adCfg" novalidate class="two" style="align-items:start">
+   <div class="panel"><h2 class="h" style="font-size:1.3rem">Contacto y pagos</h2>${g(["wa","yape","plin","titular","banco","email","horario"])}</div>
+   <div><div class="panel"><h2 class="h" style="font-size:1.3rem">Envíos, cupón y avisos</h2>${g(["barra"])}<div class="cols">${g(["envio_lima","envio_prov"])}</div>${g(["envio_gratis"])}<div class="cols">${g(["cupon","cupon_pct"])}</div>
+   <p class="hint">Los costos de envío y el cupón también se aplican en la base de datos al registrar cada pedido.</p>
+   <button class="btn block" type="submit" id="cfSave">Guardar ajustes</button><div id="cfOut" role="alert"></div></div></div></form>`;
+}
+document.addEventListener("submit",async e=>{
+  if(e.target.id!=="adCfg")return;e.preventDefault();
+  const v=k=>$("#cf_"+k).value.trim();
+  const num=(lo,hi)=>x=>x===""||(Number(x)>=lo&&Number(x)<=hi)?"":`Entre ${lo} y ${hi}`;
+  if(!checkForm([{id:"cf_wa",req:1,fn:x=>/^9\d{8}$/.test(x.replace(/\D/g,""))?"":"Celular de 9 dígitos que empiece con 9"},{id:"cf_email",fn:vMail},{id:"cf_envio_gratis",req:1,fn:num(0,99999)},{id:"cf_envio_lima",req:1,fn:num(0,999)},{id:"cf_envio_prov",req:1,fn:num(0,999)},{id:"cf_cupon_pct",fn:num(0,90)}]))return;
+  const d={};CFG_KEYS.forEach(([k,,t])=>{const x=v(k);d[k]=t==="number"?(x===""?0:Number(x)):x});
+  d.wa=d.wa.replace(/\D/g,"");d.cupon=d.cupon.toUpperCase();
+  const b=$("#cfSave");b.disabled=true;b.textContent="Guardando…";
+  try{const r=await sb.put("ajustes",1,{datos:d});if(!r||!r.length)throw new Error("No tienes permiso para guardar.");ADM.cfg=d;store.set("pb3_cfg",d);applyCfg(d);$("#cfOut").innerHTML='<div class="note ok">Ajustes guardados. Ya se aplican en la tienda.</div>'}
+  catch(err){$("#cfOut").innerHTML=`<div class="note bad">${esc(err.message)}</div>`}
+  b.disabled=false;b.textContent="Guardar ajustes";
+});
 
 updCart();route();loadProducts(true);
 })();
